@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "465111730158",
+    "project_id": "convenient-way",
+    "storage_bucket": "convenient-way.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465111730158:android:363b7c6f3630613137b0ff",
+        "android_client_info": {
+          "package_name": "com.example.convenient_way"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465111730158-a3snft14l7jvm1o8gcq1olnn9h4pmtr0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXy653QraMBHtNQcsRTn3Ac9V6xqj_SsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465111730158-a3snft14l7jvm1o8gcq1olnn9h4pmtr0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
