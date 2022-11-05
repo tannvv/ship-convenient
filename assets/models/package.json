@@ -1,0 +1,36 @@
+{
+    "id": "e8095359-afe7-4b31-0851-08dabf271c21",
+    "startAddress": "076 Labadie Locks, New Jaydeville, Somalia",
+    "startLongitude": 106.65643257995676,
+    "startLatitude": 10.785101946772418,
+    "destinationAddress": "2170 Kyla Lakes, West Violaland, Sri Lanka",
+    "destinationLongitude": 10.797639652112437,
+    "destinationLatitude": 0,
+    "receiverName": "Aubrey Dibbert",
+    "receiverPhone": "954.808.6131",
+    "distance": 7.729694898319163,
+    "volume": 35.18975518938474,
+    "weight": 10,
+    "status": "APPROVED",
+    "priceShip": 31000,
+    "photoUrl": "Bogus.DataSets.Images",
+    "note": "Rerum velit nam et eum ut.",
+    "createdAt": "0001-01-01T00:00:00",
+    "modifiedAt": "0001-01-01T00:00:00",
+    "shopId": "bf6f90e5-0692-47cf-feae-08dabf271b49",
+    "shipperId": null,
+    "products": [
+      {
+        "price": 188000,
+        "name": "ee",
+        "description": "Sequi.",
+        "packageId": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "price": 179000,
+        "name": "ui",
+        "description": "Inventore.",
+        "packageId": "00000000-0000-0000-0000-000000000000"
+      }
+    ]
+  }

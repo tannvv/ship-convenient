@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const Color primary900 = Color(0xFF006C2E);
-  static const Color primary800 = Color(0xFF008D44);
-  static const Color primary700 = Color(0xFF009F50);
-  static const Color primary600 = Color(0xFF00B25E);
-  static const Color primary500 = Color(0xFF00C169);
-  static const Color primary400 = Color(0xFF00CD7F);
-  static const Color primary300 = Color(0xFF00D795);
-  static const Color primary200 = Color(0xFF79E2B5);
-  static const Color primary100 = Color(0xFFB2EED2);
-  static const Color primary050 = Color(0xFFE0F8ED);
+  static const Color primary900 = Color(0xFF3155a3);
+  static const Color primary800 = Color(0xFF3859a1);
+  static const Color primary700 = Color(0xFF3f5ea1);
+  static const Color primary600 = Color(0xFF4c67a1);
+  static const Color primary500 = Color(0xFF556ea3);
+  static const Color primary400 = Color(0xFF687daf);
+  static const Color primary300 = Color(0xFF7183ad);
+  static const Color primary200 = Color(0xFF7e8aa6);
+  static const Color primary100 = Color(0xFF8790a3);
+  static const Color primary050 = Color(0xFFa1a5ad);
 
-  static const Color secondary = Color(0xFF9500D7);
+  static const Color secondary700 = Color(0xFF238bf7);
+  static const Color secondary600 = Color(0xFF3b97f7);
+  static const Color secondary500 = Color(0xFF66aefa);
+  static const Color secondary400 = Color(0xFF83bcf7);
+  static const Color secondary300 = Color(0xFFa0c8f2);
 
   static const Color error = Color(0xFFFA6D55);
+  static const Color softError = Color(0xFFD9928C);
 
   static const Color onPrimary = white;
   static const Color onSecondary = white;
@@ -46,6 +51,7 @@ abstract class AppColors {
   static const Color darkBlue = Color(0xFF0C7DFF);
   static const Color lightBlue = Color(0xFF05C5FB);
   static const Color fadeBlue = Color(0xFFCDEFFF);
+  static const Color softGreen = Color.fromARGB(255, 107, 225, 121);
   static const Color green = Color(0xFF35C947);
   static const Color purple = Color(0xFFA033FD);
   static const Color orange = Color(0xFFFA6D55);

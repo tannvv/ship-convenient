@@ -1,8 +1,11 @@
+import 'package:convenient_way/app/bindings/local_bindings.dart';
+import 'package:convenient_way/app/bindings/repository_bindings.dart';
 import 'package:get/get.dart';
 
 class InitialBinding implements Bindings {
   @override
   void dependencies() {
-    // TODO: implement dependencies
+    RepositoryBindings().dependencies();
+    LocalBindings().dependencies();
   }
 }
