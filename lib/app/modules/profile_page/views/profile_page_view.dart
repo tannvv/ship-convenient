@@ -13,11 +13,14 @@ class ProfilePageView extends GetView<ProfilePageController> {
         title: const Text('ProfilePageView'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'ProfilePageView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: ListView(
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                controller.gotoTransactions();
+              },
+              child: const Text('Transaction'))
+        ],
       ),
     );
   }

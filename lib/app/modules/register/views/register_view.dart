@@ -173,6 +173,12 @@ class RegisterView extends GetView<RegisterController> {
                                       ],
                                     ),
                                     Gap(20.h),
+                                    _phoneNumberTextField(),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [_verifyOtpButton()],
+                                    ),
+                                    Gap(20.h),
                                     SizedBox(
                                       width: 220.w,
                                       child: ElevatedButton(
@@ -194,7 +200,7 @@ class RegisterView extends GetView<RegisterController> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 15.h,
+                                      height: 40.h,
                                     ),
                                   ],
                                 ),
@@ -256,6 +262,38 @@ class RegisterView extends GetView<RegisterController> {
         return null;
       },
     );
+  }
+
+  TextFormField _phoneNumberTextField() {
+    return TextFormField(
+      onSaved: (newValue) => controller.setPhoneNumber = newValue ?? '',
+      obscureText: true,
+      enableSuggestions: false,
+      autocorrect: false,
+      keyboardType: TextInputType.number,
+      decoration: InputStyles.boldBorder(
+        labelText: 'Số điện thoại',
+        radius: 14,
+        prefixIcon: const Icon(
+          Icons.home_outlined,
+        ),
+      ),
+      maxLength: 11,
+      validator: (value) {
+        if (value.toString().isEmpty) {
+          return 'Vui lòng nhập số điện thoại';
+        }
+        return null;
+      },
+    );
+  }
+
+  ElevatedButton _verifyOtpButton() {
+    return ElevatedButton(
+        onPressed: () {
+          controller.verifyPhone('345');
+        },
+        child: const Text('Xác thực'));
   }
 
   TextFormField _passwordTextField() {

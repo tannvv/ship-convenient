@@ -32,6 +32,12 @@ class HomeView extends GetView<HomeController> {
                 activeIcon: Icon(FluentSystemIcons.ic_fluent_home_filled),
                 label: 'Home'),
             BottomNavigationBarItem(
+                icon:
+                    Icon(FluentSystemIcons.ic_fluent_clipboard_letter_regular),
+                activeIcon:
+                    Icon(FluentSystemIcons.ic_fluent_clipboard_letter_filled),
+                label: 'Received package'),
+            BottomNavigationBarItem(
                 icon: Icon(FluentSystemIcons.ic_fluent_search_regular),
                 activeIcon: Icon(FluentSystemIcons.ic_fluent_search_filled),
                 label: 'Search'),

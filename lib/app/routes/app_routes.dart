@@ -10,6 +10,10 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const PICK_UP_LOCATION = _Paths.PICK_UP_LOCATION;
   static const SUGGEST_PACKAGE_DETAIL = _Paths.SUGGEST_PACKAGE_DETAIL;
+  static const PACKAGE = _Paths.PACKAGE;
+  static const TRANSACTION = _Paths.TRANSACTION;
+  static const VERIFY_OTP = _Paths.VERIFY_OTP;
+  static const CREATE_ROUTE = _Paths.CREATE_ROUTE;
 }
 
 abstract class _Paths {
@@ -19,4 +23,8 @@ abstract class _Paths {
   static const REGISTER = '/register';
   static const PICK_UP_LOCATION = '/pick-up-location';
   static const SUGGEST_PACKAGE_DETAIL = '/suggest-package-detail';
+  static const PACKAGE = '/package';
+  static const TRANSACTION = '/transaction';
+  static const VERIFY_OTP = '/verify-otp';
+  static const CREATE_ROUTE = '/create-route';
 }

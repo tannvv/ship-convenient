@@ -1,8 +1,10 @@
 import 'package:convenient_way/app/core/controllers/map_stream_location.dart';
+import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:convenient_way/app/modules/pick_up_location/bindings/pick_up_location_binding.dart';
 import 'package:convenient_way/app/modules/pick_up_location/views/pick_up_location_view.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
@@ -87,5 +89,27 @@ class RegisterController extends GetxController {
 
   void back() {
     Get.back();
+  }
+
+  Future<void> verifyPhone(String number) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: '+84384616791',
+      timeout: const Duration(seconds: 20),
+      verificationCompleted: (PhoneAuthCredential credential) {
+        ToastService.showSuccess("Auth Completed!");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        ToastService.showError("Request OTP failed!");
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+        ToastService.showSuccess("OTP sent!");
+        var result = await Get.toNamed(Routes.VERIFY_OTP,
+            arguments: [verificationId, resendToken, '+84384616791']);
+        ToastService.showSuccess('result:  $result');
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        ToastService.showError("Timeout!");
+      },
+    );
   }
 }

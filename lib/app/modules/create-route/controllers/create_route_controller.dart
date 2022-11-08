@@ -1,7 +1,9 @@
-import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
-class ProfilePageController extends GetxController {
+class CreateRouteController extends GetxController {
+  //TODO: Implement CreateRouteController
+
+  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -17,7 +19,5 @@ class ProfilePageController extends GetxController {
     super.onClose();
   }
 
-  void gotoTransactions() {
-    Get.toNamed(Routes.TRANSACTION);
-  }
+  void increment() => count.value++;
 }

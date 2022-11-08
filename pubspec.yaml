@@ -53,6 +53,10 @@ dependencies:
     geolocator: ^9.0.2
     flutter_map: ^2.2.0
     fluentui_icons: ^1.0.0
+    uuid: ^3.0.6
+    intl_phone_field: ^3.1.0
+    pin_code_fields: ^7.4.0
+    google_fonts: ^3.0.1
 
 dev_dependencies:
     flutter_test:

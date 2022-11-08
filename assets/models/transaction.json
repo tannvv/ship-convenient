@@ -1,0 +1,10 @@
+{
+    "status": "ACCOMPLISHED",
+    "description": "Đã nhận đơn hàng id : b3bc5814-d72a-4231-29a5-08dabfff7e16",
+    "transactionType": "PICKUP",
+    "coinExchange": -350000,
+    "balanceWallet": 99000,
+    "createdAt": "0001-01-01T00:00:00",
+    "walletId": "00000000-0000-0000-0000-000000000000",
+    "packageId": "b3bc5814-d72a-4231-29a5-08dabfff7e16"
+  }
