@@ -2,16 +2,15 @@ import 'dart:convert';
 
 import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
+import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/models/shipper_model.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
-import 'package:convenient_way/app/data/repository/package_req_imp.dart';
 import 'package:convenient_way/app/data/repository/request_model/shipper_pickup_model.dart';
-import 'package:convenient_way/app/data/repository/response_model/simple_response_model.dart';
-import 'package:convenient_way/app/data/repository/shipper_req.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:get/get.dart';
 
@@ -21,12 +20,19 @@ class SuggestPackageDetailController extends GetxController {
   LatLngBounds coordBound = LatLngBounds();
   List<LatLng> coordPackage = [];
   List<LatLng> coordShipper = [];
+  List<String> packageIds = [];
   late LatLng coordShop;
   final count = 0.obs;
+  int maxSelectedPackages = 3;
 
+  RxList<String> selectedPackages = <String>[].obs;
   MapController? _mapController;
+  MultiSelectController<String> _multiSelectController =
+      MultiSelectController();
 
   MapController? get mapController => _mapController;
+  MultiSelectController<String> get multiSelectController =>
+      _multiSelectController;
 
   final PackageReq _packageRepo = Get.find(tag: (PackageReq).toString());
   @override
@@ -38,16 +44,6 @@ class SuggestPackageDetailController extends GetxController {
   void init() {
     suggest.value = suggestPackage;
     createBounds();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   void onMapCreated(MapController? mapController) {
@@ -77,29 +73,59 @@ class SuggestPackageDetailController extends GetxController {
         'Coordinates shop: ${coordShop.latitude}, ${coordShop.longitude}');
 
     List<Package> packages = suggest.value!.packages!;
-    packages.forEach((element) {
+    for (var element in packages) {
       LatLng pkCoord =
           LatLng(element.destinationLatitude!, element.destinationLongitude!);
       coordBound.extend(pkCoord);
       coordPackage.add(pkCoord);
+      packageIds.add(element.id!);
       debugPrint(
           'Coordinates package: ${pkCoord.latitude}, ${pkCoord.longitude}');
-    });
+    }
 
     debugPrint(
         'Center bound: ${coordBound.center.latitude}, ${coordBound.center.longitude}');
   }
 
   Future<void> pickUpPackages() async {
-    String shipperId = AuthService.instance.shipper!.id!;
-    List<String> packageIds =
-        suggest.value!.packages!.map((e) => e.id!).toList();
-    ShipperPickUpModel model =
-        ShipperPickUpModel(shipperId: shipperId, packageIds: packageIds);
-    _packageRepo.pickUpPackage(model).then((response) {
-      ToastService.showSuccess(response.message!);
-    }).catchError(((error) {
-      ToastService.showError(error.message);
-    }));
+    if (selectedPackages.isEmpty) {
+      ToastService.showError('Chưa chọn gói hàng nào để pickup');
+      return;
+    }
+    if (selectedPackages.length > maxSelectedPackages) {
+      ToastService.showError(
+          'Số gói hàng tối đa có thể chọn là $maxSelectedPackages');
+      return;
+    }
+    HyperDialog.show(
+        title: 'Xác nhận',
+        content: 'Bạn xác nhận chọn những đơn hàng này?',
+        primaryButtonText: 'Đồng ý',
+        secondaryButtonText: 'Hủy',
+        primaryOnPressed: () {
+          String shipperId = AuthService.instance.shipper!.id!;
+          ShipperPickUpModel model = ShipperPickUpModel(
+              shipperId: shipperId, packageIds: selectedPackages);
+          _packageRepo.pickUpPackage(model).then((response) {
+            ToastService.showSuccess(response.message!);
+            Get.back(); // close dialog
+            Get.back(); // return suggest packages page
+          }).catchError(((error) {
+            ToastService.showError(error.message);
+          }));
+        });
+  }
+
+  void selectedAllPackages() {
+    selectedPackages.value = [];
+    for (var packageId in packageIds) {
+      selectedPackages.value.add(packageId);
+    }
+    _multiSelectController.selectAll();
+  }
+
+  void clearAllPackages() {
+    selectedPackages.value = [];
+    _multiSelectController.deselectAll();
   }
 }

@@ -22,15 +22,7 @@ class VerifyOtpController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   Future<void> verifyOTP(String value) async {
     print('Vetifycation code : ${infoVerify[0]}');

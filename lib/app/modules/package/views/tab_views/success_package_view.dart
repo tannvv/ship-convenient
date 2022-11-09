@@ -1,7 +1,5 @@
 import 'package:convenient_way/app/modules/package/controllers/package_controller.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class SuccessView extends GetView<PackageController> {
@@ -9,6 +7,6 @@ class SuccessView extends GetView<PackageController> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('SuccessView');
+    return const Text('SuccessView');
   }
 }

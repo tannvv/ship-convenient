@@ -17,7 +17,7 @@ class TransactionListModel {
       this.pageSize = 20});
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = Map();
+    Map<String, dynamic> data = {};
     data['shipperId'] = shipperId;
     data['shopId'] = shopId;
     data['from'] = from;

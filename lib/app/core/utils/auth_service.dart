@@ -1,5 +1,6 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/data/models/shipper_model.dart';
+import 'package:convenient_way/app/data/repository/response_model/authorize_response_model.dart';
 import 'package:convenient_way/app/data/repository/shipper_req.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,9 @@ class AuthService extends BaseController {
   Shipper? _shipper;
 
   Shipper? get shipper => _shipper;
+  set setShipper(Shipper value) {
+    _shipper = value;
+  }
 
   String? get token {
     if (_token != null) {
@@ -48,20 +52,19 @@ class AuthService extends BaseController {
       String? token;
       var loginService = _instance._shipperRepo.login(userName, password);
       await _instance.callDataService(loginService,
-          onSuccess: (String response) {
-        token = response;
+          onSuccess: (AuthorizeResponseModel response) {
+        token = response.token;
+        instance._shipper = response.shipper;
       });
 
       if (token != null) {
         _instance._token = token;
         result = true;
-        String? shipperId = AuthService.getKeyToken('id');
-        debugPrint('Shipper id: $shipperId');
-        if (shipperId != null) {
-          _instance._shipper =
-              await _instance._shipperRepo.getShipperId(shipperId);
+        if (_instance._shipper?.status == "NO_ROUTE") {
+          Get.toNamed(Routes.CREATE_ROUTE);
+        } else {
+          Get.toNamed(Routes.HOME);
         }
-        Get.toNamed(Routes.HOME);
       }
     } catch (e) {
       debugPrint('Unable to connect');

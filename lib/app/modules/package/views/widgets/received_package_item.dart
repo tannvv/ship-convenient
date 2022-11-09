@@ -1,7 +1,5 @@
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ReceivedPackageItem extends StatelessWidget {
   const ReceivedPackageItem({Key? key, required this.package})

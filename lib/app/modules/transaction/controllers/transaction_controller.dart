@@ -19,15 +19,7 @@ class TransactionController extends GetxController {
     fetchTransactions();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void fetchTransactions() {
     String shipperId = AuthService.instance.shipper!.id!;

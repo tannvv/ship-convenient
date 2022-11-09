@@ -23,7 +23,7 @@ class HomeController extends GetxController {
   final count = 0.obs;
 
   final List<Widget> _widgetOptions = <Widget>[
-    const SuggestPackageView(),
+    SuggestPackageView(),
     const PackageView(),
     const MessagePageView(),
     const NotifyPageView(),
@@ -43,15 +43,7 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void initController() {
     Get.put(MessagePageController(), permanent: true);

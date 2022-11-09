@@ -1,6 +1,6 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/shadow_styles.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class BoxDecorations {
@@ -23,6 +23,15 @@ abstract class BoxDecorations {
       ),
       boxShadow: ShadowStyles.bottom,
     );
+  }
+
+  static BoxDecoration primary() {
+    return BoxDecoration(
+        color: AppColors.softGray,
+        borderRadius: BorderRadius.circular(12.w),
+        boxShadow: [
+          BoxShadow(color: Colors.grey.shade200, blurRadius: 2, spreadRadius: 1)
+        ]);
   }
 
   static BoxDecoration service() {

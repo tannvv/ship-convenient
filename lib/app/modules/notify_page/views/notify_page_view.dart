@@ -13,7 +13,7 @@ class NotifyPageView extends GetView<NotifyPageController> {
         title: const Text('NotifyPageView'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'NotifyPageView is working',
           style: TextStyle(fontSize: 20),

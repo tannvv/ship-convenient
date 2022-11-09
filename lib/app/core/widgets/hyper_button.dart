@@ -32,8 +32,10 @@ abstract class HyperButton {
     );
   }
 
-  static Widget? childWhite(
-      {required bool status, Widget? child, String loadingText = 'Tiếp tục'}) {
+  static Widget childWhite(
+      {required bool status,
+      required Widget child,
+      String loadingText = 'Tiếp tục'}) {
     return status ? _loadingWhite(loadingText) : child;
   }
 

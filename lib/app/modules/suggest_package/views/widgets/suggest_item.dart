@@ -1,8 +1,9 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
+import 'package:convenient_way/app/core/values/font_weight.dart';
+import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SuggestPackageItem extends StatelessWidget {
   const SuggestPackageItem({Key? key, required this.suggestPackage})
@@ -12,12 +13,35 @@ class SuggestPackageItem extends StatelessWidget {
   Widget build(BuildContext context) {
     int countPackage = suggestPackage.packages?.length ?? 0;
     return Container(
-      decoration: const BoxDecoration(color: AppColors.softGray),
+      padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 24.w),
+      decoration: BoxDecoration(
+          color: AppColors.softGray,
+          borderRadius: BorderRadius.circular(12.w),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.shade200, blurRadius: 2, spreadRadius: 1)
+          ]),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Shop name : ${suggestPackage.shop!.userName}'),
-          Text('Số sản phẩm trong combo: $countPackage'),
-          Text('Giá của toàn bộ combo ${suggestPackage.compoPrice}')
+          Text(
+            'Shop name: ${suggestPackage.shop!.userName}',
+            style: subtitle2,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Số gói hàng trong combo: $countPackage',
+                style: subtitle2,
+              ),
+              Text(
+                '${suggestPackage.compoPrice?.toInt()}vnđ',
+                style: subtitle1.copyWith(
+                    color: AppColors.softRed, fontWeight: FontWeights.medium),
+              )
+            ],
+          ),
         ],
       ),
     );

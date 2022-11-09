@@ -1,6 +1,5 @@
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -29,6 +28,25 @@ class MapLocationController {
 
       return Future.error('Unknown error');
     }
+  }
+
+  Future<bool> getPermission() async {
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) return true;
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        await _deniedDialog();
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      await _deniedForeverDialog();
+    }
+
+    return false;
   }
 
   Future<LatLng> _getCurrentLocation() async {

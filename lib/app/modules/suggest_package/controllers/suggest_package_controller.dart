@@ -3,7 +3,6 @@ import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class SuggestPackageController extends BaseController {
@@ -13,15 +12,7 @@ class SuggestPackageController extends BaseController {
     fetchPackages();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   final PackageReq _packageRepo = Get.find(tag: (PackageReq).toString());
   Rx<List<SuggestPackage>> packages = Rx<List<SuggestPackage>>([]);

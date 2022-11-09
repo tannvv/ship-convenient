@@ -10,12 +10,8 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Obx(() => PageStorage(
-              bucket: controller.bucket, child: controller.currentScreen))
-        ],
-      ),
+      body: Obx(() => PageStorage(
+          bucket: controller.bucket, child: controller.currentScreen)),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           onTap: controller.onItemTapped,

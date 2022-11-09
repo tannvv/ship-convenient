@@ -13,7 +13,7 @@ class MessagePageView extends GetView<MessagePageController> {
         title: const Text('MessagePageView'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'MessagePageView is working',
           style: TextStyle(fontSize: 20),

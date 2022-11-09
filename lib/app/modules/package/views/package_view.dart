@@ -1,5 +1,4 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
-import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -25,8 +24,8 @@ class PackageView extends GetView<PackageController> {
           children: [
             Expanded(flex: 1, child: _header()),
             Expanded(
-              flex: 5,
-              child: Container(
+              flex: 9,
+              child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
                 child: Obx(() => controller.currentScreen),
@@ -59,7 +58,7 @@ class PackageView extends GetView<PackageController> {
           ],
         ),
         Container(
-          height: 32.h,
+          height: 34.h,
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.grey.shade200,

@@ -32,24 +32,24 @@ class LoginView extends GetView<LoginController> {
                 child: SafeArea(
                   child: Stack(
                     children: [
-                      Center(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            TextButton(
-                              style: ButtonStyles.textCircle(),
-                              onPressed: () {
-                                controller.back();
-                              },
-                              child: const Icon(
-                                Icons.arrow_back_ios_new,
-                                size: 18,
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Center(
+                      //   child: Row(
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     children: [
+                      //       TextButton(
+                      //         style: ButtonStyles.textCircle(),
+                      //         onPressed: () {
+                      //           controller.back();
+                      //         },
+                      //         child: const Icon(
+                      //           Icons.arrow_back_ios_new,
+                      //           size: 18,
+                      //           color: AppColors.white,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Center(
                         child: Text('Đăng nhập',
                             style: h6.copyWith(color: AppColors.white)),
@@ -145,18 +145,14 @@ class LoginView extends GetView<LoginController> {
                                     controller.formKey.currentState!.save();
                                     controller.login();
                                   },
-                                  child: Obx(
-                                    () =>
-                                        HyperButton.childWhite(
-                                          status: controller.isLoading.value,
-                                          child: Text(
-                                            'Đăng nhập',
-                                            style: buttonBold.copyWith(
-                                                color: AppColors.white),
-                                          ),
-                                        ) ??
-                                        Container(),
-                                  ),
+                                  child: Obx(() => HyperButton.childWhite(
+                                      status: controller.isLoading.value,
+                                      child: Text(
+                                        'Đăng nhập',
+                                        style: buttonBold.copyWith(
+                                            color: AppColors.white),
+                                      ),
+                                      loadingText: 'Đang đăng nhập')),
                                 ),
                               ),
                               TextButton(

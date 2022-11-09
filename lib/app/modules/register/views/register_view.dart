@@ -1,16 +1,12 @@
-import 'package:convenient_way/app/core/values/app_assets.dart';
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/box_decorations.dart';
 import 'package:convenient_way/app/core/values/button_styles.dart';
 import 'package:convenient_way/app/core/values/input_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/core/widgets/hyper_button.dart';
-import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:get/get.dart';
 
 import '../controllers/register_controller.dart';
@@ -38,24 +34,24 @@ class RegisterView extends GetView<RegisterController> {
                       child: SafeArea(
                         child: Stack(
                           children: [
-                            Center(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  TextButton(
-                                    style: ButtonStyles.textCircle(),
-                                    onPressed: () {
-                                      controller.back();
-                                    },
-                                    child: const Icon(
-                                      Icons.arrow_back_ios_new,
-                                      size: 18,
-                                      color: AppColors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Center(
+                            //   child: Row(
+                            //     crossAxisAlignment: CrossAxisAlignment.center,
+                            //     children: [
+                            //       TextButton(
+                            //         style: ButtonStyles.textCircle(),
+                            //         onPressed: () {
+                            //           controller.back();
+                            //         },
+                            //         child: const Icon(
+                            //           Icons.arrow_back_ios_new,
+                            //           size: 18,
+                            //           color: AppColors.white,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                             Center(
                               child: Text('Đăng kí',
                                   style: h6.copyWith(color: AppColors.white)),
@@ -64,11 +60,17 @@ class RegisterView extends GetView<RegisterController> {
                                 right: 0,
                                 top: 10.h,
                                 child: ElevatedButton(
-                                    style: ButtonStyles.primaryBlue(),
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.white)),
                                     onPressed: () {
                                       controller.gotoSignIn();
                                     },
-                                    child: const Text('Sign in')))
+                                    child: const Text(
+                                      'Sign in',
+                                      style: TextStyle(color: Colors.black),
+                                    )))
                           ],
                         ),
                       ),
@@ -109,74 +111,27 @@ class RegisterView extends GetView<RegisterController> {
                                 child: Column(
                                   children: [
                                     _userNameTextField(),
-                                    Gap(12.h),
                                     _passwordTextField(),
-                                    Gap(12.h),
-                                    _addressTextField(),
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 10.w),
-                                          child: ElevatedButton.icon(
-                                              onPressed: () async {
-                                                await controller
-                                                    .showMapPickUpHome();
-                                              },
-                                              icon:
-                                                  const Icon(Icons.location_on),
-                                              label: const Text(
-                                                  'Chọn vị trí nhà')),
-                                        ),
-                                        Obx(
-                                          () => controller.homeLocation.value !=
-                                                  null
-                                              ? Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 10.sp),
-                                                  child: const Icon(
-                                                    Icons.check_circle_outline,
-                                                    color: AppColors.softGreen,
-                                                  ))
-                                              : Container(),
-                                        )
-                                      ],
-                                    ),
-                                    Gap(12.h),
-                                    _addressDestinationTextField(),
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 10.w),
-                                          child: ElevatedButton.icon(
-                                              onPressed: () async {
-                                                await controller
-                                                    .showMapPickUpDes();
-                                              },
-                                              icon:
-                                                  const Icon(Icons.location_on),
-                                              label: const Text(
-                                                  'Chọn vị trí thường lui tới')),
-                                        ),
-                                        Obx(
-                                          () => controller.destinationLocation
-                                                      .value !=
-                                                  null
-                                              ? Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 10.sp),
-                                                  child: const Icon(
-                                                    Icons.check_circle_outline,
-                                                    color: AppColors.softGreen,
-                                                  ))
-                                              : Container(),
-                                        )
-                                      ],
-                                    ),
-                                    Gap(20.h),
-                                    _phoneNumberTextField(),
+                                    _rePasswordTextField(),
+                                    _emailTextField(),
+                                    _displayNameTextField(),
+                                    Obx(() => _phoneNumberTextField()),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [_verifyOtpButton()],
+                                      children: [
+                                        Obx(() =>
+                                            controller.isConfirmPhone.value
+                                                ? const Icon(
+                                                    Icons.check_circle_outline,
+                                                    color: AppColors.softGreen,
+                                                  )
+                                                : const Icon(
+                                                    Icons.sms_failed,
+                                                    color: AppColors.softRed,
+                                                  )),
+                                        Gap(10.w),
+                                        _verifyOtpButton()
+                                      ],
                                     ),
                                     Gap(20.h),
                                     SizedBox(
@@ -184,10 +139,14 @@ class RegisterView extends GetView<RegisterController> {
                                       child: ElevatedButton(
                                         style: ButtonStyles.primaryBlue(),
                                         onPressed: () async {
-                                          await controller.registerShipper();
+                                          controller.formKey.currentState!
+                                              .save();
+                                          if (controller.formKey.currentState!
+                                              .validate()) {
+                                            await controller.registerShipper();
+                                          }
                                         },
-                                        child: Obx(() =>
-                                            HyperButton.childWhite(
+                                        child: Obx(() => HyperButton.childWhite(
                                               status:
                                                   controller.isLoading.value,
                                               child: Text(
@@ -195,8 +154,7 @@ class RegisterView extends GetView<RegisterController> {
                                                 style: buttonBold.copyWith(
                                                     color: AppColors.white),
                                               ),
-                                            ) ??
-                                            Container()),
+                                            )),
                                       ),
                                     ),
                                     SizedBox(
@@ -241,17 +199,38 @@ class RegisterView extends GetView<RegisterController> {
     );
   }
 
-  TextFormField _addressTextField() {
+  TextFormField _displayNameTextField() {
     return TextFormField(
-      onSaved: (newValue) => controller.setAddress = newValue ?? '',
-      obscureText: true,
+      onSaved: (newValue) => controller.setDisplayName = newValue ?? '',
       enableSuggestions: false,
       autocorrect: false,
       decoration: InputStyles.boldBorder(
-        labelText: 'Địa chỉ nhà',
+        labelText: 'Tên hiển thị',
         radius: 14,
         prefixIcon: const Icon(
-          Icons.home_outlined,
+          Icons.account_box_outlined,
+        ),
+      ),
+      maxLength: 50,
+      validator: (value) {
+        if (value.toString().isEmpty) {
+          return 'Vui lòng nhập địa chỉ nhà';
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField _emailTextField() {
+    return TextFormField(
+      onSaved: (newValue) => controller.setEmail = newValue ?? '',
+      enableSuggestions: false,
+      autocorrect: false,
+      decoration: InputStyles.boldBorder(
+        labelText: 'Email',
+        radius: 14,
+        prefixIcon: const Icon(
+          Icons.email_outlined,
         ),
       ),
       maxLength: 50,
@@ -267,16 +246,14 @@ class RegisterView extends GetView<RegisterController> {
   TextFormField _phoneNumberTextField() {
     return TextFormField(
       onSaved: (newValue) => controller.setPhoneNumber = newValue ?? '',
-      obscureText: true,
       enableSuggestions: false,
       autocorrect: false,
+      enabled: !controller.isConfirmPhone.value,
       keyboardType: TextInputType.number,
       decoration: InputStyles.boldBorder(
         labelText: 'Số điện thoại',
         radius: 14,
-        prefixIcon: const Icon(
-          Icons.home_outlined,
-        ),
+        prefixIcon: const Icon(Icons.phone_iphone_outlined),
       ),
       maxLength: 11,
       validator: (value) {
@@ -291,9 +268,17 @@ class RegisterView extends GetView<RegisterController> {
   ElevatedButton _verifyOtpButton() {
     return ElevatedButton(
         onPressed: () {
-          controller.verifyPhone('345');
+          controller.formKey.currentState!.save();
+          controller.verifyPhone();
         },
-        child: const Text('Xác thực'));
+        child: Obx(() => HyperButton.childWhite(
+              status: controller.isLoadingVerify.value,
+              loadingText: 'Đang gửi OTP',
+              child: Text(
+                'Xác thực sđt',
+                style: buttonBold.copyWith(color: AppColors.white),
+              ),
+            )));
   }
 
   TextFormField _passwordTextField() {
@@ -313,6 +298,28 @@ class RegisterView extends GetView<RegisterController> {
       validator: (value) {
         if (value.toString().isEmpty) {
           return 'Vui lòng nhập mật khẩu';
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField _rePasswordTextField() {
+    return TextFormField(
+      obscureText: true,
+      enableSuggestions: false,
+      autocorrect: false,
+      decoration: InputStyles.boldBorder(
+        labelText: 'Nhập lại mật khẩu',
+        radius: 14,
+        prefixIcon: const Icon(
+          Icons.password_outlined,
+        ),
+      ),
+      maxLength: 20,
+      validator: (value) {
+        if (controller.password != value) {
+          return 'Nhập lại mật khẩu bị sai';
         }
         return null;
       },

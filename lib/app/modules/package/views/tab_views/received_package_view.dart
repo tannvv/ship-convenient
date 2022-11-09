@@ -1,9 +1,6 @@
 import 'package:convenient_way/app/modules/package/controllers/package_controller.dart';
 import 'package:convenient_way/app/modules/package/views/widgets/received_package_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';

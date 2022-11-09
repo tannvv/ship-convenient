@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:convenient_way/app/core/base/base_repository.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
@@ -8,7 +7,6 @@ import 'package:convenient_way/app/data/repository/request_model/package_list_mo
 import 'package:convenient_way/app/data/repository/response_model/simple_response_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/shipper_pickup_model.dart';
 import 'package:convenient_way/app/network/dio_provider.dart';
-import 'package:dio/dio.dart';
 
 class PackageReqImp extends BaseRepository implements PackageReq {
   @override

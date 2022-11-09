@@ -1,3 +1,4 @@
+import 'package:convenient_way/app/data/models/route_model.dart';
 import 'package:convenient_way/app/data/models/wallet_model.dart';
 
 class Shipper {
@@ -15,6 +16,7 @@ class Shipper {
   double? destinationLatitude;
   String? createdAt;
   String? modifiedAt;
+  List<Route>? routes;
   List<Wallet>? wallets;
 
   Shipper(
@@ -54,28 +56,34 @@ class Shipper {
       json['wallets'].forEach((v) {
         wallets?.add(Wallet.fromJson(v));
       });
+      if (json['routes'] != null) {
+        routes = <Route>[];
+        json['routes'].forEach((v) {
+          routes?.add(Route.fromJson(v));
+        });
+      }
     }
-  }
 
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id'] = id;
-    data['userName'] = userName;
-    data['email'] = email;
-    data['displayName'] = displayName;
-    data['phoneNumber'] = phoneNumber;
-    data['photoUrl'] = photoUrl;
-    data['status'] = status;
-    data['address'] = address;
-    data['homeLongitude'] = homeLongitude;
-    data['homeLatitude'] = homeLatitude;
-    data['destinationLongitude'] = destinationLongitude;
-    data['destinationLatitude'] = destinationLatitude;
-    data['createdAt'] = createdAt;
-    data['modifiedAt'] = modifiedAt;
-    if (wallets != null) {
-      data['wallets'] = wallets?.map((v) => v.toJson()).toList();
+    Map<String, dynamic> toJson() {
+      final data = <String, dynamic>{};
+      data['id'] = id;
+      data['userName'] = userName;
+      data['email'] = email;
+      data['displayName'] = displayName;
+      data['phoneNumber'] = phoneNumber;
+      data['photoUrl'] = photoUrl;
+      data['status'] = status;
+      data['address'] = address;
+      data['homeLongitude'] = homeLongitude;
+      data['homeLatitude'] = homeLatitude;
+      data['destinationLongitude'] = destinationLongitude;
+      data['destinationLatitude'] = destinationLatitude;
+      data['createdAt'] = createdAt;
+      data['modifiedAt'] = modifiedAt;
+      if (wallets != null) {
+        data['wallets'] = wallets?.map((v) => v.toJson()).toList();
+      }
+      return data;
     }
-    return data;
   }
 }

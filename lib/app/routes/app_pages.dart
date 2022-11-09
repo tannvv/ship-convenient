@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../data/models/package_model.dart';
 import '../modules/create-route/bindings/create_route_binding.dart';
 import '../modules/create-route/views/create_route_view.dart';
 import '../modules/home/bindings/home_binding.dart';
