@@ -1,4 +1,5 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
+import 'package:convenient_way/app/core/widgets/custom_footer_smart_refresh.dart';
 import 'package:convenient_way/app/modules/suggest_package/views/widgets/suggest_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,19 +13,17 @@ import '../controllers/suggest_package_controller.dart';
 
 class SuggestPackageView extends GetView<SuggestPackageController> {
   SuggestPackageView({Key? key}) : super(key: key);
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: true);
   final GlobalKey _refresherKey = GlobalKey();
 
   void _onRefresh() async {
     await Future.delayed(const Duration(seconds: 1));
     await controller.fetchPackages();
-    _refreshController.refreshCompleted();
+    controller.refreshController.refreshCompleted();
   }
 
   void _onLoading() async {
     await Future.delayed(const Duration(milliseconds: 1000));
-    _refreshController.loadComplete();
+    controller.refreshController.loadComplete();
   }
 
   @override
@@ -43,27 +42,10 @@ class SuggestPackageView extends GetView<SuggestPackageController> {
               backgroundColor: AppColors.softRed,
             ),
             key: _refresherKey,
-            controller: _refreshController,
+            controller: controller.refreshController,
             onRefresh: _onRefresh,
             onLoading: _onLoading,
-            footer: CustomFooter(builder: ((context, mode) {
-              Widget body;
-              if (mode == LoadStatus.idle) {
-                body = const Text("Kéo để tải");
-              } else if (mode == LoadStatus.loading) {
-                body = const CupertinoActivityIndicator();
-              } else if (mode == LoadStatus.failed) {
-                body = const Text("Có lỗi khi tải trang");
-              } else if (mode == LoadStatus.canLoading) {
-                body = const Text("Tải thêm");
-              } else {
-                body = const Text("Cuối trang");
-              }
-              return SizedBox(
-                height: 55.0,
-                child: Center(child: body),
-              );
-            })),
+            footer: CustomFooterSmartRefresh.defaultCustom(),
             child: ListView.separated(
                 itemBuilder: (_, index) => GestureDetector(
                       onTap: () => controller

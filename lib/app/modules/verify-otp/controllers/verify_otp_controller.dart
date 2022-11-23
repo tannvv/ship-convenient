@@ -14,6 +14,8 @@ class VerifyOtpController extends GetxController {
     _otpField = value;
   }
 
+  String get phone => _phone;
+
   @override
   void onInit() {
     _verificationId = infoVerify[0];
@@ -21,8 +23,6 @@ class VerifyOtpController extends GetxController {
     _phone = infoVerify[2];
     super.onInit();
   }
-
-
 
   Future<void> verifyOTP(String value) async {
     print('Vetifycation code : ${infoVerify[0]}');

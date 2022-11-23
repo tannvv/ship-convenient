@@ -1,3 +1,4 @@
+import 'package:convenient_way/app/core/values/app_values.dart';
 import 'package:uuid/uuid.dart';
 
 class PackageListModel {
@@ -11,8 +12,8 @@ class PackageListModel {
       {this.shipperId = Uuid.NAMESPACE_NIL,
       this.shopId = Uuid.NAMESPACE_NIL,
       this.status,
-      this.pageIndex = 0,
-      this.pageSize = 20});
+      this.pageIndex = AppValues.defaultPageIndex,
+      this.pageSize = AppValues.defaultPageSize});
 
   Map<String, dynamic> toJson() => {
         'shipperId': shipperId,

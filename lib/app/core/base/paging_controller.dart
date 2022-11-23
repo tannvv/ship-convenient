@@ -2,13 +2,13 @@ import '/app/core/values/app_values.dart';
 
 class PagingController<T> {
   List<T> listItems = [];
-  int pageNumber = AppValues.defaultPageNumber;
+  int pageNumber = AppValues.defaultPageIndex;
   bool isLoadingPage = false;
   bool endOfList = false;
 
   initRefresh() {
     listItems = [];
-    pageNumber = AppValues.defaultPageNumber;
+    pageNumber = AppValues.defaultPageIndex;
     isLoadingPage = false;
     endOfList = false;
   }

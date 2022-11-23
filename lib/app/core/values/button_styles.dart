@@ -21,10 +21,40 @@ abstract class ButtonStyles {
   static ButtonStyle primaryBlue() {
     return ElevatedButton.styleFrom(
       primary: AppColors.secondary600,
-      shadowColor: AppColors.secondary500,
+      shadowColor: Color.fromARGB(255, 84, 166, 253),
       padding: EdgeInsets.symmetric(
         horizontal: 16.w,
         vertical: 16.h,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50.r),
+      ),
+      textStyle: button.copyWith(fontWeight: FontWeight.bold),
+    );
+  }
+
+  static ButtonStyle primaryBlueMedium() {
+    return ElevatedButton.styleFrom(
+      primary: AppColors.secondary600,
+      shadowColor: Color.fromARGB(255, 84, 166, 253),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 12.h,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50.r),
+      ),
+      textStyle: button.copyWith(fontWeight: FontWeight.bold),
+    );
+  }
+
+  static ButtonStyle primaryBlueSmall() {
+    return ElevatedButton.styleFrom(
+      primary: AppColors.secondary600,
+      shadowColor: Color.fromARGB(255, 84, 166, 253),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 8.h,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.r),

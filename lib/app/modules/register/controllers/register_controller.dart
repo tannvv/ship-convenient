@@ -104,8 +104,8 @@ class RegisterController extends GetxController {
   }
 
   Future<void> verifyPhone() async {
-    debugPrint('Phone number: $_phoneNumber');
-    _phoneNumber = '+$_phoneNumber';
+    debugPrint('Phone number: 0$_phoneNumber');
+    _phoneNumber = '+84$_phoneNumber';
     isLoadingVerify.value = true;
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: _phoneNumber,

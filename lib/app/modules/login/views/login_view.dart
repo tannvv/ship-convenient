@@ -175,7 +175,7 @@ class LoginView extends GetView<LoginController> {
                                   style: ButtonStyles.paymentChip().copyWith(
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
-                                              Colors.blue)),
+                                              AppColors.secondary600)),
                                   onPressed: () {
                                     controller.gotoSignUp();
                                   },

@@ -24,7 +24,7 @@ class PackageView extends GetView<PackageController> {
           children: [
             Expanded(flex: 1, child: _header()),
             Expanded(
-              flex: 9,
+              flex: 12,
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
@@ -34,11 +34,6 @@ class PackageView extends GetView<PackageController> {
           ],
         ),
       )),
-      floatingActionButton: ElevatedButton(
-          onPressed: () {
-            controller.fetchAllData();
-          },
-          child: const Text("Refresh")),
     );
   }
 

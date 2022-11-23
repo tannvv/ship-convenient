@@ -91,7 +91,7 @@ abstract class AppValues {
   static const double barrierColorOpacity = 0.4;
 
   static const int defaultPageSize = 10;
-  static const int defaultPageNumber = 1;
+  static const int defaultPageIndex = 0;
   static const int defaultDebounceTimeInMilliSeconds = 1000;
   static const int defaultThrottleTimeInMilliSeconds = 500;
 

@@ -14,7 +14,7 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('VerifyOtpView'),
+        title: const Text('Xác thực SĐT'),
         centerTitle: true,
       ),
       body: Padding(
@@ -27,15 +27,14 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "We just sent a code to ",
+                    text: "Chúng tôi đã gửi OTP đến SĐT: ",
                     style: GoogleFonts.montserrat(
                       color: Colors.black87,
                       fontSize: 18,
                     ),
                   ),
                   TextSpan(
-                    // text: countryDial + phoneController.text,
-                    text: 'Country + phonecontroller.text',
+                    text: controller.phone,
                     style: GoogleFonts.montserrat(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
@@ -43,7 +42,7 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
                     ),
                   ),
                   TextSpan(
-                    text: "\nEnter the code here and we can continue!",
+                    text: "\nNhập OTP để tiếp tục!",
                     style: GoogleFonts.montserrat(
                       color: Colors.black87,
                       fontSize: 12,
@@ -75,7 +74,7 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "Didn't receive the code? ",
+                    text: "Bạn chưa nhận được OTP? ",
                     style: GoogleFonts.montserrat(
                       color: Colors.black87,
                       fontSize: 12,
@@ -87,7 +86,7 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
                         controller.resendOTP();
                       },
                       child: Text(
-                        "Resend",
+                        "Gửi lại",
                         style: GoogleFonts.montserrat(
                           color: Colors.black87,
                           fontSize: 12,

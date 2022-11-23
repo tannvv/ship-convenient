@@ -56,8 +56,10 @@ class SuggestPackageDetailController extends GetxController {
   void createBounds() {
     if (AuthService.instance.shipper != null) {
       Shipper shipper = AuthService.instance.shipper!;
-      LatLng shipperHome = LatLng(10.773395476778918, 106.70155553056655);
-      LatLng shipperDes = LatLng(10.840958994589215, 106.81004393023233);
+      LatLng shipperHome = LatLng(
+          shipper.routes![0].fromLatitude!, shipper.routes![0].fromLongitude!);
+      LatLng shipperDes = LatLng(
+          shipper.routes![0].toLatitude!, shipper.routes![0].toLongitude!);
       coordShipper.addAll([shipperHome, shipperDes]);
       coordBound.extend(shipperHome);
       coordBound.extend(shipperDes);
@@ -109,7 +111,7 @@ class SuggestPackageDetailController extends GetxController {
           _packageRepo.pickUpPackage(model).then((response) {
             ToastService.showSuccess(response.message!);
             Get.back(); // close dialog
-            Get.back(); // return suggest packages page
+            Get.back(result: true); // return suggest packages page
           }).catchError(((error) {
             ToastService.showError(error.message);
           }));

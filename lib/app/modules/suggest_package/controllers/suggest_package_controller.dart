@@ -4,15 +4,18 @@ import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SuggestPackageController extends BaseController {
+  final RefreshController _refreshController = RefreshController();
+
+  RefreshController get refreshController => _refreshController;
+
   @override
   void onInit() {
     super.onInit();
     fetchPackages();
   }
-
-
 
   final PackageReq _packageRepo = Get.find(tag: (PackageReq).toString());
   Rx<List<SuggestPackage>> packages = Rx<List<SuggestPackage>>([]);
@@ -28,7 +31,11 @@ class SuggestPackageController extends BaseController {
     }
   }
 
-  void gotoDetail(SuggestPackage suggest) {
-    Get.toNamed(Routes.SUGGEST_PACKAGE_DETAIL, arguments: suggest);
+  void gotoDetail(SuggestPackage suggest) async {
+    dynamic result =
+        await Get.toNamed(Routes.SUGGEST_PACKAGE_DETAIL, arguments: suggest);
+    if (result == true) {
+      _refreshController.requestRefresh();
+    }
   }
 }

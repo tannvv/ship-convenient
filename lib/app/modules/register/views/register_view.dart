@@ -251,10 +251,10 @@ class RegisterView extends GetView<RegisterController> {
       enabled: !controller.isConfirmPhone.value,
       keyboardType: TextInputType.number,
       decoration: InputStyles.boldBorder(
-        labelText: 'Số điện thoại',
-        radius: 14,
-        prefixIcon: const Icon(Icons.phone_iphone_outlined),
-      ),
+              labelText: 'Số điện thoại',
+              radius: 14,
+              prefixIcon: const Icon(Icons.phone_iphone_outlined))
+          .copyWith(prefix: const Text('+84 ')),
       maxLength: 11,
       validator: (value) {
         if (value.toString().isEmpty) {
@@ -267,10 +267,12 @@ class RegisterView extends GetView<RegisterController> {
 
   ElevatedButton _verifyOtpButton() {
     return ElevatedButton(
-        onPressed: () {
-          controller.formKey.currentState!.save();
-          controller.verifyPhone();
-        },
+        onPressed: controller.isConfirmPhone.value
+            ? null
+            : () {
+                controller.formKey.currentState!.save();
+                controller.verifyPhone();
+              },
         child: Obx(() => HyperButton.childWhite(
               status: controller.isLoadingVerify.value,
               loadingText: 'Đang gửi OTP',
