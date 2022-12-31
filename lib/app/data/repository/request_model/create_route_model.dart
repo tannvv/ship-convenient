@@ -1,26 +1,26 @@
-class RegisterRoute {
-  String? fromAddress;
+class CreateRoute {
+  String? fromName;
   double? fromLongitude;
   double? fromLatitude;
-  String? toAddress;
+  String? toName;
   double? toLongitude;
   double? toLatitude;
   String? accountId;
 
-  RegisterRoute(
-      {required this.fromAddress,
-      required this.fromLongitude,
-      required this.fromLatitude,
-      required this.toAddress,
-      required this.toLongitude,
-      required this.toLatitude,
-      required this.accountId});
+  CreateRoute(
+      {this.fromName,
+      this.fromLongitude,
+      this.fromLatitude,
+      this.toName,
+      this.toLongitude,
+      this.toLatitude,
+      this.accountId});
 
-  RegisterRoute.fromJson(Map<String, dynamic> json) {
-    fromAddress = json['fromAddress'];
+  CreateRoute.fromJson(Map<String, dynamic> json) {
+    fromName = json['fromName'];
     fromLongitude = json['fromLongitude'];
     fromLatitude = json['fromLatitude'];
-    toAddress = json['toAddress'];
+    toName = json['toName'];
     toLongitude = json['toLongitude'];
     toLatitude = json['toLatitude'];
     accountId = json['accountId'];
@@ -28,10 +28,10 @@ class RegisterRoute {
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['fromAddress'] = fromAddress;
+    data['fromName'] = fromName;
     data['fromLongitude'] = fromLongitude;
     data['fromLatitude'] = fromLatitude;
-    data['toAddress'] = toAddress;
+    data['toName'] = toName;
     data['toLongitude'] = toLongitude;
     data['toLatitude'] = toLatitude;
     data['accountId'] = accountId;

@@ -1,6 +1,7 @@
 import 'package:convenient_way/app/core/utils/toast_service.dart';
-import 'package:convenient_way/app/data/repository/request_model/register_shipper_model.dart';
-import 'package:convenient_way/app/data/repository/shipper_req.dart';
+import 'package:convenient_way/app/data/constants/role_name.dart';
+import 'package:convenient_way/app/data/repository/account_req.dart';
+import 'package:convenient_way/app/data/repository/request_model/create_account_model.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,12 +13,13 @@ class RegisterController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingVerify = false.obs;
 
-  final ShipperRep _shipperRepo = Get.find(tag: (ShipperRep).toString());
+  final AccountRep _accountRepo = Get.find(tag: (AccountRep).toString());
 
   String _userName = '';
   String _password = '';
-  String _displayName = '';
-  String _phoneNumber = '';
+  String _firstName = '';
+  String _lastName = '';
+  String _phone = '';
   final String _photoUrl =
       'https://cdn-icons-png.flaticon.com/512/147/147144.png';
   final String _status = 'ACTIVE';
@@ -37,16 +39,16 @@ class RegisterController extends GetxController {
     _password = value;
   }
 
-  set setDisplayName(String value) {
-    _displayName = value;
+  set setFirstName(String value) {
+    _firstName = value;
   }
 
-  set setPhoneNumber(String value) {
-    _phoneNumber = value;
+  set setLastName(String value) {
+    _lastName = value;
   }
 
-  set setPhotoUrl(String value) {
-    _phoneNumber = value;
+  set setPhone(String value) {
+    _phone = value;
   }
 
   set setAddress(String value) {
@@ -71,22 +73,24 @@ class RegisterController extends GetxController {
     destinationLocation.value = LatLng(data.latitude, data.longitude);
   }
 
-  Future<void> registerShipper() async {
+  Future<void> registerAccount() async {
     if (!isConfirmPhone.value) {
       ToastService.showError('Bạn chưa xác thực sđt');
       return;
     }
 
     isLoading.value = true;
-    RegisterShipper registerModel = RegisterShipper(
+    CreateAccountModel createAccountModel = CreateAccountModel(
         userName: _userName,
         password: _password,
         email: _email,
-        displayName: _displayName,
-        phoneNumber: _phoneNumber,
+        firstName: _firstName,
+        lastName: _lastName,
+        phone: _phone,
         photoUrl: _photoUrl,
+        role: RoleName.user,
         gender: _gender);
-    _shipperRepo.register(registerModel).then((response) {
+    _accountRepo.create(createAccountModel).then((response) {
       ToastService.showSuccess('Đăng kí thành công');
       Get.offAllNamed(Routes.LOGIN);
     }).catchError((error) {
@@ -104,11 +108,11 @@ class RegisterController extends GetxController {
   }
 
   Future<void> verifyPhone() async {
-    debugPrint('Phone number: 0$_phoneNumber');
-    _phoneNumber = '+84$_phoneNumber';
+    debugPrint('Phone number: 0$_phone');
+    _phone = '+84$_phone';
     isLoadingVerify.value = true;
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: _phoneNumber,
+      phoneNumber: _phone,
       timeout: const Duration(seconds: 20),
       verificationCompleted: (PhoneAuthCredential credential) {
         ToastService.showSuccess("Auth Completed!");
@@ -121,7 +125,7 @@ class RegisterController extends GetxController {
       codeSent: (String verificationId, int? resendToken) async {
         ToastService.showSuccess("OTP sent!");
         var result = await Get.toNamed(Routes.VERIFY_OTP,
-            arguments: [verificationId, resendToken, _phoneNumber]);
+            arguments: [verificationId, resendToken, _phone]);
         isLoadingVerify.value = false;
         if (result == true) isConfirmPhone.value = true;
         ToastService.showSuccess('result:  $result');

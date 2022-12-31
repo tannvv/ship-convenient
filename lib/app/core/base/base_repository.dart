@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 
-import '../../../config/build_config.dart';
 import '/app/network/dio_provider.dart';
 import '/app/network/error_handlers.dart';
 import '/app/network/exceptions/base_exception.dart';
+import '../../../config/build_config.dart';
 
 abstract class BaseRepository {
   Dio get dioClient => DioProvider.httpDio;
@@ -18,9 +18,7 @@ abstract class BaseRepository {
 
       if (response.statusCode != HttpStatus.ok ||
           (response.data as Map<String, dynamic>)['statusCode'] !=
-              HttpStatus.ok) {
-        // TODO
-      }
+              HttpStatus.ok) {}
 
       return response;
     } on DioError catch (dioError) {

@@ -21,9 +21,9 @@ class SuggestPackageController extends BaseController {
   Rx<List<SuggestPackage>> packages = Rx<List<SuggestPackage>>([]);
 
   Future<void> fetchPackages() async {
-    String? shipperId = AuthService.getKeyToken('id');
-    if (shipperId != null) {
-      final packageService = _packageRepo.getSuggestPackage(shipperId);
+    String? accountId = AuthService.getKeyToken('id');
+    if (accountId != null) {
+      final packageService = _packageRepo.getSuggestPackage(accountId);
       await callDataService(packageService,
           onSuccess: (List<SuggestPackage> response) {
         packages(response);

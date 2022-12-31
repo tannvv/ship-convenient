@@ -25,7 +25,7 @@ class SuggestPackageItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Shop name: ${suggestPackage.shop!.userName}',
+            'Tên người gửi: ${suggestPackage.sender?.infoUser?.firstName}',
             style: subtitle2,
           ),
           Row(

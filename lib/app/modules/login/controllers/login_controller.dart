@@ -19,8 +19,10 @@ class LoginController extends GetxController {
     password = value;
   }
 
-
-
+  @override
+  void onInit() {
+    super.onInit();
+  }
 
   Future<void> showDataDialog() async {
     await HyperDialog.show(

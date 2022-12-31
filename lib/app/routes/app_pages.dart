@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/chat_message/bindings/chat_message_binding.dart';
+import '../modules/chat_message/views/chat_message_view.dart';
 import '../modules/create-route/bindings/create_route_binding.dart';
 import '../modules/create-route/views/create_route_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -71,6 +73,11 @@ class AppPages {
       name: _Paths.CREATE_ROUTE,
       page: () => const CreateRouteView(),
       binding: CreateRouteBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHAT_MESSAGE,
+      page: () => const ChatMessageView(),
+      binding: ChatMessageBinding(),
     ),
   ];
 }

@@ -19,11 +19,9 @@ class TransactionController extends GetxController {
     fetchTransactions();
   }
 
-
-
   void fetchTransactions() {
-    String shipperId = AuthService.instance.shipper!.id!;
-    TransactionListModel model = TransactionListModel(shipperId: shipperId);
+    String accountId = AuthService.instance.account!.id!;
+    TransactionListModel model = TransactionListModel(accountId: accountId);
     _transactionRepo
         .getList(model)
         .then((response) => transactions.value = response);

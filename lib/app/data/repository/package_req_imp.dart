@@ -1,18 +1,17 @@
-
 import 'package:convenient_way/app/core/base/base_repository.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
+import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
 import 'package:convenient_way/app/data/repository/response_model/simple_response_model.dart';
-import 'package:convenient_way/app/data/repository/request_model/shipper_pickup_model.dart';
 import 'package:convenient_way/app/network/dio_provider.dart';
 
 class PackageReqImp extends BaseRepository implements PackageReq {
   @override
-  Future<List<SuggestPackage>> getSuggestPackage(String shipperId) {
+  Future<List<SuggestPackage>> getSuggestPackage(String deliverId) {
     String endpoint = '${DioProvider.baseUrl}/packages/combos';
-    Map<String, dynamic> queryParams = {'shipperId': shipperId};
+    Map<String, dynamic> queryParams = {'deliverId': deliverId};
     var dioCall = dioClient.get(endpoint, queryParameters: queryParams);
     try {
       return callApi(dioCall).then((response) {
@@ -44,8 +43,8 @@ class PackageReqImp extends BaseRepository implements PackageReq {
   }
 
   @override
-  Future<SimpleResponseModel> pickUpPackage(ShipperPickUpModel model) async {
-    String endpoint = '${DioProvider.baseUrl}/packages/shipper-pickup';
+  Future<SimpleResponseModel> pickUpPackage(AccountPickUpModel model) async {
+    String endpoint = '${DioProvider.baseUrl}/packages/account-pickup';
     var dioCall = dioClient.put(endpoint, data: model.toJson());
     try {
       return callApi(dioCall)
@@ -81,9 +80,9 @@ class PackageReqImp extends BaseRepository implements PackageReq {
   }
 
   @override
-  Future<SimpleResponseModel> shipperConfirmPackage(ShipperPickUpModel model) {
+  Future<SimpleResponseModel> accountConfirmPackage(AccountPickUpModel model) {
     String endpoint =
-        '${DioProvider.baseUrl}/packages/shipper-confirm-packages';
+        '${DioProvider.baseUrl}/packages/account-confirm-packages';
     var dioCall = dioClient.put(endpoint, data: model.toJson());
     try {
       return callApi(dioCall)

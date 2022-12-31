@@ -38,7 +38,7 @@ class DeliveredPackageController extends BaseController
 
   Future<void> fetchDeliveredPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.DELIVERED);
     _packageRepo
         .getList(requestModel)

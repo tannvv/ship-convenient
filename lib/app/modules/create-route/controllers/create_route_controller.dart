@@ -1,11 +1,11 @@
 import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
-import 'package:convenient_way/app/data/repository/request_model/register_route_model.dart';
-import 'package:convenient_way/app/data/repository/shipper_req.dart';
+import 'package:convenient_way/app/data/repository/account_req.dart';
+import 'package:convenient_way/app/data/repository/request_model/create_route_model.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
 class CreateRouteController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -15,7 +15,7 @@ class CreateRouteController extends GetxController {
   final Rx<LatLng?> _fromCoord = Rx<LatLng?>(null);
   var isLoading = false.obs;
 
-  final ShipperRep _shipperRepo = Get.find(tag: (ShipperRep).toString());
+  final AccountRep _accountRepo = Get.find(tag: (AccountRep).toString());
 
   set setToAddress(String value) {
     _toAddress = value;
@@ -46,27 +46,24 @@ class CreateRouteController extends GetxController {
     Get.back();
   }
 
-
-
-
   Future<void> registerRoute() async {
     isLoading.value = true;
-    String shipperId = AuthService.instance.shipper!.id!;
+    String accountId = AuthService.instance.account!.id!;
     if (_fromCoord.value == null || _toCoord.value == null) {
       ToastService.showError('Vui lòng chọn địa điểm của bạn trên bản đồ');
     }
-    RegisterRoute registerRouteModel = RegisterRoute(
-        fromAddress: _fromAddress,
+    CreateRoute createRouteModel = CreateRoute(
+        fromName: _fromAddress,
         fromLongitude: _fromCoord.value!.longitude,
         fromLatitude: _fromCoord.value!.latitude,
-        toAddress: _toAddress,
+        toName: _toAddress,
         toLongitude: _toCoord.value!.longitude,
         toLatitude: _toCoord.value!.latitude,
-        shipperId: shipperId);
+        accountId: accountId);
 
-    _shipperRepo.registerRoute(registerRouteModel).then((shipper) {
-      if (shipper != null) {
-        AuthService.instance.setShipper = shipper;
+    _accountRepo.createRoute(createRouteModel).then((newRoute) {
+      if (newRoute != null) {
+        AuthService.instance.account!.infoUser!.routes!.add(newRoute);
         ToastService.showSuccess('Đăng kí thành công');
         Get.offAllNamed(Routes.HOME);
       } else {

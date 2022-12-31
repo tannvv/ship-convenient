@@ -9,7 +9,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
@@ -74,13 +73,13 @@ class SuggestPackageDetailView extends GetView<SuggestPackageDetailController> {
                               Marker(
                                   height: markerSize,
                                   width: markerSize,
-                                  point: controller.coordShipper[0],
+                                  point: controller.coordAccount[0],
                                   builder: (_) =>
                                       SvgPicture.asset(AppAssets.locationIcon)),
                               Marker(
                                   height: markerSize,
                                   width: markerSize,
-                                  point: controller.coordShipper[1],
+                                  point: controller.coordAccount[1],
                                   builder: (_) =>
                                       SvgPicture.asset(AppAssets.locationIcon)),
                               for (int i = 0;

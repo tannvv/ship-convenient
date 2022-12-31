@@ -1,25 +1,24 @@
-import 'dart:convert';
-
 import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
+import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
-import 'package:convenient_way/app/data/models/shipper_model.dart';
+import 'package:convenient_way/app/data/models/route_model.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
-import 'package:convenient_way/app/data/repository/request_model/shipper_pickup_model.dart';
+import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
 class SuggestPackageDetailController extends GetxController {
   final suggestPackage = Get.arguments as SuggestPackage;
   final suggest = Rx<SuggestPackage?>(null);
   LatLngBounds coordBound = LatLngBounds();
   List<LatLng> coordPackage = [];
-  List<LatLng> coordShipper = [];
+  List<LatLng> coordAccount = [];
   List<String> packageIds = [];
   late LatLng coordShop;
   final count = 0.obs;
@@ -27,7 +26,7 @@ class SuggestPackageDetailController extends GetxController {
 
   RxList<String> selectedPackages = <String>[].obs;
   MapController? _mapController;
-  MultiSelectController<String> _multiSelectController =
+  final MultiSelectController<String> _multiSelectController =
       MultiSelectController();
 
   MapController? get mapController => _mapController;
@@ -54,22 +53,27 @@ class SuggestPackageDetailController extends GetxController {
   }
 
   void createBounds() {
-    if (AuthService.instance.shipper != null) {
-      Shipper shipper = AuthService.instance.shipper!;
-      LatLng shipperHome = LatLng(
-          shipper.routes![0].fromLatitude!, shipper.routes![0].fromLongitude!);
-      LatLng shipperDes = LatLng(
-          shipper.routes![0].toLatitude!, shipper.routes![0].toLongitude!);
-      coordShipper.addAll([shipperHome, shipperDes]);
-      coordBound.extend(shipperHome);
-      coordBound.extend(shipperDes);
+    if (AuthService.instance.account != null) {
+      Account account = AuthService.instance.account!;
+      RouteAcc activeRoute = account.infoUser!.routes!
+          .where((element) => element.isActive == true)
+          .first;
+      LatLng accountHome =
+          LatLng(activeRoute.fromLatitude!, activeRoute.fromLongitude!);
+      LatLng accountDes =
+          LatLng(activeRoute.toLatitude!, activeRoute.toLongitude!);
+      coordAccount.addAll([accountHome, accountDes]);
+      coordBound.extend(accountHome);
+      coordBound.extend(accountDes);
       debugPrint(
-          'Coordinates ship home: ${shipperHome.latitude}, ${shipperHome.longitude}');
+          'Coordinates ship home: ${accountHome.latitude}, ${accountHome.longitude}');
       debugPrint(
-          'Coordinates ship des: ${shipperDes.latitude}, ${shipperDes.longitude}');
+          'Coordinates ship des: ${accountDes.latitude}, ${accountDes.longitude}');
     }
-    coordShop =
-        LatLng(suggest.value!.shop!.latitude!, suggest.value!.shop!.longitude!);
+    RouteAcc routeSender = suggest.value!.sender!.infoUser!.routes!
+        .where((element) => element.isActive == true)
+        .first;
+    coordShop = LatLng(routeSender.fromLatitude!, routeSender.fromLongitude!);
     coordBound.extend(coordShop);
     debugPrint(
         'Coordinates shop: ${coordShop.latitude}, ${coordShop.longitude}');
@@ -105,9 +109,9 @@ class SuggestPackageDetailController extends GetxController {
         primaryButtonText: 'Đồng ý',
         secondaryButtonText: 'Hủy',
         primaryOnPressed: () {
-          String shipperId = AuthService.instance.shipper!.id!;
-          ShipperPickUpModel model = ShipperPickUpModel(
-              shipperId: shipperId, packageIds: selectedPackages);
+          String accountId = AuthService.instance.account!.id!;
+          AccountPickUpModel model = AccountPickUpModel(
+              accountId: accountId, packageIds: selectedPackages);
           _packageRepo.pickUpPackage(model).then((response) {
             ToastService.showSuccess(response.message!);
             Get.back(); // close dialog
@@ -121,7 +125,7 @@ class SuggestPackageDetailController extends GetxController {
   void selectedAllPackages() {
     selectedPackages.value = [];
     for (var packageId in packageIds) {
-      selectedPackages.value.add(packageId);
+      selectedPackages.add(packageId);
     }
     _multiSelectController.selectAll();
   }

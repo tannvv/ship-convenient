@@ -6,8 +6,8 @@ import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:convenient_way/app/data/constants/package_status.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
+import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
-import 'package:convenient_way/app/data/repository/request_model/shipper_pickup_model.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -42,7 +42,7 @@ class ReceivedPackageController extends BaseController
 
   Future<void> fetchReceivedPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.SHIPPER_PICKUP,
         pageSize: _pageSize,
         pageIndex: _pageIndex);
@@ -72,17 +72,17 @@ class ReceivedPackageController extends BaseController
     _refreshController.loadComplete();
   }
 
-  void shipperConfirmPackage(String packageId) async {
+  void accountConfirmPackage(String packageId) async {
     await HyperDialog.show(
         title: 'Nhận đơn hàng để đi giao',
         content: 'Bạn chắc chắn muốn nhận gói hàng này để đi giao?',
         primaryButtonText: 'Xác nhận',
         secondaryButtonText: 'Hủy',
         primaryOnPressed: () {
-          ShipperPickUpModel model = ShipperPickUpModel(
-              shipperId: AuthService.instance.shipper!.id!,
+          AccountPickUpModel model = AccountPickUpModel(
+              accountId: AuthService.instance.account!.id!,
               packageIds: [packageId]);
-          _packageRepo.shipperConfirmPackage(model).then((response) {
+          _packageRepo.accountConfirmPackage(model).then((response) {
             ToastService.showSuccess('Đã lấy hàng để đi giao');
             _refreshController.requestRefresh();
           }).catchError((error) {

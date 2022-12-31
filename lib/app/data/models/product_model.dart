@@ -1,5 +1,5 @@
 class Product {
-  double? price;
+  int? price;
   String? name;
   String? description;
   String? packageId;

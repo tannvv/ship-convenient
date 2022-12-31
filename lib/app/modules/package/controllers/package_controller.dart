@@ -4,13 +4,13 @@ import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/data/constants/package_status.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
+import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
-import 'package:convenient_way/app/data/repository/request_model/shipper_pickup_model.dart';
+import 'package:convenient_way/app/modules/package/views/tab_views/account_cancel_view.dart';
 import 'package:convenient_way/app/modules/package/views/tab_views/delivered_package_view.dart';
 import 'package:convenient_way/app/modules/package/views/tab_views/delivery_package_view.dart';
 import 'package:convenient_way/app/modules/package/views/tab_views/failed_package_view.dart';
 import 'package:convenient_way/app/modules/package/views/tab_views/received_package_view.dart';
-import 'package:convenient_way/app/modules/package/views/tab_views/shipper_cancel_view.dart';
 import 'package:convenient_way/app/modules/package/views/tab_views/shop_cancel_package_view.dart';
 import 'package:convenient_way/app/modules/package/views/tab_views/success_package_view.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class PackageController extends BaseController
   final List<Widget> _screens = const [
     ReceivedView(),
     DeliveryView(),
-    ShipperCancelView(),
+    AccountCancelView(),
     ShopCancelView(),
     DeliveredView(),
     FailedView(),
@@ -59,7 +59,7 @@ class PackageController extends BaseController
   final deliveredPackages = <Package>[].obs;
   final deliveryPackages = <Package>[].obs;
   final failedPackages = <Package>[].obs;
-  final shipperCancelPackages = <Package>[].obs;
+  final accountCancelPackages = <Package>[].obs;
   final shopCancelPackages = <Package>[].obs;
   final successPackages = <Package>[].obs;
 
@@ -87,22 +87,22 @@ class PackageController extends BaseController
     fetchDeliveryPackages();
     fetchFailedPackages();
     fetchReceivedPackages();
-    fetchShipperCancelPackages();
+    fetchAccountCancelPackages();
     fetchShopCancelPackages();
     fetchSuccessPackages();
   }
 
-  void shipperConfirmPackage(String packageId) {
-    ShipperPickUpModel model = ShipperPickUpModel(
-        shipperId: AuthService.instance.shipper!.id!, packageIds: [packageId]);
-    _packageRepo.shipperConfirmPackage(model).then((response) {
+  void accountConfirmPackage(String packageId) {
+    AccountPickUpModel model = AccountPickUpModel(
+        accountId: AuthService.instance.account!.id!, packageIds: [packageId]);
+    _packageRepo.accountConfirmPackage(model).then((response) {
       ToastService.showSuccess('Đã lấy hàng để đi giao');
     }).catchError((error) {
       ToastService.showError(error.messages[0]);
     });
   }
 
-  void shipperDeliveredPackage(String packageId) {
+  void accountDeliveredPackage(String packageId) {
     _packageRepo.deliverySuccess(packageId).then((response) {
       ToastService.showSuccess(response.message!);
     }).catchError((error) {
@@ -112,7 +112,7 @@ class PackageController extends BaseController
 
   Future<void> fetchReceivedPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.SHIPPER_PICKUP);
     _packageRepo
         .getList(requestModel)
@@ -124,7 +124,7 @@ class PackageController extends BaseController
 
   Future<void> fetchDeliveredPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.DELIVERED);
     _packageRepo
         .getList(requestModel)
@@ -136,7 +136,7 @@ class PackageController extends BaseController
 
   Future<void> fetchDeliveryPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.DELIVERY);
     _packageRepo.getList(requestModel).then((response) {
       deliveryPackages.value = response;
@@ -147,7 +147,7 @@ class PackageController extends BaseController
 
   Future<void> fetchFailedPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.DELIVERY_FAILED);
     _packageRepo
         .getList(requestModel)
@@ -157,13 +157,13 @@ class PackageController extends BaseController
     });
   }
 
-  Future<void> fetchShipperCancelPackages() async {
+  Future<void> fetchAccountCancelPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.SHIPPER_CANCEL);
     _packageRepo
         .getList(requestModel)
-        .then((response) => shipperCancelPackages.value = response)
+        .then((response) => accountCancelPackages.value = response)
         .catchError((error, stackTrace) {
       ToastService.showError(error.message);
     });
@@ -171,7 +171,7 @@ class PackageController extends BaseController
 
   Future<void> fetchShopCancelPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.SHOP_CANCEL);
     _packageRepo
         .getList(requestModel)
@@ -183,7 +183,7 @@ class PackageController extends BaseController
 
   Future<void> fetchSuccessPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.SHOP_CONFIRM_DELIVERED);
     _packageRepo
         .getList(requestModel)

@@ -8,13 +8,20 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logging/logging.dart';
 
 Future<void> main() async {
+  Logger.root.onRecord.listen((LogRecord rec) {
+    debugPrint('SignalR: ${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
+
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: '.env');
 
-  EnvConfig envConfig = EnvConfig(baseUrl: dotenv.get('BASE_URL'));
+  EnvConfig envConfig = EnvConfig(
+      baseUrl: dotenv.get('BASE_URL_API'),
+      baseUrlOrigin: dotenv.get('BASE_URL'));
 
   MapConfig mapConfig = MapConfig(
       mapboxUrlTemplate: dotenv.get('MAPBOX_URL_TEMPLATE'),

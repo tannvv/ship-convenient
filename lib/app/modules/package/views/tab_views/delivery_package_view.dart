@@ -1,10 +1,9 @@
 import 'package:convenient_way/app/core/widgets/custom_footer_smart_refresh.dart';
-import 'package:convenient_way/app/modules/package/controllers/package_controller.dart';
 import 'package:convenient_way/app/modules/package/controllers/tab_controllers/delivery_package_controller.dart';
 import 'package:convenient_way/app/modules/package/views/widgets/delivery_package_item.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -26,7 +25,7 @@ class DeliveryView extends GetView<DeliveryPackageController> {
                         package: controller.deliveryPackages[index]),
                     ElevatedButton(
                         onPressed: () {
-                          controller.shipperDeliveredPackage(
+                          controller.accountDeliveredPackage(
                               controller.deliveryPackages[index].id!);
                         },
                         child: const Text('Đã giao thành công cho khách'))

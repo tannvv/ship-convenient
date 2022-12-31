@@ -1,7 +1,7 @@
 import 'package:uuid/uuid.dart';
 
 class TransactionListModel {
-  String? shipperId;
+  String? accountId;
   String? shopId;
   String? from;
   String? to;
@@ -9,7 +9,7 @@ class TransactionListModel {
   int? pageSize;
 
   TransactionListModel(
-      {this.shipperId = Uuid.NAMESPACE_NIL,
+      {this.accountId = Uuid.NAMESPACE_NIL,
       this.shopId = Uuid.NAMESPACE_NIL,
       this.from,
       this.to,
@@ -18,7 +18,7 @@ class TransactionListModel {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> data = {};
-    data['shipperId'] = shipperId;
+    data['accountId'] = accountId;
     data['shopId'] = shopId;
     data['from'] = from;
     data['to'] = to;

@@ -3,13 +3,12 @@ import 'package:logger/logger.dart';
 import '/app/core/values/app_values.dart';
 
 class EnvConfig {
+  final String baseUrlOrigin;
   final String baseUrl;
 
   late final Logger logger;
 
-  EnvConfig({
-    required this.baseUrl,
-  }) {
+  EnvConfig({required this.baseUrl, required this.baseUrlOrigin}) {
     logger = Logger(
       printer: PrettyPrinter(
           methodCount: AppValues.loggerMethodCount,

@@ -38,7 +38,7 @@ class DeliveryPackageController extends BaseController
 
   Future<void> fetchDeliveryPackages() async {
     PackageListModel requestModel = PackageListModel(
-        shipperId: AuthService.instance.shipper!.id,
+        accountId: AuthService.instance.account!.id,
         status: PackageStatus.DELIVERY);
     _packageRepo.getList(requestModel).then((response) {
       deliveryPackages.value = response;
@@ -47,7 +47,7 @@ class DeliveryPackageController extends BaseController
     });
   }
 
-  void shipperDeliveredPackage(String packageId) {
+  void accountDeliveredPackage(String packageId) {
     _packageRepo.deliverySuccess(packageId).then((response) {
       ToastService.showSuccess(response.message!);
       _refreshController.requestRefresh();

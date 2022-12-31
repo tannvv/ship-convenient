@@ -1,8 +1,8 @@
-import 'package:convenient_way/app/data/models/shipper_model.dart';
+import 'package:convenient_way/app/data/models/account_model.dart';
 
 class AuthorizeResponseModel {
   String? token;
-  Shipper? shipper;
+  Account? account;
 
-  AuthorizeResponseModel({this.shipper, this.token});
+  AuthorizeResponseModel({this.account, this.token});
 }

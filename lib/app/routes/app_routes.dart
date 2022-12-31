@@ -14,6 +14,7 @@ abstract class Routes {
   static const TRANSACTION = _Paths.TRANSACTION;
   static const VERIFY_OTP = _Paths.VERIFY_OTP;
   static const CREATE_ROUTE = _Paths.CREATE_ROUTE;
+  static const CHAT_MESSAGE = _Paths.CHAT_MESSAGE;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const TRANSACTION = '/transaction';
   static const VERIFY_OTP = '/verify-otp';
   static const CREATE_ROUTE = '/create-route';
+  static const CHAT_MESSAGE = '/chat-message';
 }

@@ -1,44 +1,44 @@
-class Route {
-  String? fromAddress;
+class RouteAcc {
+  String? fromName;
   double? fromLongitude;
   double? fromLatitude;
-  String? toAddress;
+  String? toName;
   double? toLongitude;
   double? toLatitude;
   bool? isActive;
-  String? shipperId;
+  String? infoUserId;
 
-  Route(
-      {this.fromAddress,
+  RouteAcc(
+      {this.fromName,
       this.fromLongitude,
       this.fromLatitude,
-      this.toAddress,
+      this.toName,
       this.toLongitude,
       this.toLatitude,
       this.isActive,
-      this.shipperId});
+      this.infoUserId});
 
-  Route.fromJson(Map<String, dynamic> json) {
-    fromAddress = json['fromAddress'];
+  RouteAcc.fromJson(Map<String, dynamic> json) {
+    fromName = json['fromName'];
     fromLongitude = json['fromLongitude'];
     fromLatitude = json['fromLatitude'];
-    toAddress = json['toAddress'];
+    toName = json['toName'];
     toLongitude = json['toLongitude'];
     toLatitude = json['toLatitude'];
     isActive = json['isActive'];
-    shipperId = json['shipperId'];
+    infoUserId = json['infoUserId'];
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['fromAddress'] = fromAddress;
+    data['fromName'] = fromName;
     data['fromLongitude'] = fromLongitude;
     data['fromLatitude'] = fromLatitude;
-    data['toAddress'] = toAddress;
+    data['toName'] = toName;
     data['toLongitude'] = toLongitude;
     data['toLatitude'] = toLatitude;
     data['isActive'] = isActive;
-    data['shipperId'] = shipperId;
+    data['infoUserId'] = infoUserId;
     return data;
   }
 }

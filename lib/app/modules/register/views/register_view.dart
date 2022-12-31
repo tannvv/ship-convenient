@@ -114,7 +114,8 @@ class RegisterView extends GetView<RegisterController> {
                                     _passwordTextField(),
                                     _rePasswordTextField(),
                                     _emailTextField(),
-                                    _displayNameTextField(),
+                                    _firstNameTextField(),
+                                    _lastNameTextField(),
                                     Obx(() => _phoneNumberTextField()),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -143,7 +144,7 @@ class RegisterView extends GetView<RegisterController> {
                                               .save();
                                           if (controller.formKey.currentState!
                                               .validate()) {
-                                            await controller.registerShipper();
+                                            await controller.registerAccount();
                                           }
                                         },
                                         child: Obx(() => HyperButton.childWhite(
@@ -199,9 +200,31 @@ class RegisterView extends GetView<RegisterController> {
     );
   }
 
-  TextFormField _displayNameTextField() {
+  TextFormField _firstNameTextField() {
     return TextFormField(
-      onSaved: (newValue) => controller.setDisplayName = newValue ?? '',
+      onSaved: (newValue) => controller.setFirstName = newValue ?? '',
+      enableSuggestions: false,
+      autocorrect: false,
+      decoration: InputStyles.boldBorder(
+        labelText: 'Tên hiển thị',
+        radius: 14,
+        prefixIcon: const Icon(
+          Icons.account_box_outlined,
+        ),
+      ),
+      maxLength: 50,
+      validator: (value) {
+        if (value.toString().isEmpty) {
+          return 'Vui lòng nhập địa chỉ nhà';
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField _lastNameTextField() {
+    return TextFormField(
+      onSaved: (newValue) => controller.setLastName = newValue ?? '',
       enableSuggestions: false,
       autocorrect: false,
       decoration: InputStyles.boldBorder(
@@ -245,7 +268,7 @@ class RegisterView extends GetView<RegisterController> {
 
   TextFormField _phoneNumberTextField() {
     return TextFormField(
-      onSaved: (newValue) => controller.setPhoneNumber = newValue ?? '',
+      onSaved: (newValue) => controller.setPhone = newValue ?? '',
       enableSuggestions: false,
       autocorrect: false,
       enabled: !controller.isConfirmPhone.value,

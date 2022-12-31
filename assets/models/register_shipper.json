@@ -1,9 +1,0 @@
-{
-    "userName": "string",
-    "password": "string",
-    "email": "string",
-    "displayName": "string",
-    "phoneNumber": "string",
-    "photoUrl": "string",
-    "gender": "string"
-  }

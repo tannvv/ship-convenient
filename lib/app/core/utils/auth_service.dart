@@ -1,7 +1,7 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
-import 'package:convenient_way/app/data/models/shipper_model.dart';
+import 'package:convenient_way/app/data/models/account_model.dart';
+import 'package:convenient_way/app/data/repository/account_req.dart';
 import 'package:convenient_way/app/data/repository/response_model/authorize_response_model.dart';
-import 'package:convenient_way/app/data/repository/shipper_req.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +13,14 @@ class AuthService extends BaseController {
   static AuthService get instance => _instance;
   AuthService._internal();
 
-  final ShipperRep _shipperRepo = Get.find(tag: (ShipperRep).toString());
+  final AccountRep _accountRepo = Get.find(tag: (AccountRep).toString());
 
   String? _token;
-  Shipper? _shipper;
+  Account? _account;
 
-  Shipper? get shipper => _shipper;
-  set setShipper(Shipper value) {
-    _shipper = value;
+  Account? get account => _account;
+  set setAccount(Account value) {
+    _account = value;
   }
 
   String? get token {
@@ -50,17 +50,17 @@ class AuthService extends BaseController {
     bool result = false;
     try {
       String? token;
-      var loginService = _instance._shipperRepo.login(userName, password);
+      var loginService = _instance._accountRepo.login(userName, password);
       await _instance.callDataService(loginService,
           onSuccess: (AuthorizeResponseModel response) {
         token = response.token;
-        instance._shipper = response.shipper;
+        instance._account = response.account;
       });
 
       if (token != null) {
         _instance._token = token;
         result = true;
-        if (_instance._shipper?.status == "NO_ROUTE") {
+        if (_instance._account?.status == "NO_ROUTE") {
           Get.toNamed(Routes.CREATE_ROUTE);
         } else {
           Get.toNamed(Routes.HOME);

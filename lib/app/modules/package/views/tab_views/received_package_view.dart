@@ -1,7 +1,6 @@
 import 'package:convenient_way/app/core/values/box_decorations.dart';
 import 'package:convenient_way/app/core/values/button_styles.dart';
 import 'package:convenient_way/app/core/widgets/custom_footer_smart_refresh.dart';
-import 'package:convenient_way/app/modules/package/controllers/package_controller.dart';
 import 'package:convenient_way/app/modules/package/controllers/tab_controllers/received_package_controller.dart';
 import 'package:convenient_way/app/modules/package/views/widgets/received_package_item.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +39,7 @@ class ReceivedView extends GetView<ReceivedPackageController> {
                         ElevatedButton(
                             style: ButtonStyles.primaryBlueSmall(),
                             onPressed: () {
-                              controller.shipperConfirmPackage(
+                              controller.accountConfirmPackage(
                                   controller.receivedPackages[index].id!);
                             },
                             child: const Text('Xác nhận lo được'))

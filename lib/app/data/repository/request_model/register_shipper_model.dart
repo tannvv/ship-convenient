@@ -1,4 +1,4 @@
-class RegisterShipper {
+class RegisterAccount {
   String? userName;
   String? password;
   String? email;
@@ -7,7 +7,7 @@ class RegisterShipper {
   String? photoUrl;
   String? gender;
 
-  RegisterShipper(
+  RegisterAccount(
       {required this.userName,
       required this.password,
       required this.email,
@@ -16,7 +16,7 @@ class RegisterShipper {
       required this.photoUrl,
       required this.gender});
 
-  RegisterShipper.fromJson(Map<String, dynamic> json) {
+  RegisterAccount.fromJson(Map<String, dynamic> json) {
     userName = json['userName'] ?? '';
     password = json['password'] ?? '';
     email = json['email'] ?? '';

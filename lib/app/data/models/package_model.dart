@@ -20,7 +20,7 @@ class Package {
   String? createdAt;
   String? modifiedAt;
   String? shopId;
-  String? shipperId;
+  String? accountId;
   List<Product>? products;
 
   Package(
@@ -43,7 +43,7 @@ class Package {
       this.createdAt,
       this.modifiedAt,
       this.shopId,
-      this.shipperId,
+      this.accountId,
       this.products});
 
   Package.fromJson(Map<String, dynamic> json) {
@@ -66,7 +66,7 @@ class Package {
     createdAt = json['createdAt'];
     modifiedAt = json['modifiedAt'];
     shopId = json['shopId'];
-    shipperId = json['shipperId'];
+    accountId = json['accountId'];
     if (json['products'] != null) {
       products = <Product>[];
       json['products'].forEach((v) {
@@ -96,7 +96,7 @@ class Package {
     data['createdAt'] = createdAt;
     data['modifiedAt'] = modifiedAt;
     data['shopId'] = shopId;
-    data['shipperId'] = shipperId;
+    data['accountId'] = accountId;
     if (products != null) {
       data['products'] = products?.map((v) => v.toJson()).toList();
     }
