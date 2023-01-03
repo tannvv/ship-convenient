@@ -10,11 +10,11 @@ class InfoUser {
 
   InfoUser(
       {this.id,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.phone,
-      this.routes});
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.phone,
+        this.routes});
 
   InfoUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];

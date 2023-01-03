@@ -94,7 +94,7 @@ class PackageController extends BaseController
 
   void accountConfirmPackage(String packageId) {
     AccountPickUpModel model = AccountPickUpModel(
-        accountId: AuthService.instance.account!.id!, packageIds: [packageId]);
+        deliverId: AuthService.instance.account!.id!, packageIds: [packageId]);
     _packageRepo.accountConfirmPackage(model).then((response) {
       ToastService.showSuccess('Đã lấy hàng để đi giao');
     }).catchError((error) {
@@ -113,7 +113,7 @@ class PackageController extends BaseController
   Future<void> fetchReceivedPackages() async {
     PackageListModel requestModel = PackageListModel(
         accountId: AuthService.instance.account!.id,
-        status: PackageStatus.SHIPPER_PICKUP);
+        status: PackageStatus.DELIVER_PICKUP);
     _packageRepo
         .getList(requestModel)
         .then((response) => receivedPackages.value = response)
@@ -160,7 +160,7 @@ class PackageController extends BaseController
   Future<void> fetchAccountCancelPackages() async {
     PackageListModel requestModel = PackageListModel(
         accountId: AuthService.instance.account!.id,
-        status: PackageStatus.SHIPPER_CANCEL);
+        status: PackageStatus.DELIVER_CANCEL);
     _packageRepo
         .getList(requestModel)
         .then((response) => accountCancelPackages.value = response)
@@ -172,7 +172,7 @@ class PackageController extends BaseController
   Future<void> fetchShopCancelPackages() async {
     PackageListModel requestModel = PackageListModel(
         accountId: AuthService.instance.account!.id,
-        status: PackageStatus.SHOP_CANCEL);
+        status: PackageStatus.SENDER_CANCEL);
     _packageRepo
         .getList(requestModel)
         .then((response) => shopCancelPackages.value = response)
@@ -184,7 +184,7 @@ class PackageController extends BaseController
   Future<void> fetchSuccessPackages() async {
     PackageListModel requestModel = PackageListModel(
         accountId: AuthService.instance.account!.id,
-        status: PackageStatus.SHOP_CONFIRM_DELIVERED);
+        status: PackageStatus.SENDER_CONFIRM_DELIVERED);
     _packageRepo
         .getList(requestModel)
         .then((response) => successPackages.value = response)

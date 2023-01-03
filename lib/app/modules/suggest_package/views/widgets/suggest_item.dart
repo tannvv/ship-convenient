@@ -32,11 +32,11 @@ class SuggestPackageItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Số gói hàng trong combo: $countPackage',
+                'Số gói hàng: $countPackage',
                 style: subtitle2,
               ),
               Text(
-                '${suggestPackage.compoPrice?.toInt()}vnđ',
+                '${suggestPackage.comboPrice?.toInt()} VNĐ',
                 style: subtitle1.copyWith(
                     color: AppColors.softRed, fontWeight: FontWeights.medium),
               )

@@ -23,7 +23,7 @@ class LoginView extends GetView<LoginController> {
           Container(
             width: double.infinity,
             height: 400.h,
-            color: AppColors.primary400,
+            color: AppColors.pinky,
           ),
           Column(
             children: [
@@ -51,8 +51,11 @@ class LoginView extends GetView<LoginController> {
                       //   ),
                       // ),
                       Center(
-                        child: Text('Đăng nhập',
-                            style: h6.copyWith(color: AppColors.white)),
+                        child: Text('ĐĂNG NHẬP',
+                            style: h6.copyWith(
+                                color: AppColors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
@@ -74,7 +77,7 @@ class LoginView extends GetView<LoginController> {
                             Padding(
                               padding: EdgeInsets.only(left: 16.sp),
                               child: Text(
-                                'Chào bạn quay lại',
+                                'Chào mừng đến với Tiện Đường!',
                                 style: body1.copyWith(
                                   color: AppColors.gray,
                                 ),
@@ -140,7 +143,10 @@ class LoginView extends GetView<LoginController> {
                               SizedBox(
                                 width: 220.w,
                                 child: ElevatedButton(
-                                  style: ButtonStyles.primary(),
+                                  style: ButtonStyles.primary().copyWith(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.blue)),
                                   onPressed: () {
                                     controller.formKey.currentState!.save();
                                     controller.login();
@@ -172,14 +178,20 @@ class LoginView extends GetView<LoginController> {
                                 height: 15.h,
                               ),
                               ElevatedButton(
-                                  style: ButtonStyles.paymentChip().copyWith(
+                                  style: ButtonStyles.primaryMedium().copyWith(
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
-                                              AppColors.secondary600)),
+                                              Colors.red)),
                                   onPressed: () {
                                     controller.gotoSignUp();
                                   },
-                                  child: const Text('Đăng kí'))
+                                  child: const Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 16,
+                                          right: 16,
+                                          top: 4,
+                                          bottom: 4),
+                                      child: Text('Đăng kí')))
                             ],
                           ),
                         ),
