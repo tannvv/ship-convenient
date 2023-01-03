@@ -55,6 +55,7 @@ abstract class AppColors {
   static const Color green = Color(0xFF35C947);
   static const Color purple = Color(0xFFA033FD);
   static const Color orange = Color(0xFFFA6D55);
+  static const Color pinky = Color(0xFFFFC6D3);
 
   static const Color booking = Color(0xFFF45B7D);
   static const Color renting = Color(0xFF6AA3EE);

@@ -19,11 +19,6 @@ class LoginController extends GetxController {
     password = value;
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   Future<void> showDataDialog() async {
     await HyperDialog.show(
       barrierDismissible: false,
@@ -52,5 +47,9 @@ class LoginController extends GetxController {
       ToastService.showError('Sai tên tài khoản hoặc mật khẩu');
     }
     isLoading.value = false;
+  }
+
+  Future<void> gotoCreateRoute() async {
+    await Get.offAndToNamed(Routes.CREATE_ROUTE);
   }
 }

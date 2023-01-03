@@ -44,7 +44,7 @@ class PackageReqImp extends BaseRepository implements PackageReq {
 
   @override
   Future<SimpleResponseModel> pickUpPackage(AccountPickUpModel model) async {
-    String endpoint = '${DioProvider.baseUrl}/packages/account-pickup';
+    String endpoint = '${DioProvider.baseUrl}/packages/deliver-pickup';
     var dioCall = dioClient.put(endpoint, data: model.toJson());
     try {
       return callApi(dioCall)
@@ -82,7 +82,7 @@ class PackageReqImp extends BaseRepository implements PackageReq {
   @override
   Future<SimpleResponseModel> accountConfirmPackage(AccountPickUpModel model) {
     String endpoint =
-        '${DioProvider.baseUrl}/packages/account-confirm-packages';
+        '${DioProvider.baseUrl}/packages/deliver-confirm-packages';
     var dioCall = dioClient.put(endpoint, data: model.toJson());
     try {
       return callApi(dioCall)

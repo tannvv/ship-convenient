@@ -1,3 +1,4 @@
+import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/models/product_model.dart';
 
 class Package {
@@ -14,13 +15,15 @@ class Package {
   double? volume;
   double? weight;
   String? status;
-  double? priceShip;
+  int? priceShip;
   String? photoUrl;
   String? note;
   String? createdAt;
   String? modifiedAt;
-  String? shopId;
-  String? accountId;
+  String? senderId;
+  Account? sender;
+  String? deliverId;
+  Account? deliver;
   List<Product>? products;
 
   Package(
@@ -42,9 +45,10 @@ class Package {
       this.note,
       this.createdAt,
       this.modifiedAt,
-      this.shopId,
-      this.accountId,
-      this.products});
+      this.senderId,
+      this.sender,
+      this.deliverId,
+      this.deliver});
 
   Package.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -65,8 +69,11 @@ class Package {
     note = json['note'];
     createdAt = json['createdAt'];
     modifiedAt = json['modifiedAt'];
-    shopId = json['shopId'];
-    accountId = json['accountId'];
+    senderId = json['senderId'];
+    sender = json['sender'] == null ? null : Account.fromJson(json['sender']);
+    deliverId = json['deliverId'];
+    deliver =
+        json['deliver'] == null ? null : Account.fromJson(json['deliver']);
     if (json['products'] != null) {
       products = <Product>[];
       json['products'].forEach((v) {
@@ -95,8 +102,10 @@ class Package {
     data['note'] = note;
     data['createdAt'] = createdAt;
     data['modifiedAt'] = modifiedAt;
-    data['shopId'] = shopId;
-    data['accountId'] = accountId;
+    data['senderId'] = senderId;
+    data['sender'] = sender;
+    data['deliverId'] = deliverId;
+    data['deliver'] = deliver;
     if (products != null) {
       data['products'] = products?.map((v) => v.toJson()).toList();
     }

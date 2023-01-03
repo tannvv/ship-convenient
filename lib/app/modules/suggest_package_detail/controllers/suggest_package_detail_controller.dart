@@ -111,7 +111,7 @@ class SuggestPackageDetailController extends GetxController {
         primaryOnPressed: () {
           String accountId = AuthService.instance.account!.id!;
           AccountPickUpModel model = AccountPickUpModel(
-              accountId: accountId, packageIds: selectedPackages);
+              deliverId: accountId, packageIds: selectedPackages);
           _packageRepo.pickUpPackage(model).then((response) {
             ToastService.showSuccess(response.message!);
             Get.back(); // close dialog

@@ -1,5 +1,4 @@
 import 'package:convenient_way/app/core/utils/toast_service.dart';
-import 'package:convenient_way/app/data/constants/role_name.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/create_account_model.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
@@ -13,24 +12,27 @@ class RegisterController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingVerify = false.obs;
 
-  final AccountRep _accountRepo = Get.find(tag: (AccountRep).toString());
+  final AccountRep _deliverRepo = Get.find(tag: (AccountRep).toString());
 
   String _userName = '';
   String _password = '';
   String _firstName = '';
   String _lastName = '';
   String _phone = '';
-  final String _photoUrl =
-      'https://cdn-icons-png.flaticon.com/512/147/147144.png';
+  String _photoUrl = 'https://cdn-icons-png.flaticon.com/512/147/147144.png';
   final String _status = 'ACTIVE';
   String _address = '';
   String _gender = 'OTHER';
   String _email = '';
+  String _role = '';
   Rx<bool> isConfirmPhone = false.obs;
   Rx<LatLng?> homeLocation = Rx<LatLng?>(null);
   Rx<LatLng?> destinationLocation = Rx<LatLng?>(null);
 
   String? get password => _password;
+
+  String? get role => _role;
+
   set setUserName(String value) {
     _userName = value;
   }
@@ -49,6 +51,10 @@ class RegisterController extends GetxController {
 
   set setPhone(String value) {
     _phone = value;
+  }
+
+  set setPhotoUrl(String value) {
+    _photoUrl = value;
   }
 
   set setAddress(String value) {
@@ -73,14 +79,14 @@ class RegisterController extends GetxController {
     destinationLocation.value = LatLng(data.latitude, data.longitude);
   }
 
-  Future<void> registerAccount() async {
+  Future<void> registerDeliver() async {
     if (!isConfirmPhone.value) {
       ToastService.showError('Bạn chưa xác thực sđt');
       return;
     }
 
     isLoading.value = true;
-    CreateAccountModel createAccountModel = CreateAccountModel(
+    CreateAccountModel registerModel = CreateAccountModel(
         userName: _userName,
         password: _password,
         email: _email,
@@ -88,9 +94,9 @@ class RegisterController extends GetxController {
         lastName: _lastName,
         phone: _phone,
         photoUrl: _photoUrl,
-        role: RoleName.user,
-        gender: _gender);
-    _accountRepo.create(createAccountModel).then((response) {
+        gender: _gender,
+        role: _role);
+    _deliverRepo.create(registerModel).then((response) {
       ToastService.showSuccess('Đăng kí thành công');
       Get.offAllNamed(Routes.LOGIN);
     }).catchError((error) {

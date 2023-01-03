@@ -21,7 +21,7 @@ class RegisterView extends GetView<RegisterController> {
           Container(
             width: double.infinity,
             height: 200.h,
-            color: AppColors.primary400,
+            color: AppColors.pinky,
           ),
           CustomScrollView(
             slivers: [
@@ -32,47 +32,54 @@ class RegisterView extends GetView<RegisterController> {
                     Expanded(
                       flex: 15,
                       child: SafeArea(
-                        child: Stack(
-                          children: [
-                            // Center(
-                            //   child: Row(
-                            //     crossAxisAlignment: CrossAxisAlignment.center,
-                            //     children: [
-                            //       TextButton(
-                            //         style: ButtonStyles.textCircle(),
-                            //         onPressed: () {
-                            //           controller.back();
-                            //         },
-                            //         child: const Icon(
-                            //           Icons.arrow_back_ios_new,
-                            //           size: 18,
-                            //           color: AppColors.white,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            Center(
-                              child: Text('Đăng kí',
-                                  style: h6.copyWith(color: AppColors.white)),
-                            ),
-                            Positioned(
-                                right: 0,
-                                top: 10.h,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.white)),
+                        child: Stack(children: [
+                          Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 80),
+                                  child: TextButton(
+                                    style: ButtonStyles.textCircle(),
                                     onPressed: () {
                                       controller.gotoSignIn();
                                     },
-                                    child: const Text(
-                                      'Sign in',
-                                      style: TextStyle(color: Colors.black),
-                                    )))
-                          ],
-                        ),
+                                    child: const Icon(
+                                      Icons.arrow_back_ios_new,
+                                      size: 18,
+                                      color: AppColors.white,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Đăng kí',
+                                  style: h6.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 50),
+                                  child: Positioned(
+                                    child: ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.red)),
+                                        onPressed: () {
+                                          controller.gotoSignIn();
+                                        },
+                                        child: const Text(
+                                          'Sign in',
+                                          style: TextStyle(color: Colors.white),
+                                        )),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ]),
                       ),
                     ),
                     Expanded(
@@ -84,23 +91,27 @@ class RegisterView extends GetView<RegisterController> {
                             EdgeInsets.only(left: 30.w, top: 20.h, right: 30.w),
                         child: Column(
                           children: [
-                            SizedBox(
-                              width: double.infinity,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 16.sp),
-                                    child: Text(
-                                      'Nhập thông tin',
-                                      style: body1.copyWith(
-                                        color: AppColors.gray,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // SizedBox(
+                            //   width: double.infinity,
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.center,
+                            //     children: [
+                            //       Row(
+                            //         children: [
+                            //           Padding(
+                            //             padding: EdgeInsets.only(left: 16.sp, right: 80.r),
+                            //             child: Text(
+                            //               'Nhập thông tin',
+                            //               style: body1.copyWith(
+                            //                 color: AppColors.gray,
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                             SizedBox(
                               height: 20.h,
                             ),
@@ -144,7 +155,7 @@ class RegisterView extends GetView<RegisterController> {
                                               .save();
                                           if (controller.formKey.currentState!
                                               .validate()) {
-                                            await controller.registerAccount();
+                                            await controller.registerDeliver();
                                           }
                                         },
                                         child: Obx(() => HyperButton.childWhite(
@@ -206,19 +217,19 @@ class RegisterView extends GetView<RegisterController> {
       enableSuggestions: false,
       autocorrect: false,
       decoration: InputStyles.boldBorder(
-        labelText: 'Tên hiển thị',
+        labelText: 'Họ',
         radius: 14,
         prefixIcon: const Icon(
           Icons.account_box_outlined,
         ),
       ),
       maxLength: 50,
-      validator: (value) {
-        if (value.toString().isEmpty) {
-          return 'Vui lòng nhập địa chỉ nhà';
-        }
-        return null;
-      },
+      // validator: (value) {
+      //   if (value.toString().isEmpty) {
+      //     return 'Vui lòng nhập địa chỉ nhà';
+      //   }
+      //   return null;
+      // },
     );
   }
 
@@ -228,19 +239,19 @@ class RegisterView extends GetView<RegisterController> {
       enableSuggestions: false,
       autocorrect: false,
       decoration: InputStyles.boldBorder(
-        labelText: 'Tên hiển thị',
+        labelText: 'Tên',
         radius: 14,
         prefixIcon: const Icon(
           Icons.account_box_outlined,
         ),
       ),
       maxLength: 50,
-      validator: (value) {
-        if (value.toString().isEmpty) {
-          return 'Vui lòng nhập địa chỉ nhà';
-        }
-        return null;
-      },
+      // validator: (value) {
+      //   if (value.toString().isEmpty) {
+      //     return 'Vui lòng nhập địa chỉ nhà';
+      //   }
+      //   return null;
+      // },
     );
   }
 
@@ -257,12 +268,12 @@ class RegisterView extends GetView<RegisterController> {
         ),
       ),
       maxLength: 50,
-      validator: (value) {
-        if (value.toString().isEmpty) {
-          return 'Vui lòng nhập địa chỉ nhà';
-        }
-        return null;
-      },
+      // validator: (value) {
+      //   if (value.toString().isEmpty) {
+      //     return 'Vui lòng nhập địa chỉ nhà';
+      //   }
+      //   return null;
+      // },
     );
   }
 
@@ -296,11 +307,15 @@ class RegisterView extends GetView<RegisterController> {
                 controller.formKey.currentState!.save();
                 controller.verifyPhone();
               },
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(AppColors.softGreen),
+        ),
         child: Obx(() => HyperButton.childWhite(
               status: controller.isLoadingVerify.value,
               loadingText: 'Đang gửi OTP',
               child: Text(
-                'Xác thực sđt',
+                'Xác thực số điện thoại',
                 style: buttonBold.copyWith(color: AppColors.white),
               ),
             )));
