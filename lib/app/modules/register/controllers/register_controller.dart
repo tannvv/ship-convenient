@@ -26,7 +26,7 @@ class RegisterController extends BaseController {
       'https://cdn-icons-png.flaticon.com/512/147/147144.png';
   final String _status = 'ACTIVE';
   String _address = '';
-  var _gender = 'OTHER'.obs;
+  final _gender = 'OTHER'.obs;
   String _email = '';
   Rx<bool> isConfirmPhone = false.obs;
   Rx<LatLng?> homeLocation = Rx<LatLng?>(null);
