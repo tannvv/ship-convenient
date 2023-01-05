@@ -71,15 +71,20 @@ class SuggestPackageDetailController extends GetxController {
       debugPrint(
           'Coordinates ship des: ${accountDes.latitude}, ${accountDes.longitude}');
     }
-    RouteAcc routeSender = suggest.value!.sender!.infoUser!.routes!
-        .where((element) => element.isActive == true)
-        .first;
-    coordSender = LatLng(routeSender.fromLatitude!, routeSender.fromLongitude!);
+    // RouteAcc routeSender = suggest.value!.sender!.infoUser!.routes!
+    //     .where((element) => element.isActive == true)
+    //     .first;
+    // coordSender = LatLng(routeSender.fromLatitude!, routeSender.fromLongitude!);
+    // coordBound.extend(coordSender);
+    // debugPrint(
+    //     'Coordinates sender: ${coordSender.latitude}, ${coordSender.longitude}');
+
+    List<Package> packages = suggest.value!.packages!;
+    coordSender =
+        LatLng(packages[0].startLatitude!, packages[0].startLongitude!);
     coordBound.extend(coordSender);
     debugPrint(
         'Coordinates sender: ${coordSender.latitude}, ${coordSender.longitude}');
-
-    List<Package> packages = suggest.value!.packages!;
     for (var element in packages) {
       LatLng pkCoord =
           LatLng(element.destinationLatitude!, element.destinationLongitude!);
