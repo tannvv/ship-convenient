@@ -1,4 +1,4 @@
-import 'package:convenient_way/app/core/utils/alert_cool_service.dart';
+import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
 import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
@@ -115,7 +115,7 @@ class SuggestPackageDetailController extends GetxController {
               deliverId: accountId, packageIds: selectedPackages);
           _packageRepo.pickUpPackage(model).then((response) async {
             Get.back(); // close dialog
-            await CoolAlertService.showSuccess('Chọn gói hàng thành công');
+            await QuickAlertService.showSuccess('Chọn gói hàng thành công');
             Get.back(result: true); // return suggest packages page
           }).catchError(((error) {
             ToastService.showError(error.message);
