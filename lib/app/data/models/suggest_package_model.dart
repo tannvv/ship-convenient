@@ -5,7 +5,7 @@ class SuggestPackage {
   Account? sender;
   double? time;
   double? distance;
-  double? compoPrice;
+  int? compoPrice;
   List<Package>? packages;
 
   SuggestPackage(

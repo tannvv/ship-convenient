@@ -1,3 +1,4 @@
+import 'package:convenient_way/app/core/controllers/map_location_controller.dart';
 import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
@@ -10,6 +11,7 @@ class LoginController extends GetxController {
   String userName = '';
   String password = '';
   RxBool isLoading = false.obs;
+  late MapLocationController mapLocationController;
 
   set setUserName(String value) {
     userName = value;
@@ -22,6 +24,7 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    mapLocationController = Get.find<MapLocationController>();
   }
 
   Future<void> showDataDialog() async {

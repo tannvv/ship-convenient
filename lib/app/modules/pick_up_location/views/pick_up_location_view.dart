@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/pick_up_location_controller.dart';
@@ -23,7 +22,7 @@ class PickUpLocationView extends GetView<PickUpLocationController> {
                 interactiveFlags:
                     InteractiveFlag.pinchZoom | InteractiveFlag.drag,
                 center: controller.centerLocation.value,
-                zoom: 14,
+                zoom: 12,
                 minZoom: 8,
                 maxZoom: 18.4,
                 slideOnBoundaries: true,

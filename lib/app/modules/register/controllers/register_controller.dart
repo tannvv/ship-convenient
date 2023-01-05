@@ -1,3 +1,5 @@
+import 'package:convenient_way/app/core/base/base_controller.dart';
+import 'package:convenient_way/app/core/utils/alert_cool_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/data/constants/role_name.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
@@ -8,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-class RegisterController extends GetxController {
+class RegisterController extends BaseController {
   final formKey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
   RxBool isLoadingVerify = false.obs;
@@ -24,13 +26,14 @@ class RegisterController extends GetxController {
       'https://cdn-icons-png.flaticon.com/512/147/147144.png';
   final String _status = 'ACTIVE';
   String _address = '';
-  String _gender = 'OTHER';
+  var _gender = 'OTHER'.obs;
   String _email = '';
   Rx<bool> isConfirmPhone = false.obs;
   Rx<LatLng?> homeLocation = Rx<LatLng?>(null);
   Rx<LatLng?> destinationLocation = Rx<LatLng?>(null);
 
   String? get password => _password;
+  String? get gender => _gender.value;
   set setUserName(String value) {
     _userName = value;
   }
@@ -56,7 +59,7 @@ class RegisterController extends GetxController {
   }
 
   set setGender(String value) {
-    _gender = value;
+    _gender.value = value;
   }
 
   set setEmail(String value) {
@@ -79,7 +82,6 @@ class RegisterController extends GetxController {
       return;
     }
 
-    isLoading.value = true;
     CreateAccountModel createAccountModel = CreateAccountModel(
         userName: _userName,
         password: _password,
@@ -89,9 +91,11 @@ class RegisterController extends GetxController {
         phone: _phone,
         photoUrl: _photoUrl,
         role: RoleName.user,
-        gender: _gender);
-    _accountRepo.create(createAccountModel).then((response) {
-      ToastService.showSuccess('Đăng kí thành công');
+        gender: _gender.value);
+    isLoading.value = true;
+    _accountRepo.create(createAccountModel).then((response) async {
+      isLoading.value = false;
+      await CoolAlertService.showSuccess('Đăng kí thành công');
       Get.offAllNamed(Routes.LOGIN);
     }).catchError((error) {
       ToastService.showError(error.message ?? 'Đăng kí không thành công');
@@ -115,23 +119,24 @@ class RegisterController extends GetxController {
       phoneNumber: _phone,
       timeout: const Duration(seconds: 20),
       verificationCompleted: (PhoneAuthCredential credential) {
-        ToastService.showSuccess("Auth Completed!");
+        debugPrint('Auth Completed! \nCredential: $credential');
         isLoadingVerify.value = false;
       },
       verificationFailed: (FirebaseAuthException e) {
-        ToastService.showError("Request OTP failed!");
+        CoolAlertService.showError('Request OTP failed!');
         isLoadingVerify.value = false;
       },
       codeSent: (String verificationId, int? resendToken) async {
-        ToastService.showSuccess("OTP sent!");
+        debugPrint(
+            'Đã gửi mã OTP \nResendToken: $resendToken, VerificationId: $verificationId');
         var result = await Get.toNamed(Routes.VERIFY_OTP,
             arguments: [verificationId, resendToken, _phone]);
         isLoadingVerify.value = false;
         if (result == true) isConfirmPhone.value = true;
-        ToastService.showSuccess('result:  $result');
+        await CoolAlertService.showSuccess('Xác thực thành công!');
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-        ToastService.showError("Timeout!");
+        // CoolAlertService.showError('Timeout to sent OTP!!');
         isLoadingVerify.value = false;
       },
     );

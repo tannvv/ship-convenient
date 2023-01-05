@@ -6,10 +6,11 @@ import 'package:convenient_way/app/core/values/input_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/core/widgets/hyper_button.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../controllers/create_route_controller.dart';
 
@@ -97,7 +98,7 @@ class CreateRouteView extends GetView<CreateRouteController> {
                                 key: controller.formKey,
                                 child: Column(
                                   children: [
-                                    _addressTextField(),
+                                    _homeTextField(),
                                     Row(
                                       children: [
                                         Padding(
@@ -110,7 +111,7 @@ class CreateRouteView extends GetView<CreateRouteController> {
                                               icon:
                                                   const Icon(Icons.location_on),
                                               label: const Text(
-                                                  'Chọn vị trí nhà')),
+                                                  'Chọn vị trí trên bản đồ')),
                                         ),
                                         Obx(
                                           () => controller.fromCoord != null
@@ -125,8 +126,8 @@ class CreateRouteView extends GetView<CreateRouteController> {
                                         )
                                       ],
                                     ),
-                                    Gap(12.h),
-                                    _addressDestinationTextField(),
+                                    Gap(24.h),
+                                    _destinationTextField(),
                                     Row(
                                       children: [
                                         Padding(
@@ -139,7 +140,7 @@ class CreateRouteView extends GetView<CreateRouteController> {
                                               icon:
                                                   const Icon(Icons.location_on),
                                               label: const Text(
-                                                  'Chọn vị trí thường lui tới')),
+                                                  'Chọn vị trí trên bản đồ')),
                                         ),
                                         Obx(
                                           () => controller.toCoord != null
@@ -206,45 +207,97 @@ class CreateRouteView extends GetView<CreateRouteController> {
     );
   }
 
-  TextFormField _addressDestinationTextField() {
-    return TextFormField(
-      onSaved: (newValue) => controller.setToAddress = newValue ?? '',
-      enableSuggestions: false,
-      autocorrect: false,
-      decoration: InputStyles.boldBorder(
-        labelText: 'Địa chỉ thường lui tới',
-        radius: 14,
-        prefixIcon: const Icon(Icons.location_pin),
-      ),
-      maxLength: 50,
-      validator: (value) {
-        if (value.toString().isEmpty) {
-          return 'Vui lòng nhập vị trí';
+  TypeAheadField _homeTextField() {
+    return TypeAheadField(
+      debounceDuration: const Duration(seconds: 2),
+      minCharsForSuggestions: 4,
+      textFieldConfiguration: TextFieldConfiguration(
+          controller: controller.homeController,
+          autofocus: true,
+          style: subtitle1,
+          decoration: InputStyles.boldBorder(
+              labelText: 'Địa chỉ nhà',
+              radius: 14,
+              prefixIcon: const Icon(
+                Icons.home_outlined,
+              ))),
+      suggestionsCallback: (pattern) async {
+        if (pattern.isEmpty) {
+          return [];
         }
-        return null;
+        controller.setFromName = pattern;
+        return await controller.queryLocation(pattern);
       },
+      itemBuilder: (context, suggestion) {
+        return ListTile(
+          leading: const Icon(Icons.location_pin),
+          minLeadingWidth: 20,
+          title: Text(
+            suggestion.name ?? 'Unknown',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        );
+      },
+      onSuggestionSelected: (suggestion) {
+        controller.setFromName = suggestion.name ?? '';
+        LatLng coord =
+            LatLng(suggestion.latitude ?? 0, suggestion.longitude ?? 0);
+        controller.setFromCoord = coord;
+        controller.homeController.text = suggestion.name ?? '';
+      },
+      noItemsFoundBuilder: (context) => Padding(
+          padding: EdgeInsets.all(10.w),
+          child: const Text('Không tìm thấy địa chỉ')),
+      errorBuilder: ((context, error) => Padding(
+          padding: EdgeInsets.all(10.w), child: Text(error.toString()))),
     );
   }
 
-  TextFormField _addressTextField() {
-    return TextFormField(
-      onSaved: (newValue) => controller.setFromAddress = newValue ?? '',
-      enableSuggestions: false,
-      autocorrect: false,
-      decoration: InputStyles.boldBorder(
-        labelText: 'Địa chỉ nhà',
-        radius: 14,
-        prefixIcon: const Icon(
-          Icons.home_outlined,
-        ),
-      ),
-      maxLength: 50,
-      validator: (value) {
-        if (value.toString().isEmpty) {
-          return 'Vui lòng nhập địa chỉ nhà';
+  TypeAheadField _destinationTextField() {
+    return TypeAheadField(
+      debounceDuration: const Duration(seconds: 2),
+      minCharsForSuggestions: 4,
+      textFieldConfiguration: TextFieldConfiguration(
+          controller: controller.workController,
+          autofocus: true,
+          style: subtitle1,
+          decoration: InputStyles.boldBorder(
+              labelText: 'Địa chỉ thường lui tới',
+              radius: 14,
+              prefixIcon: const Icon(
+                Icons.home_outlined,
+              ))),
+      suggestionsCallback: (pattern) async {
+        if (pattern.isEmpty) {
+          return [];
         }
-        return null;
+        controller.setToName = pattern;
+        return await controller.queryLocation(pattern);
       },
+      itemBuilder: (context, suggestion) {
+        return ListTile(
+          leading: const Icon(Icons.location_pin),
+          minLeadingWidth: 20,
+          title: Text(
+            suggestion.name ?? 'Unknown',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        );
+      },
+      onSuggestionSelected: (suggestion) {
+        controller.setToName = suggestion.name ?? '';
+        LatLng coord =
+            LatLng(suggestion.latitude ?? 0, suggestion.longitude ?? 0);
+        controller.setToCoord = coord;
+        controller.workController.text = suggestion.name ?? '';
+      },
+      noItemsFoundBuilder: (context) => Padding(
+          padding: EdgeInsets.all(10.w),
+          child: const Text('Không tìm thấy địa chỉ')),
+      errorBuilder: ((context, error) => Padding(
+          padding: EdgeInsets.all(10.w), child: Text(error.toString()))),
     );
   }
 }

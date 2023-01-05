@@ -27,7 +27,7 @@ class SuggestPackageController extends BaseController {
       await callDataService(packageService,
           onSuccess: (List<SuggestPackage> response) {
         packages(response);
-      }, onError: (dioError) {});
+      });
     }
   }
 

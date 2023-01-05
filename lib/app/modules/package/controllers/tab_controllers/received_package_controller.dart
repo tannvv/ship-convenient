@@ -42,8 +42,8 @@ class ReceivedPackageController extends BaseController
 
   Future<void> fetchReceivedPackages() async {
     PackageListModel requestModel = PackageListModel(
-        accountId: AuthService.instance.account!.id,
-        status: PackageStatus.SHIPPER_PICKUP,
+        deliverId: AuthService.instance.account!.id,
+        status: PackageStatus.DELIVER_PICKUP,
         pageSize: _pageSize,
         pageIndex: _pageIndex);
     _packageRepo.getList(requestModel).then((response) {
@@ -80,7 +80,7 @@ class ReceivedPackageController extends BaseController
         secondaryButtonText: 'Hủy',
         primaryOnPressed: () {
           AccountPickUpModel model = AccountPickUpModel(
-              accountId: AuthService.instance.account!.id!,
+              deliverId: AuthService.instance.account!.id!,
               packageIds: [packageId]);
           _packageRepo.accountConfirmPackage(model).then((response) {
             ToastService.showSuccess('Đã lấy hàng để đi giao');

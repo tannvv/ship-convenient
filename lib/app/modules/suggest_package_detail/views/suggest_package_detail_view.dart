@@ -67,7 +67,7 @@ class SuggestPackageDetailView extends GetView<SuggestPackageDetailController> {
                               Marker(
                                   height: markerSize,
                                   width: markerSize,
-                                  point: controller.coordShop,
+                                  point: controller.coordSender,
                                   builder: (_) =>
                                       SvgPicture.asset(AppAssets.storeIcon)),
                               Marker(

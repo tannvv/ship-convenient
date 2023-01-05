@@ -4,6 +4,7 @@ import 'package:convenient_way/app/core/values/button_styles.dart';
 import 'package:convenient_way/app/core/values/input_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/core/widgets/hyper_button.dart';
+import 'package:convenient_way/app/data/options/gender_option.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -116,6 +117,8 @@ class RegisterView extends GetView<RegisterController> {
                                     _emailTextField(),
                                     _firstNameTextField(),
                                     _lastNameTextField(),
+                                    Obx(() => _genderDropdown()),
+                                    Gap(20.h),
                                     Obx(() => _phoneNumberTextField()),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -179,34 +182,13 @@ class RegisterView extends GetView<RegisterController> {
     );
   }
 
-  TextFormField _addressDestinationTextField() {
-    return TextFormField(
-      onSaved: (newValue) => controller.setAddress = newValue ?? '',
-      obscureText: true,
-      enableSuggestions: false,
-      autocorrect: false,
-      decoration: InputStyles.boldBorder(
-        labelText: 'Địa chỉ thường lui tới',
-        radius: 14,
-        prefixIcon: const Icon(Icons.location_pin),
-      ),
-      maxLength: 50,
-      validator: (value) {
-        if (value.toString().isEmpty) {
-          return 'Vui lòng nhập vị trí';
-        }
-        return null;
-      },
-    );
-  }
-
   TextFormField _firstNameTextField() {
     return TextFormField(
       onSaved: (newValue) => controller.setFirstName = newValue ?? '',
       enableSuggestions: false,
       autocorrect: false,
       decoration: InputStyles.boldBorder(
-        labelText: 'Tên hiển thị',
+        labelText: 'Tên',
         radius: 14,
         prefixIcon: const Icon(
           Icons.account_box_outlined,
@@ -228,7 +210,7 @@ class RegisterView extends GetView<RegisterController> {
       enableSuggestions: false,
       autocorrect: false,
       decoration: InputStyles.boldBorder(
-        labelText: 'Tên hiển thị',
+        labelText: 'Họ',
         radius: 14,
         prefixIcon: const Icon(
           Icons.account_box_outlined,
@@ -368,6 +350,33 @@ class RegisterView extends GetView<RegisterController> {
         }
         return null;
       },
+    );
+  }
+
+  Widget _genderDropdown() {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.04),
+          borderRadius: const BorderRadius.all(Radius.circular(24))),
+      child: DropdownButtonHideUnderline(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          child: DropdownButton(
+            style: subtitle1,
+            icon: const Icon(Icons.arrow_downward_outlined),
+            iconSize: 24,
+            itemHeight: Get.height * 0.07,
+            value: controller.gender,
+            isExpanded: true,
+            underline: const SizedBox(),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            items: GenderOption.getOptionDropdown().toList(),
+            onChanged: (selectedValue) async {
+              controller.setGender = selectedValue as String;
+            },
+          ),
+        ),
+      ),
     );
   }
 }

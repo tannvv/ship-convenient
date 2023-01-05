@@ -1,12 +1,21 @@
+import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-class MapLocationController {
+class MapLocationController extends GetxController {
   LatLng? location;
   LocationPermission? permission;
+  bool isUsedCurrentLocation = true;
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadLocation();
+  }
 
   Future<bool> loadLocation() async {
     try {
@@ -43,7 +52,7 @@ class MapLocationController {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      await _deniedForeverDialog();
+      // await _deniedForeverDialog();
     }
 
     return false;
@@ -53,6 +62,7 @@ class MapLocationController {
     try {
       Position position = await Geolocator.getCurrentPosition();
       LatLng result = LatLng(position.latitude, position.longitude);
+      debugPrint('Location: ${result.latitude}, ${result.longitude}');
       return result;
     } catch (e) {
       return Future.error(e);
@@ -75,10 +85,15 @@ class MapLocationController {
           return result;
         } catch (e) {
           // return Future.error(e);
+          setDefaultLocation();
         }
       },
       secondaryOnPressed: () {
-        Get.offAllNamed(Routes.HOME);
+        if (AuthService.instance.account != null) {
+          Get.offAllNamed(Routes.HOME);
+        } else {
+          Get.offAllNamed(Routes.LOGIN);
+        }
       },
     );
   }
@@ -102,8 +117,19 @@ class MapLocationController {
         }
       },
       secondaryOnPressed: () {
-        Get.offAllNamed(Routes.HOME);
+        if (AuthService.instance.account != null) {
+          Get.offAllNamed(Routes.HOME);
+        } else {
+          Get.offAllNamed(Routes.LOGIN);
+        }
       },
     );
+  }
+
+  void setDefaultLocation() {
+    location = LatLng(10.808419535302706, 106.66612575654806);
+    isUsedCurrentLocation = false;
+    debugPrint(
+        'Location default: ${location?.latitude}, ${location?.longitude}');
   }
 }

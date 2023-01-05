@@ -1,8 +1,6 @@
-import 'package:convenient_way/app/core/values/box_decorations.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReceivedPackageItem extends StatelessWidget {
   const ReceivedPackageItem({Key? key, required this.package})

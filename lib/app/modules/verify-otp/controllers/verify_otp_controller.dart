@@ -25,7 +25,6 @@ class VerifyOtpController extends GetxController {
   }
 
   Future<void> verifyOTP(String value) async {
-    print('Vetifycation code : ${infoVerify[0]}');
     await FirebaseAuth.instance
         .signInWithCredential(
       PhoneAuthProvider.credential(

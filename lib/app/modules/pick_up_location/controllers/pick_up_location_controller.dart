@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:convenient_way/app/core/controllers/map_location_controller.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
 class PickUpLocationController extends GetxController
     with GetTickerProviderStateMixin {
-  final MapLocationController _mapLocationController = MapLocationController();
+  final LatLng? requiredLocation = Get.arguments as LatLng?;
+  final MapLocationController _mapLocationController =
+      Get.find<MapLocationController>();
   MapController _mapController = MapController();
   late Rx<LatLng> centerLocation = Rx<LatLng>(LatLng(10, 100));
 
@@ -17,7 +18,17 @@ class PickUpLocationController extends GetxController
 
   get mapController => _mapController;
 
-
+  @override
+  void onInit() {
+    super.onInit();
+    if (requiredLocation != null) {
+      centerLocation.value = requiredLocation!;
+    } else {
+      if (_mapLocationController.location != null) {
+        centerLocation.value = _mapLocationController.location!;
+      }
+    }
+  }
 
   @override
   void onClose() {
@@ -32,12 +43,15 @@ class PickUpLocationController extends GetxController
     bool checkPermission = await _mapLocationController.getPermission();
     if (checkPermission) {
       _mapController.onReady.then((_) async {
-        bool isAcceptLocation = await _mapLocationController.loadLocation();
-        if (isAcceptLocation) {
-          Position position = await Geolocator.getCurrentPosition();
-          centerLocation.value = LatLng(position.latitude, position.longitude);
-          _animatedMapMove(centerLocation.value, 12);
-        }
+        // bool isAcceptLocation = await _mapLocationController.loadLocation();
+        // if (isAcceptLocation) {
+        //   Position position = await Geolocator.getCurrentPosition();
+        //   centerLocation.value = LatLng(position.latitude, position.longitude);
+        //   _animatedMapMove(centerLocation.value, 12);
+        // }
+        // if (_mapLocationController.location != null) {
+        //   _animatedMapMove(_mapLocationController.location!, 12);
+        // }
         subscription = controller.mapEventStream.listen((MapEvent mapEvent) {
           if (mapEvent is MapEventMove) {
             centerLocation.value =

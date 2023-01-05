@@ -1,3 +1,4 @@
+import 'package:convenient_way/app/core/utils/alert_cool_service.dart';
 import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
@@ -20,7 +21,7 @@ class SuggestPackageDetailController extends GetxController {
   List<LatLng> coordPackage = [];
   List<LatLng> coordAccount = [];
   List<String> packageIds = [];
-  late LatLng coordShop;
+  late LatLng coordSender;
   final count = 0.obs;
   int maxSelectedPackages = 3;
 
@@ -73,10 +74,10 @@ class SuggestPackageDetailController extends GetxController {
     RouteAcc routeSender = suggest.value!.sender!.infoUser!.routes!
         .where((element) => element.isActive == true)
         .first;
-    coordShop = LatLng(routeSender.fromLatitude!, routeSender.fromLongitude!);
-    coordBound.extend(coordShop);
+    coordSender = LatLng(routeSender.fromLatitude!, routeSender.fromLongitude!);
+    coordBound.extend(coordSender);
     debugPrint(
-        'Coordinates shop: ${coordShop.latitude}, ${coordShop.longitude}');
+        'Coordinates sender: ${coordSender.latitude}, ${coordSender.longitude}');
 
     List<Package> packages = suggest.value!.packages!;
     for (var element in packages) {
@@ -111,10 +112,10 @@ class SuggestPackageDetailController extends GetxController {
         primaryOnPressed: () {
           String accountId = AuthService.instance.account!.id!;
           AccountPickUpModel model = AccountPickUpModel(
-              accountId: accountId, packageIds: selectedPackages);
-          _packageRepo.pickUpPackage(model).then((response) {
-            ToastService.showSuccess(response.message!);
+              deliverId: accountId, packageIds: selectedPackages);
+          _packageRepo.pickUpPackage(model).then((response) async {
             Get.back(); // close dialog
+            await CoolAlertService.showSuccess('Chọn gói hàng thành công');
             Get.back(result: true); // return suggest packages page
           }).catchError(((error) {
             ToastService.showError(error.message);
