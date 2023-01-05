@@ -1,5 +1,5 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
-import 'package:convenient_way/app/core/utils/alert_cool_service.dart';
+import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/data/constants/role_name.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
@@ -95,7 +95,7 @@ class RegisterController extends BaseController {
     isLoading.value = true;
     _accountRepo.create(createAccountModel).then((response) async {
       isLoading.value = false;
-      await CoolAlertService.showSuccess('Đăng kí thành công');
+      await QuickAlertService.showSuccess('Đăng kí thành công');
       Get.offAllNamed(Routes.LOGIN);
     }).catchError((error) {
       ToastService.showError(error.message ?? 'Đăng kí không thành công');
@@ -123,7 +123,7 @@ class RegisterController extends BaseController {
         isLoadingVerify.value = false;
       },
       verificationFailed: (FirebaseAuthException e) {
-        CoolAlertService.showError('Request OTP failed!');
+        QuickAlertService.showError('Request OTP failed!');
         isLoadingVerify.value = false;
       },
       codeSent: (String verificationId, int? resendToken) async {
@@ -133,10 +133,10 @@ class RegisterController extends BaseController {
             arguments: [verificationId, resendToken, _phone]);
         isLoadingVerify.value = false;
         if (result == true) isConfirmPhone.value = true;
-        await CoolAlertService.showSuccess('Xác thực thành công!');
+        await QuickAlertService.showSuccess('Xác thực thành công!');
       },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        // CoolAlertService.showError('Timeout to sent OTP!!');
+      codeAutoRetrievalTimeout: (String verificationId) async {
+        await QuickAlertService.showError('Timeout to sent OTP!!');
         isLoadingVerify.value = false;
       },
     );

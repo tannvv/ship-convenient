@@ -32,7 +32,7 @@ class SuggestPackageItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Số gói hàng trong combo: $countPackage',
+                'Số gói hàng: $countPackage',
                 style: subtitle2,
               ),
               Text(
