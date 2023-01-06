@@ -7,6 +7,7 @@ import 'package:convenient_way/app/data/models/route_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
 import 'package:convenient_way/app/data/repository/goong_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/create_route_model.dart';
+import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -58,7 +59,6 @@ class CreateRouteController extends BaseController {
   }
 
   Future<void> registerRoute() async {
-    isLoading.value = true;
     String accountId = AuthService.instance.account!.id!;
     if (_fromCoord.value == null || _toCoord.value == null) {
       MotionToastService.showError(
@@ -83,7 +83,9 @@ class CreateRouteController extends BaseController {
         MotionToastService.showError('Lỗi không xác định');
       }
     }, onError: (ex) {
-      MotionToastService.showError('Đăng kí tuyến dường không thành công');
+      if (ex is BaseException) {
+        MotionToastService.showError(ex.message);
+      }
     }, onStart: () {
       isLoading.value = true;
     }, onComplete: () {

@@ -1,10 +1,13 @@
+import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/utils/auth_service.dart';
+import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/data/models/transaction_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/transaction_list_model.dart';
 import 'package:convenient_way/app/data/repository/transaction_req.dart';
+import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:get/get.dart';
 
-class TransactionController extends GetxController {
+class TransactionController extends BaseController {
   final transactions = <Transaction>[].obs;
 
   final TransactionReq _transactionRepo =
@@ -19,11 +22,16 @@ class TransactionController extends GetxController {
     fetchTransactions();
   }
 
-  void fetchTransactions() {
+  Future<void> fetchTransactions() async {
     String accountId = AuthService.instance.account!.id!;
     TransactionListModel model = TransactionListModel(accountId: accountId);
-    _transactionRepo
-        .getList(model)
-        .then((response) => transactions.value = response);
+    Future<List<Transaction>> future = _transactionRepo.getList(model);
+    await callDataService<List<Transaction>>(future, onSuccess: (response) {
+      transactions.value = response;
+    }, onError: ((exception) {
+      if (exception is BaseException) {
+        MotionToastService.showError(exception.message);
+      }
+    }));
   }
 }

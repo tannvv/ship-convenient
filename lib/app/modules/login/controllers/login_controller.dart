@@ -11,6 +11,7 @@ class LoginController extends BaseController {
   String userName = '';
   String password = '';
   RxBool isLoading = false.obs;
+
   late MapLocationController mapLocationController;
 
   set setUserName(String value) {

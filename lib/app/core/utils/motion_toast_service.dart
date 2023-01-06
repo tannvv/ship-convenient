@@ -32,7 +32,7 @@ class MotionToastService {
       {Widget? title,
       AnimationType animationType = AnimationType.fromTop,
       MotionToastPosition motionToastPosition = MotionToastPosition.top,
-      double height = 0.06,
+      double height = 0.08,
       double width = 0.7,
       TextStyle? descriptionStyle}) async {
     BuildContext? context = Get.context;

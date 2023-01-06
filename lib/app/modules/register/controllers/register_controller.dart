@@ -2,8 +2,10 @@ import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
 import 'package:convenient_way/app/data/constants/role_name.dart';
+import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/create_account_model.dart';
+import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,14 +96,21 @@ class RegisterController extends BaseController {
         photoUrl: _photoUrl,
         role: RoleName.user,
         gender: _gender.value);
-    _accountRepo.create(createAccountModel).then((response) async {
-      isLoading.value = false;
-      await QuickAlertService.showSuccess('Đăng kí thành công');
-      Get.offAllNamed(Routes.LOGIN);
-    }).catchError((error) {
-      isLoading.value = false;
-      MotionToastService.showError(error.message ?? 'Đăng kí không thành công');
-    });
+    Future<Account?> future = _accountRepo.create(createAccountModel);
+    await callDataService(future,
+        onStart: () => isLoading.value = true,
+        onComplete: () => isLoading.value = false,
+        onSuccess: (data) {
+          QuickAlertService.showSuccess('Đăng kí thành công');
+          Get.offAllNamed(Routes.LOGIN);
+        },
+        onError: (error) {
+          if (error is BaseException) {
+            MotionToastService.showError(error.message);
+          } else {
+            MotionToastService.showError('Đăng kí không thành công');
+          }
+        });
   }
 
   Future<void> gotoSignIn() async {
@@ -137,7 +146,7 @@ class RegisterController extends BaseController {
         await QuickAlertService.showSuccess('Xác thực thành công!');
       },
       codeAutoRetrievalTimeout: (String verificationId) async {
-        await QuickAlertService.showError('Timeout to sent OTP!!');
+        // await QuickAlertService.showError('Timeout to sent OTP!!');
         isLoadingVerify.value = false;
       },
     );

@@ -8,6 +8,7 @@ import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
+import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -46,14 +47,17 @@ class ReceivedPackageController extends BaseController
         status: PackageStatus.DELIVER_PICKUP,
         pageSize: _pageSize,
         pageIndex: _pageIndex);
-    _packageRepo.getList(requestModel).then((response) {
+    Future<List<Package>> future = _packageRepo.getList(requestModel);
+    await callDataService<List<Package>>(future, onSuccess: (response) {
       receivedPackages.addAll(response);
       if (response.length < _pageSize) {
         _hasMore = false;
       }
-    }).catchError((error, stackTrace) {
-      MotionToastService.showError(error.message);
-    });
+    }, onError: ((exception) {
+      if (exception is BaseException) {
+        MotionToastService.showError(exception.message);
+      }
+    }));
   }
 
   Future<void> onRefresh() async {

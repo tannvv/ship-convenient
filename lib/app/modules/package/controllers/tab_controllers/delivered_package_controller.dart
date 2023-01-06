@@ -5,6 +5,7 @@ import 'package:convenient_way/app/data/constants/package_status.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
+import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -40,11 +41,13 @@ class DeliveredPackageController extends BaseController
     PackageListModel requestModel = PackageListModel(
         deliverId: AuthService.instance.account!.id,
         status: PackageStatus.DELIVERED);
-    _packageRepo
-        .getList(requestModel)
-        .then((response) => deliveredPackages.value = response)
-        .catchError((error, stackTrace) {
-      MotionToastService.showError(error.message);
+    Future<List<Package>> future = _packageRepo.getList(requestModel);
+    await callDataService<List<Package>>(future, onSuccess: (response) {
+      deliveredPackages.value = response;
+    }, onError: (exception) {
+      if (exception is BaseException) {
+        MotionToastService.showError(exception.message);
+      }
     });
   }
 }

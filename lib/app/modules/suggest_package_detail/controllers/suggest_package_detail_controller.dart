@@ -1,3 +1,4 @@
+import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
 import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/toast_service.dart';
@@ -8,13 +9,15 @@ import 'package:convenient_way/app/data/models/route_model.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
+import 'package:convenient_way/app/data/repository/response_model/simple_response_model.dart';
+import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-class SuggestPackageDetailController extends GetxController {
+class SuggestPackageDetailController extends BaseController {
   final suggestPackage = Get.arguments as SuggestPackage;
   final suggest = Rx<SuggestPackage?>(null);
   LatLngBounds coordBound = LatLngBounds();
@@ -118,13 +121,21 @@ class SuggestPackageDetailController extends GetxController {
           String accountId = AuthService.instance.account!.id!;
           AccountPickUpModel model = AccountPickUpModel(
               deliverId: accountId, packageIds: selectedPackages);
-          _packageRepo.pickUpPackage(model).then((response) async {
-            Get.back(); // close dialog
-            await QuickAlertService.showSuccess('Chọn gói hàng thành công');
-            Get.back(result: true); // return suggest packages page
-          }).catchError(((error) {
-            MotionToastService.showError(error.message);
-          }));
+          Future<SimpleResponseModel> future =
+              _packageRepo.pickUpPackage(model);
+          callDataService(
+            future,
+            onSuccess: (response) {
+              Get.back(); // close dialog
+              QuickAlertService.showSuccess('Chọn gói hàng thành công');
+              Get.back(result: true); // return suggest packages page
+            },
+            onError: (exception) {
+              if (exception is BaseException) {
+                MotionToastService.showError(exception.message);
+              }
+            },
+          );
         });
   }
 
