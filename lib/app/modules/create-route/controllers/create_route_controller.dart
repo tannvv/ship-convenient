@@ -61,7 +61,8 @@ class CreateRouteController extends BaseController {
     isLoading.value = true;
     String accountId = AuthService.instance.account!.id!;
     if (_fromCoord.value == null || _toCoord.value == null) {
-      ToastService.showError('Vui lòng chọn địa điểm của bạn trên bản đồ');
+      MotionToastService.showError(
+          'Vui lòng chọn địa điểm của bạn trên bản đồ');
     }
     CreateRoute createRouteModel = CreateRoute(
         fromName: _fromName,
@@ -76,15 +77,13 @@ class CreateRouteController extends BaseController {
       if (newRoute != null) {
         AuthService.instance.account!.infoUser!.routes!.add(newRoute);
         await QuickAlertService.showSuccess(
-          'Tạo tuyến đường thành công',
-        );
+            'Bạn đã đăng kí tuyến đường thành công');
         Get.offAllNamed(Routes.HOME);
       } else {
-        ToastService.showError('Lỗi không xác định');
+        MotionToastService.showError('Lỗi không xác định');
       }
-    }, onError: (error) {
-      debugPrint('Đăng kí tuyến đường thất bại: ${error.toString()}');
-      ToastService.showError('Đăng kí tuyến dường không thành công');
+    }, onError: (ex) {
+      MotionToastService.showError('Đăng kí tuyến dường không thành công');
     }, onStart: () {
       isLoading.value = true;
     }, onComplete: () {

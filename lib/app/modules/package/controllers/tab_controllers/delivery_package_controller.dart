@@ -43,16 +43,16 @@ class DeliveryPackageController extends BaseController
     _packageRepo.getList(requestModel).then((response) {
       deliveryPackages.value = response;
     }).catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
   void accountDeliveredPackage(String packageId) {
     _packageRepo.deliverySuccess(packageId).then((response) {
-      ToastService.showSuccess(response.message!);
+      MotionToastService.showSuccess(response.message!);
       _refreshController.requestRefresh();
     }).catchError((error) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 }

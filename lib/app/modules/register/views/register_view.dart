@@ -139,28 +139,7 @@ class RegisterView extends GetView<RegisterController> {
                                     ),
                                     Gap(20.h),
                                     SizedBox(
-                                      width: 220.w,
-                                      child: ElevatedButton(
-                                        style: ButtonStyles.primaryBlue(),
-                                        onPressed: () async {
-                                          controller.formKey.currentState!
-                                              .save();
-                                          if (controller.formKey.currentState!
-                                              .validate()) {
-                                            await controller.registerAccount();
-                                          }
-                                        },
-                                        child: Obx(() => HyperButton.childWhite(
-                                              status:
-                                                  controller.isLoading.value,
-                                              child: Text(
-                                                'Đăng kí',
-                                                style: buttonBold.copyWith(
-                                                    color: AppColors.white),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
+                                        width: 220.w, child: _registerBtn()),
                                     SizedBox(
                                       height: 40.h,
                                     ),
@@ -283,6 +262,25 @@ class RegisterView extends GetView<RegisterController> {
               loadingText: 'Đang gửi OTP',
               child: Text(
                 'Xác thực sđt',
+                style: buttonBold.copyWith(color: AppColors.white),
+              ),
+            )));
+  }
+
+  ElevatedButton _registerBtn() {
+    return ElevatedButton(
+        style: ButtonStyles.primaryBlue(),
+        onPressed: () async {
+          controller.formKey.currentState!.save();
+          if (controller.formKey.currentState!.validate()) {
+            controller.registerAccount();
+          }
+        },
+        child: Obx(() => HyperButton.childWhite(
+              status: controller.isLoading.value,
+              loadingText: 'Đang đăng kí',
+              child: Text(
+                'Đăng kí',
                 style: buttonBold.copyWith(color: AppColors.white),
               ),
             )));

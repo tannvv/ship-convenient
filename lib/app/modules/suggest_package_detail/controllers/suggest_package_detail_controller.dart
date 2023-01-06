@@ -101,11 +101,11 @@ class SuggestPackageDetailController extends GetxController {
 
   Future<void> pickUpPackages() async {
     if (selectedPackages.isEmpty) {
-      ToastService.showError('Chưa chọn gói hàng nào để pickup');
+      MotionToastService.showError('Chưa chọn gói hàng nào để pickup');
       return;
     }
     if (selectedPackages.length > maxSelectedPackages) {
-      ToastService.showError(
+      MotionToastService.showError(
           'Số gói hàng tối đa có thể chọn là $maxSelectedPackages');
       return;
     }
@@ -123,7 +123,7 @@ class SuggestPackageDetailController extends GetxController {
             await QuickAlertService.showSuccess('Chọn gói hàng thành công');
             Get.back(result: true); // return suggest packages page
           }).catchError(((error) {
-            ToastService.showError(error.message);
+            MotionToastService.showError(error.message);
           }));
         });
   }

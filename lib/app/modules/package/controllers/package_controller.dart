@@ -96,17 +96,17 @@ class PackageController extends BaseController
     AccountPickUpModel model = AccountPickUpModel(
         deliverId: AuthService.instance.account!.id!, packageIds: [packageId]);
     _packageRepo.accountConfirmPackage(model).then((response) {
-      ToastService.showSuccess('Đã lấy hàng để đi giao');
+      MotionToastService.showSuccess('Đã lấy hàng để đi giao');
     }).catchError((error) {
-      ToastService.showError(error.messages[0]);
+      MotionToastService.showError(error.messages[0]);
     });
   }
 
   void accountDeliveredPackage(String packageId) {
     _packageRepo.deliverySuccess(packageId).then((response) {
-      ToastService.showSuccess(response.message!);
+      MotionToastService.showSuccess(response.message!);
     }).catchError((error) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
@@ -118,7 +118,7 @@ class PackageController extends BaseController
         .getList(requestModel)
         .then((response) => receivedPackages.value = response)
         .catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
@@ -130,7 +130,7 @@ class PackageController extends BaseController
         .getList(requestModel)
         .then((response) => deliveredPackages.value = response)
         .catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
@@ -141,7 +141,7 @@ class PackageController extends BaseController
     _packageRepo.getList(requestModel).then((response) {
       deliveryPackages.value = response;
     }).catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
@@ -153,7 +153,7 @@ class PackageController extends BaseController
         .getList(requestModel)
         .then((response) => failedPackages.value = response)
         .catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
@@ -165,7 +165,7 @@ class PackageController extends BaseController
         .getList(requestModel)
         .then((response) => accountCancelPackages.value = response)
         .catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
@@ -177,7 +177,7 @@ class PackageController extends BaseController
         .getList(requestModel)
         .then((response) => senderCancelPackages.value = response)
         .catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
@@ -189,7 +189,7 @@ class PackageController extends BaseController
         .getList(requestModel)
         .then((response) => successPackages.value = response)
         .catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 

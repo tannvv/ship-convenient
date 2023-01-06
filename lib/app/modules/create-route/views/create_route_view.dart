@@ -168,7 +168,7 @@ class CreateRouteView extends GetView<CreateRouteController> {
                                               .validate();
                                           if (controller.fromCoord == null ||
                                               controller.toCoord == null) {
-                                            ToastService.showError(
+                                            MotionToastService.showError(
                                                 'Vui lòng chọn địa điểm của bạn trên bản đồ');
                                             return;
                                           }
