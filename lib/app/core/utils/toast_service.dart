@@ -1,7 +1,7 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ToastService {
+class MotionToastService {
   static void showSuccess(String message) {
     Fluttertoast.showToast(
         msg: message,

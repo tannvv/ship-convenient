@@ -52,7 +52,7 @@ class ReceivedPackageController extends BaseController
         _hasMore = false;
       }
     }).catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 
@@ -83,10 +83,10 @@ class ReceivedPackageController extends BaseController
               deliverId: AuthService.instance.account!.id!,
               packageIds: [packageId]);
           _packageRepo.accountConfirmPackage(model).then((response) {
-            ToastService.showSuccess('Đã lấy hàng để đi giao');
+            MotionToastService.showSuccess('Đã lấy hàng để đi giao');
             _refreshController.requestRefresh();
           }).catchError((error) {
-            ToastService.showError(error.messages[0]);
+            MotionToastService.showError(error.messages[0]);
           });
           Get.back();
         });

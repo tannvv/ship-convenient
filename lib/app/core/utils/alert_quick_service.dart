@@ -3,125 +3,96 @@ import 'package:get/get.dart';
 import 'package:quickalert/quickalert.dart';
 
 class QuickAlertService {
-  static Future<dynamic> showSuccess(String text) async {
+  static Future<dynamic> showSuccess(
+    String? text, {
+    int seconds = 3,
+    String title = 'Thành công!',
+    bool isShowCancelBtn = false,
+    bool isAutoClose = true,
+    String confirmText = 'Đồng ý!',
+    String cancelBtnText = 'Không!',
+    Function()? onConfirmBtnTap,
+    Function()? onCancelBtnTap,
+  }) async {
     BuildContext? buildContext = Get.context;
-    if (Get.context != null) {
+    if (buildContext != null) {
       return await QuickAlert.show(
-        context: buildContext!,
-        type: QuickAlertType.confirm,
-        text: 'Thành Công!',
-        confirmBtnText: 'Đồng ý!',
-        cancelBtnText: 'Không!',
-        confirmBtnColor: Colors.white,
-        backgroundColor: Colors.black,
-        showCancelBtn: false,
-        confirmBtnTextStyle: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        barrierColor: Colors.white,
-        titleColor: Colors.white,
-        textColor: Colors.white,
-        );
+          autoCloseDuration: isAutoClose ? Duration(seconds: seconds) : null,
+          context: buildContext,
+          type: QuickAlertType.success,
+          text: text,
+          confirmBtnText: confirmText,
+          cancelBtnText: cancelBtnText,
+          barrierDismissible: true,
+          barrierColor: Colors.black12,
+          showCancelBtn: isShowCancelBtn,
+          onConfirmBtnTap: onConfirmBtnTap ?? () {},
+          onCancelBtnTap: onCancelBtnTap ?? () {});
     }
   }
 
-  static Future<dynamic> showWarning(String text) async {
+  static Future<dynamic> showWarning(String text, {int time = 3}) async {
     BuildContext? buildContext = Get.context;
     if (Get.context != null) {
       return await QuickAlert.show(
+        autoCloseDuration: Duration(seconds: time),
         context: buildContext!,
         type: QuickAlertType.warning,
         text: 'Cảnh báo!',
         confirmBtnText: 'Đồng ý!',
         cancelBtnText: 'Không!',
-        confirmBtnColor: Colors.white,
-        backgroundColor: Colors.black,
-        showCancelBtn: false,
-        confirmBtnTextStyle: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        barrierColor: Colors.white,
-        titleColor: Colors.white,
-        textColor: Colors.white,
-        );
+      );
     }
   }
 
-  static Future<dynamic> showError(String text) async{
+  static Future<dynamic> showError(String text, {int time = 3}) async {
     BuildContext? buildContext = Get.context;
     if (Get.context != null) {
       return await QuickAlert.show(
+        autoCloseDuration: Duration(seconds: time),
         context: buildContext!,
         type: QuickAlertType.warning,
         text: 'Lỗi!',
         confirmBtnText: 'Đồng ý!',
         cancelBtnText: 'Không!',
         showCancelBtn: false,
-        confirmBtnColor: Colors.white,
-        backgroundColor: Colors.black,
-        confirmBtnTextStyle: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        //barrierColor: Colors.white,
-        titleColor: Colors.white,
-        textColor: Colors.white,
-        );
+      );
     }
   }
 
-  static Future<dynamic> showInfo(String text) async {
+  static Future<dynamic> showInfo(String text, {int time = 3}) async {
     BuildContext? buildContext = Get.context;
     if (Get.context != null) {
       return await QuickAlert.show(
+        autoCloseDuration: Duration(seconds: time),
         context: buildContext!,
         type: QuickAlertType.warning,
         text: 'Thông tin!',
         confirmBtnText: 'Đồng ý!',
         cancelBtnText: 'Không!',
-        confirmBtnColor: Colors.white,
-        backgroundColor: Colors.black,
-        showCancelBtn: false,
-        confirmBtnTextStyle: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        //barrierColor: Colors.white,
-        titleColor: Colors.white,
-        textColor: Colors.white,
-        );
+      );
     }
   }
 
-  static Future<dynamic> showConfirm(String text) async {
+  static Future<dynamic> showConfirm(String text, {int time = 3}) async {
     BuildContext? buildContext = Get.context;
     if (Get.context != null) {
       return await QuickAlert.show(
+        autoCloseDuration: Duration(seconds: time),
         context: buildContext!,
         type: QuickAlertType.warning,
         text: 'Xác nhận!',
         confirmBtnText: 'Đồng ý!',
         cancelBtnText: 'Không!',
-        confirmBtnColor: Colors.white,
-        backgroundColor: Colors.black,
-        showCancelBtn: false,
-        confirmBtnTextStyle: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        //barrierColor: Colors.white,
-        titleColor: Colors.white,
-        textColor: Colors.white,
-        );
+      );
     }
   }
 
-  static Future<dynamic> showLoading(String text) async {
+  static Future<dynamic> showLoading(String text, {int time = 3}) async {
     BuildContext? buildContext = Get.context;
     if (Get.context != null) {
       return await QuickAlert.show(
+        autoCloseDuration: Duration(seconds: time),
         context: buildContext!,
         type: QuickAlertType.warning,
         text: 'Đang tải...!',
@@ -130,14 +101,7 @@ class QuickAlertService {
         confirmBtnColor: Colors.white,
         backgroundColor: Colors.black,
         showCancelBtn: false,
-        confirmBtnTextStyle: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        //barrierColor: Colors.white,
-        titleColor: Colors.white,
-        textColor: Colors.white,
-        );
+      );
     }
   }
 
@@ -155,18 +119,7 @@ class QuickAlertService {
         confirmBtnText: 'Đồng ý!',
         cancelBtnText: 'Không!',
         showCancelBtn: false,
-        confirmBtnColor: Colors.white,
-        backgroundColor: Colors.black,
-        onCancelBtnTap: onCancelBtnTap,
-        onConfirmBtnTap: onCancelBtnTap,
-        confirmBtnTextStyle: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        //barrierColor: Colors.white,
-        titleColor: Colors.white,
-        textColor: Colors.white,
-        );
+      );
     }
   }
 }

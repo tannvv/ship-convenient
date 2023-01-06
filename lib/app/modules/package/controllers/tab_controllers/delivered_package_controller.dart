@@ -44,7 +44,7 @@ class DeliveredPackageController extends BaseController
         .getList(requestModel)
         .then((response) => deliveredPackages.value = response)
         .catchError((error, stackTrace) {
-      ToastService.showError(error.message);
+      MotionToastService.showError(error.message);
     });
   }
 }

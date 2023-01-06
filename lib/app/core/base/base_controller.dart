@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable
 
 import 'dart:async';
 
@@ -58,7 +58,6 @@ abstract class BaseController extends GetxController {
 
   showSuccessMessage(String msg) => _successMessageController(msg);
 
-  // ignore: long-parameter-list
   dynamic callDataService<T>(
     Future<T> future, {
     Function(Exception exception)? onError,
@@ -98,6 +97,7 @@ abstract class BaseController extends GetxController {
       showErrorMessage(exception.message);
     } on ApiException catch (exception) {
       _exception = exception;
+      // MotionToastService.showError(exception.message);
     } on AppException catch (exception) {
       _exception = exception;
       showErrorMessage(exception.message);
@@ -105,7 +105,6 @@ abstract class BaseController extends GetxController {
       _exception = AppException(message: "$error");
       logger.e("Controller>>>>>> error $error");
     }
-
     if (onError != null) onError(_exception);
 
     onComplete == null ? hideLoading() : onComplete();

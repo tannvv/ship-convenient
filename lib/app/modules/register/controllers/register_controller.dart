@@ -77,8 +77,10 @@ class RegisterController extends BaseController {
   }
 
   Future<void> registerAccount() async {
+    isLoading.value = true;
     if (!isConfirmPhone.value) {
-      ToastService.showError('Bạn chưa xác thực sđt');
+      MotionToastService.showError('Bạn chưa xác thực sđt');
+      isLoading.value = false;
       return;
     }
 
@@ -92,15 +94,14 @@ class RegisterController extends BaseController {
         photoUrl: _photoUrl,
         role: RoleName.user,
         gender: _gender.value);
-    isLoading.value = true;
     _accountRepo.create(createAccountModel).then((response) async {
       isLoading.value = false;
       await QuickAlertService.showSuccess('Đăng kí thành công');
       Get.offAllNamed(Routes.LOGIN);
     }).catchError((error) {
-      ToastService.showError(error.message ?? 'Đăng kí không thành công');
+      isLoading.value = false;
+      MotionToastService.showError(error.message ?? 'Đăng kí không thành công');
     });
-    isLoading.value = false;
   }
 
   Future<void> gotoSignIn() async {

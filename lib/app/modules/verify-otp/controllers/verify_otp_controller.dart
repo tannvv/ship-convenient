@@ -36,7 +36,7 @@ class VerifyOtpController extends GetxController {
       await FirebaseAuth.instance.signOut();
       Get.back(result: true);
     }).catchError((error) {
-      ToastService.showError('OTP không đúng, ${error.toString()}');
+      MotionToastService.showError('OTP không đúng, ${error.toString()}');
     });
   }
 
@@ -44,15 +44,15 @@ class VerifyOtpController extends GetxController {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: _phone,
       verificationCompleted: (PhoneAuthCredential credential) {
-        ToastService.showSuccess("Auth Completed!");
+        MotionToastService.showSuccess("Auth Completed!");
       },
       verificationFailed: (FirebaseAuthException e) {
-        ToastService.showError("Request OTP failed!");
+        MotionToastService.showError("Request OTP failed!");
       },
       codeSent: (String verificationId, int? resendToken) async {
         _verificationId = verificationId;
         _resendToken = resendToken;
-        ToastService.showSuccess('Đã gửi lại OTP');
+        MotionToastService.showSuccess('Đã gửi lại OTP');
       },
       timeout: const Duration(seconds: 25),
       forceResendingToken: _resendToken,

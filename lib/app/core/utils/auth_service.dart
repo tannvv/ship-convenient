@@ -1,7 +1,9 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
+import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
 import 'package:convenient_way/app/data/repository/response_model/authorize_response_model.dart';
+import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +57,10 @@ class AuthService extends BaseController {
           onSuccess: (AuthorizeResponseModel response) {
         token = response.token;
         instance._account = response.account;
+      }, onError: (exception) {
+        if (exception is BaseException) {
+          MotionToastService.showError((exception).message);
+        }
       });
 
       if (token != null) {
