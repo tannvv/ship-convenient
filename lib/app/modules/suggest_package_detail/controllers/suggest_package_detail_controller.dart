@@ -1,8 +1,8 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
 import 'package:convenient_way/app/core/utils/auth_service.dart';
-import 'package:convenient_way/app/core/utils/toast_service.dart';
-import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
+import 'package:convenient_way/app/core/utils/material_dialog_service.dart';
+import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/models/route_model.dart';
@@ -112,12 +112,9 @@ class SuggestPackageDetailController extends BaseController {
           'Số gói hàng tối đa có thể chọn là $maxSelectedPackages');
       return;
     }
-    HyperDialog.show(
-        title: 'Xác nhận',
-        content: 'Bạn xác nhận chọn những đơn hàng này?',
-        primaryButtonText: 'Đồng ý',
-        secondaryButtonText: 'Hủy',
-        primaryOnPressed: () {
+    await MaterialDialogService.showConfirmDialog(
+        msg: 'Bạn xác nhận chọn những đơn hàng này?',
+        onConfirmTap: () {
           String accountId = AuthService.instance.account!.id!;
           AccountPickUpModel model = AccountPickUpModel(
               deliverId: accountId, packageIds: selectedPackages);
@@ -125,14 +122,15 @@ class SuggestPackageDetailController extends BaseController {
               _packageRepo.pickUpPackage(model);
           callDataService(
             future,
-            onSuccess: (response) {
+            onSuccess: (response) async {
               Get.back(); // close dialog
-              QuickAlertService.showSuccess('Chọn gói hàng thành công');
-              Get.back(result: true); // return suggest packages page
+              await QuickAlertService.showSuccess('Chọn gói hàng thành công',
+                  duration: 3);
+              Get.back(result: true);
             },
-            onError: (exception) {
-              if (exception is BaseException) {
-                MotionToastService.showError(exception.message);
+            onError: (error) {
+              if (error is BaseException) {
+                QuickAlertService.showError(error.message);
               }
             },
           );

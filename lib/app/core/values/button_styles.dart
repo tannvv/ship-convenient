@@ -1,7 +1,7 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class ButtonStyles {
   static ButtonStyle primary() {
@@ -50,8 +50,8 @@ abstract class ButtonStyles {
 
   static ButtonStyle primaryBlueSmall() {
     return ElevatedButton.styleFrom(
-      primary: AppColors.secondary600,
-      shadowColor: Color.fromARGB(255, 84, 166, 253),
+      primary: Colors.blue[500],
+      shadowColor: Colors.blue[200],
       padding: EdgeInsets.symmetric(
         horizontal: 16.w,
         vertical: 8.h,

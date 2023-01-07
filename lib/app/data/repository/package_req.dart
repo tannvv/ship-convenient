@@ -13,4 +13,5 @@ abstract class PackageReq {
   Future<SimpleResponseModel> accountConfirmPackage(AccountPickUpModel model);
   Future<SimpleResponseModel> deliverySuccess(String packageId);
   Future<SimpleResponseModel> deliveryFailed(String packageId);
+  Future<SimpleResponseModel> deliverCancel(String packageId);
 }

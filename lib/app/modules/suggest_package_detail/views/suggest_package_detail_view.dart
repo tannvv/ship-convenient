@@ -116,7 +116,7 @@ class SuggestPackageDetailView extends GetView<SuggestPackageDetailController> {
                                     controller.clearAllPackages();
                                   },
                                   child: Text(
-                                    'Bỏ chọn, về ngủ',
+                                    'Bỏ chọn ',
                                     style: subtitle2.copyWith(
                                         color: AppColors.white),
                                   ))

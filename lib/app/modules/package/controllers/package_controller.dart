@@ -1,19 +1,19 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/utils/auth_service.dart';
-import 'package:convenient_way/app/core/utils/toast_service.dart';
+import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/data/constants/package_status.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
 import 'package:convenient_way/app/data/repository/response_model/simple_response_model.dart';
-import 'package:convenient_way/app/modules/package/views/tab_views/account_cancel_view.dart';
-import 'package:convenient_way/app/modules/package/views/tab_views/delivered_package_view.dart';
-import 'package:convenient_way/app/modules/package/views/tab_views/delivery_package_view.dart';
-import 'package:convenient_way/app/modules/package/views/tab_views/failed_package_view.dart';
-import 'package:convenient_way/app/modules/package/views/tab_views/received_package_view.dart';
-import 'package:convenient_way/app/modules/package/views/tab_views/sender_cancel_package_view.dart';
-import 'package:convenient_way/app/modules/package/views/tab_views/success_package_view.dart';
+import 'package:convenient_way/app/modules/package/tabs/deliver_cancel_tab/deliver_cancel_view.dart';
+import 'package:convenient_way/app/modules/package/tabs/delivered_tab/delivered_package_view.dart';
+import 'package:convenient_way/app/modules/package/tabs/delivery_tab/delivery_package_view.dart';
+import 'package:convenient_way/app/modules/package/tabs/failed_tab/failed_package_view.dart';
+import 'package:convenient_way/app/modules/package/tabs/received_tab/received_package_view.dart';
+import 'package:convenient_way/app/modules/package/tabs/sender_cancel_tab/sender_cancel_package_view.dart';
+import 'package:convenient_way/app/modules/package/tabs/success_tab/success_package_view.dart';
 import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,7 +50,7 @@ class PackageController extends BaseController
   final List<Widget> _screens = const [
     ReceivedView(),
     DeliveryView(),
-    AccountCancelView(),
+    DeliverCancelView(),
     SenderCancelView(),
     DeliveredView(),
     FailedView(),

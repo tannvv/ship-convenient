@@ -1,14 +1,15 @@
 import 'package:convenient_way/app/core/widgets/custom_footer_smart_refresh.dart';
-import 'package:convenient_way/app/modules/package/controllers/tab_controllers/delivery_package_controller.dart';
-import 'package:convenient_way/app/modules/package/views/widgets/delivery_package_item.dart';
+import 'package:convenient_way/app/modules/package/tabs/delivered_tab/delivered_package_controller.dart';
+import 'package:convenient_way/app/modules/package/tabs/delivery_tab/delivery_package_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class DeliveryView extends GetView<DeliveryPackageController> {
-  const DeliveryView({Key? key}) : super(key: key);
+class DeliveredView extends GetView<DeliveredPackageController> {
+  const DeliveredView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +22,12 @@ class DeliveryView extends GetView<DeliveryPackageController> {
               itemBuilder: (_, index) {
                 return Column(
                   children: [
-                    DeliveryPackageItem(
-                        package: controller.deliveryPackages[index]),
-                    ElevatedButton(
-                        onPressed: () {
-                          controller.accountDeliveredPackage(
-                              controller.deliveryPackages[index].id!);
-                        },
-                        child: const Text('Đã giao thành công cho khách'))
+                    DeliveryPackageItem(package: controller.dataApis[index]),
                   ],
                 );
               },
               separatorBuilder: (_, index) => Gap(12.h),
-              itemCount: controller.deliveryPackages.length),
+              itemCount: controller.dataApis.length),
         ));
   }
 }

@@ -3,6 +3,7 @@ import 'package:convenient_way/app/core/values/font_weight.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SuggestPackageItem extends StatelessWidget {
@@ -12,6 +13,7 @@ class SuggestPackageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int countPackage = suggestPackage.packages?.length ?? 0;
+    String products = suggestPackage.getProductsName();
     return Container(
       padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 24.w),
       decoration: BoxDecoration(
@@ -36,11 +38,17 @@ class SuggestPackageItem extends StatelessWidget {
                 style: subtitle2,
               ),
               Text(
-                '${suggestPackage.compoPrice?.toInt()}vnđ',
-                style: subtitle1.copyWith(
-                    color: AppColors.softRed, fontWeight: FontWeights.medium),
+                '${suggestPackage.compoPrice?.toVND()}',
+                style: subtitle2.copyWith(
+                  color: AppColors.softRed,
+                  fontWeight: FontWeights.medium,
+                ),
               )
             ],
+          ),
+          Text(
+            'Sản phẩm: $products',
+            style: subtitle2,
           ),
         ],
       ),

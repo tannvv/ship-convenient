@@ -1,5 +1,6 @@
 import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
+import 'package:convenient_way/app/data/models/product_model.dart';
 
 class SuggestPackage {
   Account? sender;
@@ -22,5 +23,17 @@ class SuggestPackage {
         packages?.add(Package.fromJson(v));
       });
     }
+  }
+
+  String getProductsName() {
+    String products = '';
+    for (int i = 0; i < packages!.length; i++) {
+      for (var j = 0; j < packages![i].products!.length; j++) {
+        List<Product> productApi = packages![i].products!;
+        products += '${productApi[j].name!}, ';
+      }
+    }
+    products = products.substring(0, products.length - 2);
+    return products;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
 import 'package:convenient_way/app/core/utils/auth_service.dart';
-import 'package:convenient_way/app/core/utils/toast_service.dart';
+import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/data/models/response_goong_model.dart';
 import 'package:convenient_way/app/data/models/route_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';

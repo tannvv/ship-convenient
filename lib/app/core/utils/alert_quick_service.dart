@@ -20,12 +20,17 @@ class QuickAlertService {
     BuildContext? buildContext = Get.context;
     if (buildContext != null) {
       return await QuickAlert.show(
-        context: buildContext,
-        title: title,
-        type: QuickAlertType.success,
-        text: text,
-        confirmBtnText: confirmText,
-      );
+          context: buildContext,
+          title: title,
+          type: QuickAlertType.success,
+          text: text,
+          confirmBtnText: confirmText,
+          onConfirmBtnTap: () {
+            if (timer != null && timer.isActive) {
+              timer.cancel();
+            }
+            Get.back();
+          });
     }
     if (timer != null && timer.isActive) {
       timer.cancel();
@@ -47,12 +52,17 @@ class QuickAlertService {
     BuildContext? buildContext = Get.context;
     if (buildContext != null) {
       return await QuickAlert.show(
-        context: buildContext,
-        title: title,
-        type: QuickAlertType.warning,
-        text: text,
-        confirmBtnText: confirmText,
-      );
+          context: buildContext,
+          title: title,
+          type: QuickAlertType.warning,
+          text: text,
+          confirmBtnText: confirmText,
+          onConfirmBtnTap: () {
+            if (timer != null && timer.isActive) {
+              timer.cancel();
+            }
+            Get.back();
+          });
     }
     if (timer != null && timer.isActive) {
       timer.cancel();
@@ -74,12 +84,17 @@ class QuickAlertService {
     BuildContext? buildContext = Get.context;
     if (buildContext != null) {
       return await QuickAlert.show(
-        context: buildContext,
-        title: title,
-        type: QuickAlertType.error,
-        text: text,
-        confirmBtnText: confirmText,
-      );
+          context: buildContext,
+          title: title,
+          type: QuickAlertType.error,
+          text: text,
+          confirmBtnText: confirmText,
+          onConfirmBtnTap: () {
+            if (timer != null && timer.isActive) {
+              timer.cancel();
+            }
+            Get.back();
+          });
     }
     if (timer != null && timer.isActive) {
       timer.cancel();
@@ -101,12 +116,17 @@ class QuickAlertService {
     BuildContext? buildContext = Get.context;
     if (buildContext != null) {
       return await QuickAlert.show(
-        context: buildContext,
-        title: title,
-        type: QuickAlertType.info,
-        text: text,
-        confirmBtnText: confirmText,
-      );
+          context: buildContext,
+          title: title,
+          type: QuickAlertType.info,
+          text: text,
+          confirmBtnText: confirmText,
+          onConfirmBtnTap: () {
+            if (timer != null && timer.isActive) {
+              timer.cancel();
+            }
+            Get.back();
+          });
     }
     if (timer != null && timer.isActive) {
       timer.cancel();
@@ -128,12 +148,17 @@ class QuickAlertService {
     BuildContext? buildContext = Get.context;
     if (buildContext != null) {
       return await QuickAlert.show(
-        context: buildContext,
-        title: title,
-        type: QuickAlertType.confirm,
-        text: text,
-        confirmBtnText: confirmText,
-      );
+          context: buildContext,
+          title: title,
+          type: QuickAlertType.confirm,
+          text: text,
+          confirmBtnText: confirmText,
+          onConfirmBtnTap: () {
+            if (timer != null && timer.isActive) {
+              timer.cancel();
+            }
+            Get.back();
+          });
     }
     if (timer != null && timer.isActive) {
       timer.cancel();
@@ -155,12 +180,17 @@ class QuickAlertService {
     BuildContext? buildContext = Get.context;
     if (buildContext != null) {
       return await QuickAlert.show(
-        context: buildContext,
-        title: title,
-        type: QuickAlertType.loading,
-        text: text,
-        confirmBtnText: confirmText,
-      );
+          context: buildContext,
+          title: title,
+          type: QuickAlertType.loading,
+          text: text,
+          confirmBtnText: confirmText,
+          onConfirmBtnTap: () {
+            if (timer != null && timer.isActive) {
+              timer.cancel();
+            }
+            Get.back();
+          });
     }
     if (timer != null && timer.isActive) {
       timer.cancel();

@@ -67,9 +67,9 @@ class AuthService extends BaseController {
         _instance._token = token;
         result = true;
         if (_instance._account?.status == "NO_ROUTE") {
-          Get.toNamed(Routes.CREATE_ROUTE);
+          Get.offAndToNamed(Routes.CREATE_ROUTE);
         } else {
-          Get.toNamed(Routes.HOME);
+          Get.offAndToNamed(Routes.HOME);
         }
       }
     } catch (e) {

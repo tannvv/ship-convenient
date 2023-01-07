@@ -1,4 +1,4 @@
-import 'package:convenient_way/app/core/utils/toast_service.dart';
+import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/box_decorations.dart';
 import 'package:convenient_way/app/core/values/button_styles.dart';

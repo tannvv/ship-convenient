@@ -265,6 +265,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.2"
+  flutter_format_money_vietnam:
+    dependency: "direct main"
+    description:
+      name: flutter_format_money_vietnam
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   flutter_keyboard_visibility:
     dependency: transitive
     description:

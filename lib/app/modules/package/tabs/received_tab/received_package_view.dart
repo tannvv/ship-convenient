@@ -1,8 +1,8 @@
 import 'package:convenient_way/app/core/values/box_decorations.dart';
 import 'package:convenient_way/app/core/values/button_styles.dart';
 import 'package:convenient_way/app/core/widgets/custom_footer_smart_refresh.dart';
-import 'package:convenient_way/app/modules/package/controllers/tab_controllers/received_package_controller.dart';
-import 'package:convenient_way/app/modules/package/views/widgets/received_package_item.dart';
+import 'package:convenient_way/app/modules/package/tabs/received_tab/received_package_controller.dart';
+import 'package:convenient_way/app/modules/package/tabs/received_tab/received_package_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -31,16 +31,25 @@ class ReceivedView extends GetView<ReceivedPackageController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ReceivedPackageItem(
-                        package: controller.receivedPackages[index]),
+                    ReceivedPackageItem(package: controller.dataApis[index]),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ElevatedButton(
+                            style: ButtonStyles.primaryBlueSmall().copyWith(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.red[400])),
+                            onPressed: () {
+                              controller.reportPackage(
+                                  controller.dataApis[index].id!);
+                            },
+                            child: const Text('Hủy đơn')),
+                        Gap(6.w),
+                        ElevatedButton(
                             style: ButtonStyles.primaryBlueSmall(),
                             onPressed: () {
                               controller.accountConfirmPackage(
-                                  controller.receivedPackages[index].id!);
+                                  controller.dataApis[index].id!);
                             },
                             child: const Text('Xác nhận lo được'))
                       ],
@@ -50,7 +59,7 @@ class ReceivedView extends GetView<ReceivedPackageController> {
               );
             },
             separatorBuilder: (_, index) => Gap(12.h),
-            itemCount: controller.receivedPackages.length),
+            itemCount: controller.dataApis.length),
       ),
     );
   }

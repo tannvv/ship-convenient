@@ -13,10 +13,15 @@ class MaterialDialogService {
     String cancelText = 'Thoát',
     String confirmText = 'Đồng ý',
     required Function() onConfirmTap,
+    IconData confirmIconData = Icons.delete,
+    int? seconds,
   }) async {
-    Timer timer = Timer(const Duration(seconds: 5), () {
-      Get.back();
-    });
+    Timer? timer;
+    if (seconds != null) {
+      timer = Timer(Duration(seconds: seconds), () {
+        Get.back();
+      });
+    }
     await Dialogs.materialDialog(
         msg: msg,
         title: title,
@@ -35,23 +40,23 @@ class MaterialDialogService {
           IconsButton(
             onPressed: onConfirmTap,
             text: confirmText,
-            iconData: Icons.delete,
+            iconData: confirmIconData,
             color: Colors.red,
             textStyle: const TextStyle(color: Colors.white),
             iconColor: Colors.white,
           ),
         ]);
-    if (timer.isActive) {
+    if (timer != null && timer.isActive) {
       timer.cancel();
     }
   }
 
-  static Future<void> showConfirmDialog(
-    Function() onConfirmTap, {
+  static Future<void> showConfirmDialog({
     String msg = 'Bạn xác nhận làm điều này?',
     String title = 'Xác nhận',
     String cancelText = 'Thoát',
     String confirmText = 'Đồng ý',
+    required Function() onConfirmTap,
   }) async {
     await Dialogs.materialDialog(
         msg: msg,
@@ -77,5 +82,21 @@ class MaterialDialogService {
             iconColor: Colors.white,
           ),
         ]);
+  }
+
+  static Future<void> showCustomDialog({
+    String msg = 'Bạn xác nhận làm điều này?',
+    String title = 'Xác nhận',
+    String cancelText = 'Thoát',
+    String confirmText = 'Đồng ý',
+    required List<Widget> actions,
+    required Function() onConfirmTap,
+  }) async {
+    await Dialogs.materialDialog(
+        msg: msg,
+        title: title,
+        color: Colors.white,
+        context: Get.context!,
+        actions: actions);
   }
 }

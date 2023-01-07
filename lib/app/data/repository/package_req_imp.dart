@@ -93,4 +93,17 @@ class PackageReqImp extends BaseRepository implements PackageReq {
       rethrow;
     }
   }
+
+  @override
+  Future<SimpleResponseModel> deliverCancel(String packageId) {
+    String endpoint = '${DioProvider.baseUrl}/packages/deliver-cancel';
+    var dioCall =
+        dioClient.put(endpoint, queryParameters: {'packageId': packageId});
+    try {
+      return callApi(dioCall)
+          .then((response) => SimpleResponseModel.fromJson(response.data));
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
