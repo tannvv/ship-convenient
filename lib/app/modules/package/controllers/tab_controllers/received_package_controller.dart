@@ -24,11 +24,6 @@ class ReceivedPackageController extends BaseController
   bool _hasMore = true;
   RefreshController get refreshController => _refreshController;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   void init() {
     fetchReceivedPackages();
   }

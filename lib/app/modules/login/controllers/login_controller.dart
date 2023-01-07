@@ -1,6 +1,5 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/controllers/map_location_controller.dart';
-import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,8 +49,8 @@ class LoginController extends BaseController {
   }
 
   void login() async {
-    isLoading.value = true;
-    await AuthService.login(userName, password);
-    isLoading.value = false;
+    // isLoading.value = true;
+    // await AuthService.login(userName, password);
+    // isLoading.value = false;
   }
 }

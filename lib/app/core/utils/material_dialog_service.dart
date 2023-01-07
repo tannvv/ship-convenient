@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_dialogs/material_dialogs.dart';
@@ -12,6 +14,9 @@ class MaterialDialogService {
     String confirmText = 'Đồng ý',
     required Function() onConfirmTap,
   }) async {
+    Timer timer = Timer(const Duration(seconds: 5), () {
+      Get.back();
+    });
     await Dialogs.materialDialog(
         msg: msg,
         title: title,
@@ -36,6 +41,9 @@ class MaterialDialogService {
             iconColor: Colors.white,
           ),
         ]);
+    if (timer.isActive) {
+      timer.cancel();
+    }
   }
 
   static Future<void> showConfirmDialog(

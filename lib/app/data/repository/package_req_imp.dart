@@ -4,14 +4,16 @@ import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
+import 'package:convenient_way/app/data/repository/request_model/suggest_package_request_model.dart';
 import 'package:convenient_way/app/data/repository/response_model/simple_response_model.dart';
 import 'package:convenient_way/app/network/dio_provider.dart';
 
 class PackageReqImp extends BaseRepository implements PackageReq {
   @override
-  Future<List<SuggestPackage>> getSuggestPackage(String deliverId) {
+  Future<List<SuggestPackage>> getSuggestPackage(
+      SuggestPackageRequestModel model) {
     String endpoint = '${DioProvider.baseUrl}/packages/combos';
-    Map<String, dynamic> queryParams = {'deliverId': deliverId};
+    Map<String, dynamic> queryParams = model.toJson();
     var dioCall = dioClient.get(endpoint, queryParameters: queryParams);
     try {
       return callApi(dioCall).then((response) {

@@ -209,7 +209,7 @@ class CreateRouteView extends GetView<CreateRouteController> {
 
   TypeAheadField _homeTextField() {
     return TypeAheadField(
-      debounceDuration: const Duration(seconds: 2),
+      debounceDuration: const Duration(milliseconds: 500),
       minCharsForSuggestions: 4,
       textFieldConfiguration: TextFieldConfiguration(
           controller: controller.homeController,

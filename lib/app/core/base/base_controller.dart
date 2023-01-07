@@ -20,12 +20,6 @@ abstract class BaseController extends GetxController {
 
   final logoutController = false.obs;
 
-  //Reload the page
-  final _refreshController = false.obs;
-
-  refreshPage(bool refresh) => _refreshController(refresh);
-
-  //Controls page state
   final _pageSateController = PageState.DEFAULT.obs;
 
   PageState get pageState => _pageSateController.value;
@@ -37,26 +31,6 @@ abstract class BaseController extends GetxController {
   showLoading() => updatePageState(PageState.LOADING);
 
   hideLoading() => resetPageState();
-
-  final _messageController = ''.obs;
-
-  String get message => _messageController.value;
-
-  showMessage(String msg) => _messageController(msg);
-
-  final _errorMessageController = ''.obs;
-
-  String get errorMessage => _errorMessageController.value;
-
-  showErrorMessage(String msg) {
-    _errorMessageController(msg);
-  }
-
-  final _successMessageController = ''.obs;
-
-  String get successMessage => _messageController.value;
-
-  showSuccessMessage(String msg) => _successMessageController(msg);
 
   dynamic callDataService<T>(
     Future<T> future, {
@@ -79,28 +53,20 @@ abstract class BaseController extends GetxController {
       return response;
     } on ServiceUnavailableException catch (exception) {
       _exception = exception;
-      showErrorMessage(exception.message);
     } on UnauthorizedException catch (exception) {
       _exception = exception;
-      showErrorMessage(exception.message);
     } on TimeoutException catch (exception) {
       _exception = exception;
-      showErrorMessage(exception.message ?? 'Timeout exception');
     } on NetworkException catch (exception) {
       _exception = exception;
-      showErrorMessage(exception.message);
     } on JsonFormatException catch (exception) {
       _exception = exception;
-      showErrorMessage(exception.message);
     } on NotFoundException catch (exception) {
       _exception = exception;
-      showErrorMessage(exception.message);
     } on ApiException catch (exception) {
       _exception = exception;
-      // MotionToastService.showError(exception.message);
     } on AppException catch (exception) {
       _exception = exception;
-      showErrorMessage(exception.message);
     } catch (error) {
       _exception = AppException(message: "$error");
       logger.e("Controller>>>>>> error $error");
@@ -112,8 +78,6 @@ abstract class BaseController extends GetxController {
 
   @override
   void onClose() {
-    _messageController.close();
-    _refreshController.close();
     _pageSateController.close();
     super.onClose();
   }
