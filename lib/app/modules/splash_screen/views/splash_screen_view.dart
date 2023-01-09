@@ -1,6 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:convenient_way/app/core/values/app_assets.dart';
-import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
@@ -23,9 +22,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
       splashIconSize: Get.height * 0.5,
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.scale,
-      screenRouteFunction: () async {
-        return Routes.LOGIN;
-      },
+      screenRouteFunction: controller.screenRouteFunction,
     ));
   }
 }

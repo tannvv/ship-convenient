@@ -76,6 +76,7 @@ dependencies:
     animated_splash_screen: ^1.3.0
     page_transition: '^2.0.9'
     flutter_native_splash: ^2.2.16
+    cached_network_image: ^3.2.3
 
 dev_dependencies:
     flutter_test:
