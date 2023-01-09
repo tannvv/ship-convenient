@@ -1,5 +1,5 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
-import 'package:convenient_way/app/core/utils/auth_service.dart';
+import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/data/models/transaction_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/transaction_list_model.dart';
@@ -23,7 +23,7 @@ class TransactionController extends BaseController {
   }
 
   Future<void> fetchTransactions() async {
-    String accountId = AuthService.instance.account!.id!;
+    String accountId = AuthController.instance.account!.id!;
     TransactionListModel model = TransactionListModel(accountId: accountId);
     Future<List<Transaction>> future = _transactionRepo.getList(model);
     await callDataService<List<Transaction>>(future, onSuccess: (response) {

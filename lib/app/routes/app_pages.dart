@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/cancel_package/bindings/cancel_package_binding.dart';
+import '../modules/cancel_package/views/cancel_package_view.dart';
 import '../modules/chat_message/bindings/chat_message_binding.dart';
 import '../modules/chat_message/views/chat_message_view.dart';
 import '../modules/create-route/bindings/create_route_binding.dart';
@@ -14,6 +16,8 @@ import '../modules/pick_up_location/bindings/pick_up_location_binding.dart';
 import '../modules/pick_up_location/views/pick_up_location_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/splash_screen/bindings/splash_screen_binding.dart';
+import '../modules/splash_screen/views/splash_screen_view.dart';
 import '../modules/suggest_package_detail/bindings/suggest_package_detail_binding.dart';
 import '../modules/suggest_package_detail/views/suggest_package_detail_view.dart';
 import '../modules/transaction/bindings/transaction_binding.dart';
@@ -28,7 +32,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
@@ -78,6 +82,16 @@ class AppPages {
       name: _Paths.CHAT_MESSAGE,
       page: () => const ChatMessageView(),
       binding: ChatMessageBinding(),
+    ),
+    GetPage(
+      name: _Paths.CANCEL_PACKAGE,
+      page: () => const CancelPackageView(),
+      binding: CancelPackageBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH_SCREEN,
+      page: () => const SplashScreenView(),
+      binding: SplashScreenBinding(),
     ),
   ];
 }

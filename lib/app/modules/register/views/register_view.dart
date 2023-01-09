@@ -277,7 +277,7 @@ class RegisterView extends GetView<RegisterController> {
           }
         },
         child: Obx(() => HyperButton.childWhite(
-              status: controller.isLoading.value,
+              status: controller.isLoading,
               loadingText: 'Đang đăng kí',
               child: Text(
                 'Đăng kí',

@@ -1,6 +1,6 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
+import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
-import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/material_dialog_service.dart';
 import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/data/models/account_model.dart';
@@ -57,8 +57,8 @@ class SuggestPackageDetailController extends BaseController {
   }
 
   void createBounds() {
-    if (AuthService.instance.account != null) {
-      Account account = AuthService.instance.account!;
+    if (AuthController.instance.account != null) {
+      Account account = AuthController.instance.account!;
       RouteAcc activeRoute = account.infoUser!.routes!
           .where((element) => element.isActive == true)
           .first;
@@ -104,7 +104,9 @@ class SuggestPackageDetailController extends BaseController {
 
   Future<void> pickUpPackages() async {
     if (selectedPackages.isEmpty) {
-      MotionToastService.showError('Chưa chọn gói hàng nào để pickup');
+      MotionToastService.showError(
+        'Chưa chọn gói hàng nào để pickup',
+      );
       return;
     }
     if (selectedPackages.length > maxSelectedPackages) {
@@ -115,7 +117,7 @@ class SuggestPackageDetailController extends BaseController {
     await MaterialDialogService.showConfirmDialog(
         msg: 'Bạn xác nhận chọn những đơn hàng này?',
         onConfirmTap: () {
-          String accountId = AuthService.instance.account!.id!;
+          String accountId = AuthController.instance.account!.id!;
           AccountPickUpModel model = AccountPickUpModel(
               deliverId: accountId, packageIds: selectedPackages);
           Future<SimpleResponseModel> future =

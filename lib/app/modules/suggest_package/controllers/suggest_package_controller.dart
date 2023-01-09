@@ -1,5 +1,5 @@
 import 'package:convenient_way/app/core/base/base_paging_controller.dart';
-import 'package:convenient_way/app/core/utils/auth_service.dart';
+import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/suggest_package_request_model.dart';
@@ -24,7 +24,7 @@ class SuggestPackageController extends BasePagingController<SuggestPackage> {
 
   @override
   Future<void> fetchDataApi() async {
-    String? accountId = AuthService.getKeyToken('id');
+    String? accountId = AuthController.getKeyToken('id');
     if (accountId != null) {
       SuggestPackageRequestModel model = SuggestPackageRequestModel(
         deliverId: accountId,

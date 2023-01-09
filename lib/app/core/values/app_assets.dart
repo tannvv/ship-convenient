@@ -9,4 +9,5 @@ abstract class AppAssets {
   static const String boy = '$assetImages/young-man.png';
   static const String girl = '$assetImages/avatar.png';
   static const String avatar = '$assetImages/boy.png';
+  static const String splash = '$assetImages/splash.png';
 }

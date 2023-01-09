@@ -15,6 +15,8 @@ abstract class Routes {
   static const VERIFY_OTP = _Paths.VERIFY_OTP;
   static const CREATE_ROUTE = _Paths.CREATE_ROUTE;
   static const CHAT_MESSAGE = _Paths.CHAT_MESSAGE;
+  static const CANCEL_PACKAGE = _Paths.CANCEL_PACKAGE;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
 }
 
 abstract class _Paths {
@@ -29,4 +31,6 @@ abstract class _Paths {
   static const VERIFY_OTP = '/verify-otp';
   static const CREATE_ROUTE = '/create-route';
   static const CHAT_MESSAGE = '/chat-message';
+  static const CANCEL_PACKAGE = '/cancel-package';
+  static const SPLASH_SCREEN = '/splash-screen';
 }

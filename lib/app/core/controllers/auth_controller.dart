@@ -10,10 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
-class AuthService extends BaseController {
-  static final AuthService _instance = AuthService._internal();
-  static AuthService get instance => _instance;
-  AuthService._internal();
+class AuthController extends BaseController {
+  AuthController();
+  static final AuthController _instance = AuthController._internal();
+  static AuthController get instance => _instance;
+  AuthController._internal();
 
   final AccountRep _accountRepo = Get.find(tag: (AccountRep).toString());
 
@@ -40,7 +41,7 @@ class AuthService extends BaseController {
 
   static String? getKeyToken(String key) {
     String? result;
-    String? token = AuthService._instance._token;
+    String? token = AuthController._instance._token;
     if (token != null) {
       Map<String, dynamic> payload = Jwt.parseJwt(token.toString());
       result = payload[key];
@@ -79,7 +80,7 @@ class AuthService extends BaseController {
   }
 
   static Future<void> logout() async {
-    AuthService.clearToken();
+    AuthController.clearToken();
     Get.offAndToNamed(Routes.LOGIN);
   }
 

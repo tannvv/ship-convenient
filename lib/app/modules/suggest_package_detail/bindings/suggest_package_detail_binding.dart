@@ -6,7 +6,7 @@ class SuggestPackageDetailBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<SuggestPackageDetailController>(
-      () => SuggestPackageDetailController(),
-    );
+        () => SuggestPackageDetailController(),
+        fenix: true);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:convenient_way/app/core/base/base_paging_controller.dart';
-import 'package:convenient_way/app/core/utils/auth_service.dart';
+import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/data/constants/package_status.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
@@ -18,7 +18,7 @@ class DeliveredPackageController extends BasePagingController<Package>
   @override
   Future<void> fetchDataApi() async {
     PackageListModel requestModel = PackageListModel(
-        deliverId: AuthService.instance.account!.id,
+        deliverId: AuthController.instance.account!.id,
         status: PackageStatus.DELIVERED,
         pageIndex: pageIndex,
         pageSize: pageSize);

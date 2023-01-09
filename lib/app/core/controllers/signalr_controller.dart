@@ -1,5 +1,5 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
-import 'package:convenient_way/app/core/utils/auth_service.dart';
+import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/config/build_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,7 +52,7 @@ class SignalR extends BaseController {
   }
 
   Future<void> _openConnection() async {
-    var token = AuthService.instance.token;
+    var token = AuthController.instance.token;
 
     final httpConnectionOptions = HttpConnectionOptions(
         logger: _logger,
@@ -109,7 +109,7 @@ class SignalR extends BaseController {
 
         if (connection.state == HubConnectionState.Connected) {
           debugPrint('SignalR: Kết nối thành công');
-          Account? account = AuthService.instance.account;
+          Account? account = AuthController.instance.account;
           if (account != null) {
             connection.invoke('RegisterUser', args: [account.id!, 'SHIPPER']);
           }
