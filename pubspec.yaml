@@ -77,6 +77,8 @@ dependencies:
     page_transition: '^2.0.9'
     flutter_native_splash: ^2.2.16
     cached_network_image: ^3.2.3
+    firebase_storage: ^11.0.10
+    firebase_core_platform_interface: ^4.5.2
 
 dev_dependencies:
     flutter_test:

@@ -9,6 +9,7 @@ class ControllerBindings implements Bindings {
     Get.lazyPut<AuthController>(() => AuthController(), fenix: true);
     Get.lazyPut<MapLocationController>(() => MapLocationController(),
         fenix: true);
-    Get.lazyPut<PickUpFileController>(() => PickUpFileController());
+    Get.lazyPut<PickUpFileController>(() => PickUpFileController(),
+        fenix: true);
   }
 }

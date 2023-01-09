@@ -193,12 +193,11 @@ class ProfilePageView extends GetView<ProfilePageController> {
           flex: 1,
           child: Stack(
             children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundImage: CachedNetworkImageProvider(
-                  controller.account?.infoUser!.photoUrl == null
-                      ? 'https://thuvienplus.com/themes/cynoebook/public/images/default-user-image.png'
-                      : controller.account!.infoUser!.photoUrl!,
+              Obx(
+                () => CircleAvatar(
+                  radius: 40,
+                  backgroundImage:
+                      CachedNetworkImageProvider(controller.photoUrl.value),
                 ),
               ),
               Positioned(
@@ -211,7 +210,9 @@ class ProfilePageView extends GetView<ProfilePageController> {
                               const Color.fromARGB(255, 85, 88, 87),
                           side:
                               const BorderSide(width: 2, color: Colors.white)),
-                      onPressed: () async {},
+                      onPressed: () async {
+                        controller.uploadImage();
+                      },
                       child: const Icon(
                         Icons.camera_alt_rounded,
                         size: 16,
