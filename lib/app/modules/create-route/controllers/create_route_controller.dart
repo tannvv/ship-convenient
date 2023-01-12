@@ -2,6 +2,7 @@ import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
 import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
+import 'package:convenient_way/app/data/constants/account_status.dart';
 import 'package:convenient_way/app/data/models/response_goong_model.dart';
 import 'package:convenient_way/app/data/models/route_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
@@ -75,6 +76,8 @@ class CreateRouteController extends BaseController {
     await callDataService<RouteAcc?>(future, onSuccess: (newRoute) async {
       if (newRoute != null) {
         AuthController.instance.account!.infoUser!.routes!.add(newRoute);
+        AuthController.instance.account!.status = AccountStatus.active;
+        AuthController.setDataPrefs();
         await QuickAlertService.showSuccess(
             'Bạn đã đăng kí tuyến đường thành công',
             duration: 3);

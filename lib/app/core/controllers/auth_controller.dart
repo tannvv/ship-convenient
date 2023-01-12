@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
+import 'package:convenient_way/app/data/constants/prefs_memory.dart';
 import 'package:convenient_way/app/data/local/preference/preference_manager.dart';
 import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
@@ -67,8 +68,8 @@ class AuthController extends BaseController {
         token = response.token;
         instance._account = response.account;
         PreferenceManager prefs = Get.find(tag: (PreferenceManager).toString());
-        prefs.setString('token', token!);
-        prefs.setString('userJson', jsonEncode(response.account));
+        prefs.setString(PrefsMemory.token, token!);
+        prefs.setString(PrefsMemory.userJson, jsonEncode(response.account));
       }, onError: (exception) {
         if (exception is BaseException) {
           MotionToastService.showError((exception).message);
@@ -90,12 +91,18 @@ class AuthController extends BaseController {
     return result;
   }
 
+  static void setDataPrefs() {
+    PreferenceManager prefs = Get.find(tag: (PreferenceManager).toString());
+    prefs.setString(PrefsMemory.token, _instance.token!);
+    prefs.setString(PrefsMemory.userJson, jsonEncode(_instance.account));
+  }
+
   static Future<Account?> isLoginBefore() async {
     PreferenceManager prefs = Get.find(tag: (PreferenceManager).toString());
-    String? token = await prefs.getString('token');
+    String? token = await prefs.getString(PrefsMemory.token);
     if (token.isNotEmpty) {
       _instance._token = token;
-      String? userJson = await prefs.getString('userJson');
+      String? userJson = await prefs.getString(PrefsMemory.userJson);
       if (userJson.isNotEmpty) {
         _instance._account = Account.fromJson(jsonDecode(userJson));
         return _instance._account;
@@ -113,8 +120,8 @@ class AuthController extends BaseController {
     _instance._token = null;
     _instance._account = null;
     await SharedPreferences.getInstance().then((prefs) {
-      prefs.remove('token');
-      prefs.remove('userJson');
+      prefs.remove(PrefsMemory.token);
+      prefs.remove(PrefsMemory.userJson);
     });
   }
 }
