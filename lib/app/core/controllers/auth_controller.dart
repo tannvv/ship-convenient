@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthController extends BaseController {
   AuthController();
   static final AuthController _instance = AuthController._internal();
+  RxBool isReload = false.obs;
   static AuthController get instance => _instance;
   AuthController._internal();
 
@@ -56,6 +57,27 @@ class AuthController extends BaseController {
       result = payload[key];
     }
     return result;
+  }
+
+  static Future<void> reloadAccount() async {
+    if (_instance._account != null) {
+      var accountService =
+          _instance._accountRepo.getAccountId(_instance._account!.id!);
+      await _instance.callDataService<Account?>(accountService,
+          onSuccess: (Account? response) async {
+            instance._account = response;
+            PreferenceManager prefs =
+                Get.find(tag: (PreferenceManager).toString());
+            prefs.setString(PrefsMemory.userJson, jsonEncode(response));
+          },
+          onError: (exception) {
+            if (exception is BaseException) {
+              MotionToastService.showError((exception).message);
+            }
+          },
+          onStart: () => instance.isReload.value = true,
+          onComplete: () => instance.isReload.value = false);
+    }
   }
 
   static Future<bool> login(userName, password) async {

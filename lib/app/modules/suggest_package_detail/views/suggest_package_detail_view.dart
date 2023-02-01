@@ -52,7 +52,7 @@ class SuggestPackageDetailView extends GetView<SuggestPackageDetailController> {
                                   urlTemplate: BuildConfig
                                       .instance.mapConfig.mapboxUrlTemplate,
                                   additionalOptions: {
-                                'accessToken': BuildConfig
+                                'access_token': BuildConfig
                                     .instance.mapConfig.mapboxAccessToken,
                                 'id': BuildConfig.instance.mapConfig.mapboxId
                               })),

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:convenient_way/app/modules/message_page/controllers/message_page_controller.dart';
 import 'package:convenient_way/app/modules/message_page/views/message_page_view.dart';
 import 'package:convenient_way/app/modules/notify_page/controllers/notify_page_controller.dart';
@@ -18,8 +20,15 @@ class HomeController extends GetxController {
   late SuggestPackageController _suggestPackageController;
   late ProfilePageController _profileController;
 
-  final _selectedIndex = 0.obs;
+  final _selectedIndex = Get.arguments != null
+      ? int.parse(Get.arguments['initialPageIndex']).obs
+      : 0.obs;
+
   int get selectedIndex => _selectedIndex.value;
+  set selectedIndex(int value) {
+    _selectedIndex.value = value;
+  }
+
   final count = 0.obs;
 
   final List<Widget> _widgetOptions = <Widget>[
@@ -43,9 +52,7 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-
-
-  void initController() {
+  Future<void> initController() async {
     Get.put(MessagePageController(), permanent: true);
     _messageController = Get.find<MessagePageController>();
     Get.put(NotifyPageController(), permanent: true);
@@ -54,7 +61,7 @@ class HomeController extends GetxController {
     _suggestPackageController = Get.find<SuggestPackageController>();
     Get.put(ProfilePageController(), permanent: true);
     _profileController = Get.find<ProfilePageController>();
-    Get.put(PackageController(), permanent: true);
+    Get.put(PackageController());
     _packageController = Get.find<PackageController>();
   }
 }

@@ -1,11 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/core/values/app_colors.dart';
+import 'package:convenient_way/app/core/values/font_weight.dart';
+import 'package:convenient_way/app/core/values/shadow_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/data/options/gender_option.dart';
+import 'package:convenient_way/app/modules/profile_page/widgets/button_color.dart';
+import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../controllers/profile_page_controller.dart';
 
@@ -17,18 +24,23 @@ class ProfilePageView extends GetView<ProfilePageController> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Cập nhật thông tin'),
+        title: const Text('Thông tin cá nhân'),
       ),
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(12),
             child: _avatarName(),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 30, top: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: _wallet(),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 30, top: 10),
             child: Column(
               children: [
+                _separateContent(),
                 _phoneNumber(),
                 _separateContent(),
                 _gender(),
@@ -64,36 +76,130 @@ class ProfilePageView extends GetView<ProfilePageController> {
     );
   }
 
+  Container _wallet() {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(5.r),
+        boxShadow: ShadowStyles.surface,
+      ),
+      width: 324.w,
+      height: 112.h,
+      padding: EdgeInsets.symmetric(
+        vertical: 12.h,
+        horizontal: 14.w,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Số dư', style: body2.copyWith(color: AppColors.floatLabel)),
+          SizedBox(
+            height: 5.h,
+          ),
+          GetBuilder<AuthController>(
+            builder: (_) {
+              Widget result = Shimmer.fromColors(
+                baseColor: AppColors.shimmerBaseColor,
+                highlightColor: AppColors.shimmerHighlightColor,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: Text(
+                    '-',
+                    style: subtitle1.copyWith(
+                      fontSize: 18.sp,
+                      color: AppColors.softBlack,
+                      fontWeight: FontWeights.medium,
+                    ),
+                  ),
+                ),
+              );
+              if (!controller.isLoading) {
+                result = Text(
+                  controller.accountBalanceVND,
+                  style: subtitle1.copyWith(
+                    fontSize: 18.sp,
+                    color: AppColors.softBlack,
+                    fontWeight: FontWeights.medium,
+                  ),
+                );
+              }
+              return result;
+            },
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            children: [
+              ColorButton(
+                'Nạp tiền',
+                onPressed: () {
+                  Get.toNamed(Routes.PAYMENT);
+                },
+                icon: Icons.payments_outlined,
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              ColorButton(
+                'Giao dịch',
+                onPressed: () => {Get.toNamed(Routes.TRANSACTION)},
+                icon: Icons.summarize_outlined,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Column _email() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           'Địa chỉ email',
-          style: subtitle2,
+          style: body2.copyWith(color: AppColors.floatLabel),
         ),
-        const SizedBox(
-          height: 8,
+        SizedBox(
+          height: 8.h,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(flex: 3, child: Text('email', style: subtitle2)),
-            Flexible(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20, bottom: 6),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.yellow)),
-                      onPressed: null,
-                      child: Text(
-                        'Đã kết nối',
-                        style: subtitle2,
-                      )),
-                ))
-          ],
+        SizedBox(
+          height: 44.h,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                  flex: 3,
+                  child: Text(
+                    controller.initEmail,
+                    style: subtitle1.copyWith(
+                      fontSize: 15.sp,
+                      color: AppColors.softBlack,
+                      fontWeight: FontWeights.medium,
+                    ),
+                  )),
+              Flexible(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20, bottom: 6),
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.yellow)),
+                        onPressed: null,
+                        child: Text(
+                          'Đã kết nối',
+                          style: subtitle2,
+                        )),
+                  ))
+            ],
+          ),
         ),
       ],
     );
@@ -105,7 +211,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
       children: [
         Text(
           'Giới tính',
-          style: subtitle2,
+          style: body2.copyWith(color: AppColors.floatLabel),
         ),
         const SizedBox(
           height: 8,
@@ -115,6 +221,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
             Flexible(
                 flex: 30,
                 child: Container(
+                  height: 46,
                   decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.04),
                       borderRadius:
@@ -133,6 +240,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(12)),
                         items: GenderOption.getOptionDropdown(),
+                        value: controller.initGender,
                         onChanged: (selectedValue) async {},
                       ),
                     ),
@@ -158,10 +266,11 @@ class ProfilePageView extends GetView<ProfilePageController> {
           children: [
             Text(
               'Số điện thoại',
-              style: subtitle2,
+              style: body2.copyWith(color: AppColors.floatLabel),
             ),
             SizedBox(
               width: Get.width * 0.6,
+              height: 44.h,
               child: _inputPhone(),
             )
           ],
@@ -284,6 +393,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
               width: 2.0,
             )),
       ),
+      initialValue: controller.initName,
       onChanged: (String value) {},
     );
   }
@@ -302,6 +412,12 @@ class ProfilePageView extends GetView<ProfilePageController> {
               width: 2.0,
             )),
       ),
+      style: subtitle1.copyWith(
+        fontSize: 15.sp,
+        color: AppColors.softBlack,
+        fontWeight: FontWeights.medium,
+      ),
+      initialValue: controller.initPhone,
       onChanged: (String value) {},
     );
   }

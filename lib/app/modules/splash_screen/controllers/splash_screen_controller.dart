@@ -8,6 +8,7 @@ class SplashScreenController extends GetxController {
   Future<String> screenRouteFunction() async {
     Account? account = await AuthController.isLoginBefore();
     if (account != null) {
+      await AuthController.reloadAccount();
       return account.status == AccountStatus.noRoute
           ? Routes.CREATE_ROUTE
           : Routes.HOME;
