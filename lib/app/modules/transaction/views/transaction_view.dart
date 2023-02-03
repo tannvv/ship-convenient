@@ -49,6 +49,7 @@ class TransactionView extends GetView<TransactionController> {
                         ),
                       ),
                       TransactionItem(
+                        index: index,
                         model: item,
                       ),
                     ],
@@ -70,12 +71,14 @@ class TransactionView extends GetView<TransactionController> {
                         ),
                       ),
                       TransactionItem(
+                        index: index,
                         model: item,
                       ),
                     ],
                   );
                 }
                 return TransactionItem(
+                  index: index,
                   model: controller.dataApis[index],
                 );
               },

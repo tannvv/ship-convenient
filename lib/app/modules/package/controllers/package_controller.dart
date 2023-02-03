@@ -1,6 +1,5 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
-import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/modules/package/tabs/deliver_cancel_tab/deliver_cancel_view.dart';
 import 'package:convenient_way/app/modules/package/tabs/delivered_tab/delivered_package_view.dart';
 import 'package:convenient_way/app/modules/package/tabs/delivery_tab/delivery_package_view.dart';
@@ -13,31 +12,16 @@ import 'package:get/get.dart';
 
 class PackageController extends BaseController
     with GetSingleTickerProviderStateMixin {
-  final PackageReq _packageRepo = Get.find(tag: (PackageReq).toString());
-
   late TabController tabController;
-  final tabs = const [
-    Tab(
-      text: 'Đã nhận',
-    ),
-    Tab(
-      text: 'Đang giao',
-    ),
-    Tab(
-      text: 'Đã hủy',
-    ),
-    Tab(
-      text: 'Sender hủy',
-    ),
-    Tab(
-      text: 'Đã giao hàng',
-    ),
-    Tab(
-      text: 'Thất bại',
-    ),
-    Tab(
-      text: 'Thành công',
-    ),
+
+  List<String> tabsTitle = const [
+    'Đã nhận',
+    'Đang giao',
+    'Đã hủy',
+    'Sender hủy',
+    'Đã giao hàng',
+    'Thất bại',
+    'Thành công',
   ];
 
   final List<Widget> _screens = const [
@@ -49,6 +33,8 @@ class PackageController extends BaseController
     FailedView(),
     SuccessView()
   ];
+
+  List<Widget> get screens => _screens;
 
   final receivedPackages = <Package>[].obs;
   final deliveredPackages = <Package>[].obs;

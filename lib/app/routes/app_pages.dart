@@ -6,6 +6,8 @@ import '../modules/chat_message/bindings/chat_message_binding.dart';
 import '../modules/chat_message/views/chat_message_view.dart';
 import '../modules/create-route/bindings/create_route_binding.dart';
 import '../modules/create-route/views/create_route_view.dart';
+import '../modules/feedback_for_deliver/bindings/feedback_for_deliver_binding.dart';
+import '../modules/feedback_for_deliver/views/feedback_for_deliver_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -113,6 +115,11 @@ class AppPages {
       name: _Paths.PAYMENT,
       page: () => const PaymentView(),
       binding: PaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.FEEDBACK_FOR_DELIVER,
+      page: () => const FeedbackForDeliverView(),
+      binding: FeedbackForDeliverBinding(),
     ),
   ];
 }
