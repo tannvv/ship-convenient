@@ -24,7 +24,7 @@ class _AppState extends State<App> {
         designSize: const Size(360, 800),
         minTextAdapt: true,
         builder: ((context, child) => GetMaterialApp(
-              title: 'Ship convenient',
+              title: 'Tiện đường',
               initialBinding: InitialBinding(),
               initialRoute: AppPages.INITIAL,
               getPages: AppPages.routes,

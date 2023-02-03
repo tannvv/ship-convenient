@@ -26,16 +26,28 @@ class SuggestPackageItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Tên người gửi: ${suggestPackage.sender?.infoUser?.firstName}',
-            style: subtitle2,
+          Row(
+            children: [
+              const Text('Tên người gửi: '),
+              Text(
+                '${suggestPackage.sender?.infoUser?.firstName}',
+                style: subtitle2,
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Số gói hàng: $countPackage',
-                style: subtitle2,
+              Row(
+                children: [
+                  const Text(
+                    'Số gói hàng: ',
+                  ),
+                  Text(
+                    '$countPackage',
+                    style: subtitle2,
+                  ),
+                ],
               ),
               Text(
                 '${suggestPackage.compoPrice?.toVND()}',
@@ -46,18 +58,39 @@ class SuggestPackageItem extends StatelessWidget {
               )
             ],
           ),
-          Text(
-            'Sản phẩm: $products',
-            style: subtitle2,
+          Row(
+            children: [
+              const Text('Sản phẩm: '),
+              Expanded(
+                child: Text(
+                  products,
+                  style: subtitle2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
-          Text(
-            'Tổng tiền ship: ${suggestPackage.getPriceShips().toVND()}',
-            style: subtitle2,
+          Row(
+            children: [
+              const Text('Điểm gửi hàng: '),
+              Expanded(
+                child: Text(
+                  '${suggestPackage.packages![0].startAddress}',
+                  style: subtitle2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
-          Text(
-            'Điểm lấy hàng: ${suggestPackage.packages![0].startAddress}',
-            style: subtitle2,
-          ),
+          Row(
+            children: [
+              const Text('Tổng phí vận chuyển: '),
+              Text(
+                suggestPackage.getPriceShips().toVND(),
+                style: subtitle2,
+              ),
+            ],
+          )
         ],
       ),
     );

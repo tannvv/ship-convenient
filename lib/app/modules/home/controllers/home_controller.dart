@@ -42,7 +42,7 @@ class HomeController extends GetxController {
   PageStorageBucket bucket = PageStorageBucket();
   Widget get currentScreen => _widgetOptions[_selectedIndex.value];
 
-  void onItemTapped(int index) {
+  void changeTab(int index) {
     _selectedIndex.value = index;
   }
 

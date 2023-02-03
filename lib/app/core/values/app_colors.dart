@@ -10,6 +10,7 @@ abstract class AppColors {
   static const Color primary300 = Color.fromARGB(255, 79, 123, 177);
   static const Color primary200 = Color.fromARGB(255, 106, 137, 175);
   static const Color primary100 = Color(0xFFDBE2EF);
+  static const Color primaryLight = Color(0xFFF9F7F7);
 
   static const Color secondary700 = Color(0xFF238bf7);
   static const Color secondary600 = Color(0xFF3b97f7);
