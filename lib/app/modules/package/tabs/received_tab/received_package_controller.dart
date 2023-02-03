@@ -10,26 +10,42 @@ import 'package:convenient_way/app/data/repository/request_model/account_pickup_
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class ReceivedPackageController extends BasePagingController<Package>
     with GetSingleTickerProviderStateMixin {
   final PackageReq _packageRepo = Get.find(tag: (PackageReq).toString());
-
+  RxList<String> packageIdsWarning = <String>[].obs;
   Future<void> accountConfirmPackage(String packageId) async {
     MaterialDialogService.showConfirmDialog(
         msg: 'Bạn chắc chắn muốn nhận gói hàng này để đi giao?',
-        onConfirmTap: () {
+        onConfirmTap: () async {
           AccountPickUpModel model = AccountPickUpModel(
               deliverId: AuthController.instance.account!.id!,
               packageIds: [packageId]);
-          _packageRepo.accountConfirmPackage(model).then((response) {
-            MotionToastService.showSuccess('Đã lấy hàng để đi giao');
+          _packageRepo.accountConfirmPackage(model).then((response) async {
+            packageIdsWarning.value = getPackageIdsNearPackage(
+                dataApis.firstWhere((element) => element.id == packageId),
+                dataApis);
+            Get.back();
+            if (packageIdsWarning.isNotEmpty) {
+              MotionToastService.showWarning(
+                  'Còn ${packageIdsWarning.length} gói hàng cần lấy ở gần nơi này');
+            } else {
+              MotionToastService.showSuccess('Đã lấy hàng để đi giao');
+            }
             onRefresh();
           }).catchError((error) {
+            Get.back();
             MotionToastService.showError(error.messages[0]);
           });
         });
+  }
+
+  @override
+  Future<void> onRefresh() {
+    return super.onRefresh();
   }
 
   @override
@@ -58,19 +74,30 @@ class ReceivedPackageController extends BasePagingController<Package>
                 duration: 3);
             onRefresh();
           }
-          // Future<SimpleResponseModel> future =
-          //     _packageRepo.deliverCancel(packageId);
-          // await callDataService<SimpleResponseModel>(future,
-          //     onSuccess: (res) async {
-          //   Get.back(); // close dialog
-          //   await MotionToastService.showSuccess(
-          //       res.message ?? 'Đã hủy gói hàng');
-          //   onRefresh();
-          // }, onError: (exception) {
-          //   if (exception is BaseException) {
-          //     MotionToastService.showError(exception.message);
-          //   }
-          // });
         });
+  }
+
+  List<String> getPackageIdsNearPackage(Package package, List<Package> list) {
+    List<String> packageIds = [];
+    List<Package> packages =
+        list.where((element) => element.id != package.id).toList();
+    for (int i = 0; i < packages.length; i++) {
+      double distance = Geolocator.distanceBetween(
+          package.startLatitude!,
+          package.startLongitude!,
+          packages[i].startLatitude!,
+          packages[i].startLongitude!);
+      debugPrint(
+          'Distance package 1: ${package.startLatitude!} - ${package.startLongitude!} ');
+      debugPrint(
+          'Distance package 2: ${packages[i].startLatitude!} - ${packages[i].startLongitude!} ');
+      debugPrint(
+          'Distance packageIds:  ${package.id} - ${packages[i].id} : $distance');
+      if (distance < 50) {
+        packageIds.add(packages[i].id!);
+      }
+    }
+
+    return packageIds;
   }
 }

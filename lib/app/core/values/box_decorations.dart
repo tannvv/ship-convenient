@@ -34,6 +34,16 @@ abstract class BoxDecorations {
         ]);
   }
 
+  static BoxDecoration primaryWarning() {
+    return BoxDecoration(
+        color: AppColors.softGray,
+        borderRadius: BorderRadius.circular(12.w),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.yellow.shade800, blurRadius: 2, spreadRadius: 1)
+        ]);
+  }
+
   static BoxDecoration service() {
     return BoxDecoration(
       color: AppColors.white,

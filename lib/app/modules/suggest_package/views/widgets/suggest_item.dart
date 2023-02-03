@@ -50,6 +50,14 @@ class SuggestPackageItem extends StatelessWidget {
             'Sản phẩm: $products',
             style: subtitle2,
           ),
+          Text(
+            'Tổng tiền ship: ${suggestPackage.getPriceShips().toVND()}',
+            style: subtitle2,
+          ),
+          Text(
+            'Điểm lấy hàng: ${suggestPackage.packages![0].startAddress}',
+            style: subtitle2,
+          ),
         ],
       ),
     );

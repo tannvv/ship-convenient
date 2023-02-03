@@ -12,6 +12,10 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/package/bindings/package_binding.dart';
 import '../modules/package/views/package_view.dart';
+import '../modules/payment/bindings/payment_binding.dart';
+import '../modules/payment/views/payment_view.dart';
+import '../modules/payment_status/bindings/payment_status_binding.dart';
+import '../modules/payment_status/views/payment_status_view.dart';
 import '../modules/pick_up_location/bindings/pick_up_location_binding.dart';
 import '../modules/pick_up_location/views/pick_up_location_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -24,6 +28,8 @@ import '../modules/transaction/bindings/transaction_binding.dart';
 import '../modules/transaction/views/transaction_view.dart';
 import '../modules/verify-otp/bindings/verify_otp_binding.dart';
 import '../modules/verify-otp/views/verify_otp_view.dart';
+import '../modules/vnpay/bindings/vnpay_binding.dart';
+import '../modules/vnpay/views/vnpay_view.dart';
 
 // ignore_for_file: constant_identifier_names
 
@@ -92,6 +98,21 @@ class AppPages {
       name: _Paths.SPLASH_SCREEN,
       page: () => const SplashScreenView(),
       binding: SplashScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.VNPAY,
+      page: () => const VnpayView(),
+      binding: VnpayBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT_STATUS,
+      page: () => const PaymentStatusView(),
+      binding: PaymentStatusBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT,
+      page: () => const PaymentView(),
+      binding: PaymentBinding(),
     ),
   ];
 }

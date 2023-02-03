@@ -102,4 +102,15 @@ class Package {
     }
     return data;
   }
+
+  String getProductNames() {
+    String names = '';
+    products?.forEach((element) {
+      names += '${element.name!}, ';
+    });
+    if (names.length > 3) {
+      names = names.substring(0, names.length - 2);
+    }
+    return names;
+  }
 }
