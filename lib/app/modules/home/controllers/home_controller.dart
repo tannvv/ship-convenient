@@ -1,7 +1,6 @@
 // ignore_for_file: unused_field
 
 import 'package:convenient_way/app/modules/message_page/controllers/message_page_controller.dart';
-import 'package:convenient_way/app/modules/message_page/views/message_page_view.dart';
 import 'package:convenient_way/app/modules/notify_page/controllers/notify_page_controller.dart';
 import 'package:convenient_way/app/modules/notify_page/views/notify_page_view.dart';
 import 'package:convenient_way/app/modules/package/controllers/package_controller.dart';
@@ -31,10 +30,9 @@ class HomeController extends GetxController {
 
   final count = 0.obs;
 
-  final List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = [
     SuggestPackageView(),
     const PackageView(),
-    const MessagePageView(),
     const NotifyPageView(),
     const ProfilePageView(),
   ];

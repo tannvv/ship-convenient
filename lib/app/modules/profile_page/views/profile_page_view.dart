@@ -4,6 +4,7 @@ import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/font_weight.dart';
 import 'package:convenient_way/app/core/values/shadow_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
+import 'package:convenient_way/app/core/widgets/header_scaffold.dart';
 import 'package:convenient_way/app/data/options/gender_option.dart';
 import 'package:convenient_way/app/modules/profile_page/widgets/button_color.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
@@ -22,12 +23,10 @@ class ProfilePageView extends GetView<ProfilePageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Thông tin cá nhân'),
-      ),
+      backgroundColor: AppColors.white,
       body: ListView(
         children: [
+          const HeaderScaffold(title: 'Thông tin cá nhân'),
           Padding(
             padding: const EdgeInsets.all(12),
             child: _avatarName(),
