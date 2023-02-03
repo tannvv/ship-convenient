@@ -14,8 +14,8 @@ class SplashScreenView extends GetView<SplashScreenController> {
         body: AnimatedSplashScreen.withScreenRouteFunction(
       duration: 4000,
       splash: Container(
-        width: Get.width,
-        height: Get.height,
+        width: Get.width * 0.4,
+        height: Get.height * 0.6,
         decoration: BoxDecoration(
             image: DecorationImage(image: Image.asset(AppAssets.splash).image)),
       ),

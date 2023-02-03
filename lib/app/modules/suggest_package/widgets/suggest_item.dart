@@ -17,7 +17,7 @@ class SuggestPackageItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 24.w),
       decoration: BoxDecoration(
-          color: AppColors.softGray,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(6.w),
           boxShadow: [
             BoxShadow(
