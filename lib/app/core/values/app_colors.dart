@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const Color primary900 = Color(0xFF3155a3);
-  static const Color primary800 = Color(0xFF3859a1);
-  static const Color primary700 = Color(0xFF3f5ea1);
-  static const Color primary600 = Color(0xFF4c67a1);
-  static const Color primary500 = Color(0xFF556ea3);
-  static const Color primary400 = Color(0xFF687daf);
-  static const Color primary300 = Color(0xFF7183ad);
-  static const Color primary200 = Color(0xFF7e8aa6);
-  static const Color primary100 = Color(0xFF8790a3);
-  static const Color primary050 = Color(0xFFa1a5ad);
+  static const Color primary900 = Color.fromARGB(255, 3, 83, 180);
+  static const Color primary800 = Color.fromARGB(255, 16, 88, 177);
+  static const Color primary700 = Color.fromARGB(255, 28, 96, 180);
+  static const Color primary600 = Color.fromARGB(255, 43, 106, 182);
+  static const Color primary500 = Color.fromARGB(255, 54, 110, 179);
+  static const Color primary400 = Color(0xFF3F72AF);
+  static const Color primary300 = Color.fromARGB(255, 79, 123, 177);
+  static const Color primary200 = Color.fromARGB(255, 106, 137, 175);
+  static const Color primary100 = Color(0xFFDBE2EF);
 
   static const Color secondary700 = Color(0xFF238bf7);
   static const Color secondary600 = Color(0xFF3b97f7);

@@ -18,10 +18,10 @@ class SuggestPackageItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 24.w),
       decoration: BoxDecoration(
           color: AppColors.softGray,
-          borderRadius: BorderRadius.circular(12.w),
+          borderRadius: BorderRadius.circular(6.w),
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.shade200, blurRadius: 2, spreadRadius: 1)
+                color: Colors.grey.shade300, blurRadius: 2, spreadRadius: 1)
           ]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class SuggestPackageItem extends StatelessWidget {
               Text(
                 '${suggestPackage.compoPrice?.toVND()}',
                 style: subtitle2.copyWith(
-                  color: AppColors.softRed,
+                  color: AppColors.primary800,
                   fontWeight: FontWeights.medium,
                 ),
               )

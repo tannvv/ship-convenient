@@ -1,6 +1,7 @@
+import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
@@ -24,9 +25,10 @@ class HomeView extends GetView<HomeController> {
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(FluentSystemIcons.ic_fluent_home_regular),
-                activeIcon: Icon(FluentSystemIcons.ic_fluent_home_filled),
-                label: 'Home'),
+              icon: Icon(FluentSystemIcons.ic_fluent_home_regular),
+              activeIcon: Icon(FluentSystemIcons.ic_fluent_home_filled),
+              label: 'Home',
+            ),
             BottomNavigationBarItem(
                 icon:
                     Icon(FluentSystemIcons.ic_fluent_clipboard_letter_regular),
@@ -48,6 +50,23 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       ),
+      floatingActionButton: SizedBox(
+        width: 50.w,
+        height: 50.w,
+        child: FittedBox(
+          child: FloatingActionButton(
+            backgroundColor: AppColors.primary400,
+            child: Icon(
+              Icons.qr_code_scanner,
+              size: 30.r,
+            ),
+            onPressed: () {
+              // Get.toNamed(Routes.SCAN);
+            },
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

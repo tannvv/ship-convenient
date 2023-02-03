@@ -14,15 +14,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 class TransactionItem extends StatelessWidget {
   const TransactionItem({
     Key? key,
+    required this.index,
     required this.model,
   }) : super(key: key);
 
   final Transaction? model;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.transparent,
+      color: index % 2 == 0
+          ? Colors.transparent
+          : AppColors.softGray.withOpacity(0.6),
       child: InkWell(
         onTap: () {},
         child: Ink(

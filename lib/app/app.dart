@@ -30,6 +30,12 @@ class _AppState extends State<App> {
               getPages: AppPages.routes,
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
+                appBarTheme: AppBarTheme(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                scaffoldBackgroundColor: AppColors.primary100,
                 colorScheme: const ColorScheme(
                   primary: AppColors.primary400,
                   secondary: AppColors.secondary400,
