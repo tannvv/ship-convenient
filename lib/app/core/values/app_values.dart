@@ -1,3 +1,5 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 abstract class AppValues {
   static const double padding = 16;
   static const double padding_zero = 0;
@@ -10,6 +12,12 @@ abstract class AppValues {
   static const double padding_2 = 2;
   static const double padding_3 = 3;
   static const double buttonVerticalPadding = 12;
+
+  static double bottomAppBarHeight = 60.h;
+
+  static const double overviewZoomLevel = 10.8;
+  static const double focusZoomLevel = 15;
+  static const double navigationModeZoomLevel = 17;
 
   static const double margin = 16;
   static const double margin_zero = 0;
@@ -96,6 +104,4 @@ abstract class AppValues {
   static const int defaultThrottleTimeInMilliSeconds = 500;
 
   static const double height_16 = 16;
-
-  static const double focusZoomLevel = 8;
 }

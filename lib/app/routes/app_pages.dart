@@ -10,6 +10,8 @@ import '../modules/feedback_for_deliver/bindings/feedback_for_deliver_binding.da
 import '../modules/feedback_for_deliver/views/feedback_for_deliver_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/location_package/bindings/location_package_binding.dart';
+import '../modules/location_package/views/location_package_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/package/bindings/package_binding.dart';
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.FEEDBACK_FOR_DELIVER,
       page: () => const FeedbackForDeliverView(),
       binding: FeedbackForDeliverBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOCATION_PACKAGE,
+      page: () => const LocationPackageView(),
+      binding: LocationPackageBinding(),
     ),
   ];
 }

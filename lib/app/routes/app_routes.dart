@@ -21,6 +21,7 @@ abstract class Routes {
   static const PAYMENT_STATUS = _Paths.PAYMENT_STATUS;
   static const PAYMENT = _Paths.PAYMENT;
   static const FEEDBACK_FOR_DELIVER = _Paths.FEEDBACK_FOR_DELIVER;
+  static const LOCATION_PACKAGE = _Paths.LOCATION_PACKAGE;
 }
 
 abstract class _Paths {
@@ -41,4 +42,5 @@ abstract class _Paths {
   static const PAYMENT_STATUS = '/payment-status';
   static const PAYMENT = '/payment';
   static const FEEDBACK_FOR_DELIVER = '/feedback-for-deliver';
+  static const LOCATION_PACKAGE = '/location-package';
 }

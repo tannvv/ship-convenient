@@ -2,7 +2,7 @@ import 'package:convenient_way/app/core/values/app_assets.dart';
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/button_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
-import 'package:convenient_way/app/modules/suggest_package_detail/views/widgets/suggest_item.dart';
+import 'package:convenient_way/app/modules/suggest_package_detail/widgets/suggest_item.dart';
 import 'package:convenient_way/config/build_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';

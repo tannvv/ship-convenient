@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/font_weight.dart';
-import 'package:convenient_way/app/core/values/shadow_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/core/widgets/header_scaffold.dart';
 import 'package:convenient_way/app/data/options/gender_option.dart';
@@ -13,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../controllers/profile_page_controller.dart';
 
@@ -80,7 +77,9 @@ class ProfilePageView extends GetView<ProfilePageController> {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(5.r),
-        boxShadow: ShadowStyles.surface,
+        boxShadow: [
+          BoxShadow(color: Colors.grey.shade300, blurRadius: 2, spreadRadius: 1)
+        ],
       ),
       width: 324.w,
       height: 112.h,
@@ -95,40 +94,13 @@ class ProfilePageView extends GetView<ProfilePageController> {
           SizedBox(
             height: 5.h,
           ),
-          GetBuilder<AuthController>(
-            builder: (_) {
-              Widget result = Shimmer.fromColors(
-                baseColor: AppColors.shimmerBaseColor,
-                highlightColor: AppColors.shimmerHighlightColor,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: Text(
-                    '-',
-                    style: subtitle1.copyWith(
-                      fontSize: 18.sp,
-                      color: AppColors.softBlack,
-                      fontWeight: FontWeights.medium,
-                    ),
-                  ),
-                ),
-              );
-              if (!controller.isLoading) {
-                result = Text(
-                  controller.accountBalanceVND,
-                  style: subtitle1.copyWith(
-                    fontSize: 18.sp,
-                    color: AppColors.softBlack,
-                    fontWeight: FontWeights.medium,
-                  ),
-                );
-              }
-              return result;
-            },
+          Text(
+            controller.accountBalanceVND,
+            style: subtitle1.copyWith(
+              fontSize: 18.sp,
+              color: AppColors.softBlack,
+              fontWeight: FontWeights.medium,
+            ),
           ),
           SizedBox(
             height: 10.h,

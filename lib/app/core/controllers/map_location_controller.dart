@@ -1,4 +1,5 @@
 import 'package:convenient_way/app/core/controllers/auth_controller.dart';
+import 'package:convenient_way/app/core/controllers/map_stream_location.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ class MapLocationController extends GetxController {
   LatLng? location;
   LocationPermission? permission;
   bool isUsedCurrentLocation = true;
+  MapStreamLocation? _mapStreamLocation;
 
   @override
   void onInit() {
@@ -20,6 +22,9 @@ class MapLocationController extends GetxController {
   Future<bool> loadLocation() async {
     try {
       location = await _getCurrentLocation();
+      if (isUsedCurrentLocation) {
+        initPositionStream(onPositionChanged: (position) {});
+      }
       return true;
     } catch (e) {
       permission = await Geolocator.checkPermission();
@@ -131,5 +136,22 @@ class MapLocationController extends GetxController {
     isUsedCurrentLocation = false;
     debugPrint(
         'Location default: ${location?.latitude}, ${location?.longitude}');
+  }
+
+  void initPositionStream({required Function(Position?) onPositionChanged}) {
+    _mapStreamLocation =
+        MapStreamLocation(onPositionChanged: onPositionChanged, isPause: false);
+  }
+
+  void pausePositionStream() {
+    _mapStreamLocation?.pausePositionStream();
+  }
+
+  void resumePositionStream() {
+    _mapStreamLocation?.resumePositionStream();
+  }
+
+  void closePositionStream() {
+    _mapStreamLocation?.close();
   }
 }

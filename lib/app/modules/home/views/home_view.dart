@@ -2,6 +2,7 @@ import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/modules/home/widgets/nav_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/octicons_icons.dart';
 import 'package:get/get.dart';
 
@@ -88,11 +89,11 @@ class HomeView extends GetView<HomeController> {
           child: FloatingActionButton(
             backgroundColor: AppColors.primary400,
             child: Icon(
-              Icons.qr_code_scanner,
+              FontAwesome.location,
               size: 30.r,
             ),
             onPressed: () {
-              // Get.toNamed(Routes.SCAN);
+              controller.changeTab(4);
             },
           ),
         ),

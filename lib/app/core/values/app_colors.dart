@@ -12,11 +12,11 @@ abstract class AppColors {
   static const Color primary100 = Color(0xFFDBE2EF);
   static const Color primaryLight = Color(0xFFF9F7F7);
 
-  static const Color secondary700 = Color(0xFF238bf7);
-  static const Color secondary600 = Color(0xFF3b97f7);
-  static const Color secondary500 = Color(0xFF66aefa);
-  static const Color secondary400 = Color(0xFF83bcf7);
-  static const Color secondary300 = Color(0xFFa0c8f2);
+  static const Color secondary700 = Color.fromARGB(255, 56, 56, 56);
+  static const Color secondary600 = Color.fromARGB(255, 99, 98, 98);
+  static const Color secondary500 = Color.fromARGB(255, 134, 134, 134);
+  static const Color secondary400 = Color.fromARGB(255, 151, 151, 150);
+  static const Color secondary300 = Color.fromARGB(255, 206, 206, 205);
 
   static const Color error = Color(0xFFFA6D55);
   static const Color softError = Color(0xFFD9928C);
