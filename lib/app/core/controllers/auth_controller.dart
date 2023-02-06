@@ -6,6 +6,7 @@ import 'package:convenient_way/app/data/constants/prefs_memory.dart';
 import 'package:convenient_way/app/data/local/preference/preference_manager.dart';
 import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
+import 'package:convenient_way/app/data/repository/request_model/login_model.dart';
 import 'package:convenient_way/app/data/repository/response_model/authorize_response_model.dart';
 import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
@@ -80,11 +81,11 @@ class AuthController extends BaseController {
     }
   }
 
-  static Future<bool> login(userName, password) async {
+  static Future<bool> login(LoginModel model) async {
     bool result = false;
     try {
       String? token;
-      var loginService = _instance._accountRepo.login(userName, password);
+      var loginService = _instance._accountRepo.login(model);
       await _instance.callDataService(loginService,
           onSuccess: (AuthorizeResponseModel response) async {
         token = response.token;

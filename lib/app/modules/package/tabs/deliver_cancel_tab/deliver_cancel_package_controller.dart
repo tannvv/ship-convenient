@@ -11,11 +11,6 @@ class DeliverCancelPackageController extends BasePagingController<Package>
   final PackageReq _packageRepo = Get.find(tag: (PackageReq).toString());
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   Future<void> fetchDataApi() async {
     PackageListModel requestModel = PackageListModel(
         deliverId: AuthController.instance.account!.id,

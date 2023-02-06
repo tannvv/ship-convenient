@@ -45,13 +45,7 @@ Future<void> main() async {
   await NotificationController.instance.init();
   Intl.defaultLocale = 'vi_VN';
   initializeDateFormatting();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(
+      NotificationController.firebaseMessagingBackgroundHandler);
   runApp(const App());
-}
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  debugPrint(
-      "Handling a background message: ${message.messageId}, Title: ${message.notification?.title}, Body: ${message.notification?.body}");
-  NotificationController.showNotification(
-      title: message.notification?.title, body: message.notification?.body);
 }

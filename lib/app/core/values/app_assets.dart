@@ -26,6 +26,13 @@ abstract class AppAssets {
   static const String splash = '$assetImages/splash.png';
   static const String logo = '$assetImages/logo.png';
 
+  static const String cancelPackagePng = '$assetImages/cancel_package.png';
+  static const String deliverPickupPng = '$assetImages/deliver_pickup.png';
+  static const String deliveredPng = '$assetImages/delivered.png';
+  static const String failedPackagePng = '$assetImages/failed_package.png';
+  static const String senderConfirmPng =
+      '$assetImages/sender-confirm_delivered.png';
+
   static const String fun = '$assetsSvg/fun.svg';
   static const String friendly = '$assetsSvg/friendly.svg';
   static const String enthusiasm = '$assetsSvg/enthusiasm.svg';
