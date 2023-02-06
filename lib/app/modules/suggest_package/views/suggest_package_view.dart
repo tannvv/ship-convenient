@@ -4,8 +4,8 @@ import 'package:convenient_way/app/core/values/box_decorations.dart';
 import 'package:convenient_way/app/core/values/font_weight.dart';
 import 'package:convenient_way/app/core/values/shadow_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
+import 'package:convenient_way/app/core/widgets/button_color.dart';
 import 'package:convenient_way/app/core/widgets/custom_footer_smart_refresh.dart';
-import 'package:convenient_way/app/modules/profile_page/widgets/button_color.dart';
 import 'package:convenient_way/app/modules/suggest_package/widgets/show_wallet.dart';
 import 'package:convenient_way/app/modules/suggest_package/widgets/suggest_item.dart';
 import 'package:convenient_way/app/modules/suggest_package/widgets/user_avatar.dart';
@@ -31,27 +31,26 @@ class SuggestPackageView extends GetView<SuggestPackageController> {
         children: [
           _headerBackground(),
           AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            padding: EdgeInsets.only(top: controller.headerState.height),
-            child: SmartRefresher(
-              enablePullUp: true,
-              key: _refresherKey,
-              controller: controller.refreshController,
-              onRefresh: () => controller.onRefresh(),
-              onLoading: () => controller.onLoading(),
-              footer: CustomFooterSmartRefresh.defaultCustom(),
-              child: ListView.separated(
-                  itemBuilder: (_, index) => GestureDetector(
-                        onTap: () =>
-                            controller.gotoDetail(controller.dataApis[index]),
-                        child: SuggestPackageItem(
-                            suggestPackage: controller.dataApis[index]),
-                      ),
-                  padding: const EdgeInsets.all(20),
-                  separatorBuilder: (_, index) => Gap(15.h),
-                  itemCount: controller.dataApis.length),
-            ),
-          ),
+              duration: const Duration(milliseconds: 250),
+              padding: EdgeInsets.only(top: controller.headerState.height),
+              child: SmartRefresher(
+                enablePullUp: true,
+                key: _refresherKey,
+                controller: controller.refreshController,
+                onRefresh: () => controller.onRefresh(),
+                onLoading: () => controller.onLoading(),
+                footer: CustomFooterSmartRefresh.defaultCustom(),
+                child: ListView.separated(
+                    itemBuilder: (_, index) => GestureDetector(
+                          onTap: () =>
+                              controller.gotoDetail(controller.dataApis[index]),
+                          child: SuggestPackageItem(
+                              suggestPackage: controller.dataApis[index]),
+                        ),
+                    padding: const EdgeInsets.all(20),
+                    separatorBuilder: (_, index) => Gap(15.h),
+                    itemCount: controller.dataApis.length),
+              ))
         ],
       ),
     ));

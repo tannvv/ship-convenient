@@ -50,7 +50,7 @@ class Top extends GetWidget<LocationPackageController> {
     return Row(
       children: [
         Text(
-          'Sẵn sàng nhận chuyến',
+          'Các gói hàng đang nhận',
           style: subtitle2.copyWith(color: AppColors.softBlack),
         ),
         SizedBox(

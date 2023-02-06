@@ -1,4 +1,5 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:latlong2/latlong.dart';
 
 abstract class AppValues {
   static const double padding = 16;
@@ -104,4 +105,6 @@ abstract class AppValues {
   static const int defaultThrottleTimeInMilliSeconds = 500;
 
   static const double height_16 = 16;
+
+  static LatLng defaultLatLng = LatLng(10.840870403795556, 106.80742819373367);
 }

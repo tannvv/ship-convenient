@@ -20,7 +20,7 @@ class MotionToastService {
         title: title,
         description: Text(
           description,
-          style: descriptionStyle ?? subtitle2,
+          style: descriptionStyle ?? subtitle2.copyWith(color: Colors.white),
         ),
         animationType: animationType,
         position: motionToastPosition,
@@ -44,7 +44,7 @@ class MotionToastService {
         toastDuration: Duration(seconds: seconds),
         title: title,
         description: Text(
-          description,
+          description.isEmpty ? 'Lỗi không xác định' : description,
           style: descriptionStyle ?? subtitle2,
         ),
         animationType: animationType,

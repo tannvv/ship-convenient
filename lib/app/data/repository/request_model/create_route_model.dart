@@ -1,3 +1,5 @@
+import 'package:convenient_way/app/data/models/route_model.dart';
+
 class CreateRoute {
   String? fromName;
   double? fromLongitude;
@@ -24,6 +26,17 @@ class CreateRoute {
     toLongitude = json['toLongitude'];
     toLatitude = json['toLatitude'];
     accountId = json['accountId'];
+  }
+
+  static fromRoute(RouteAcc route, String accountId) {
+    return CreateRoute(
+        fromName: route.fromName,
+        fromLongitude: route.fromLongitude,
+        fromLatitude: route.fromLatitude,
+        toName: route.toName,
+        toLongitude: route.toLongitude,
+        toLatitude: route.toLatitude,
+        accountId: accountId);
   }
 
   Map<String, dynamic> toJson() {

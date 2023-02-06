@@ -1,19 +1,16 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/app_values.dart';
-import 'package:convenient_way/app/modules/location_package/controllers/location_package_controller.dart';
+import 'package:convenient_way/app/modules/suggest_package_detail/controllers/suggest_package_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class Bottom extends GetWidget<LocationPackageController> {
-  const Bottom({
-    Key? key,
-  }) : super(key: key);
-
+class CenterRight extends GetWidget<SuggestPackageDetailController> {
+  const CenterRight({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.bottomRight,
+      alignment: Alignment.centerRight,
       padding: EdgeInsets.only(bottom: AppValues.bottomAppBarHeight),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -26,13 +23,13 @@ class Bottom extends GetWidget<LocationPackageController> {
 
   Container _goToCurrentLocation() {
     return Container(
-      padding: EdgeInsets.only(bottom: 20.h, right: 20.w, left: 20.w),
+      padding: EdgeInsets.only(top: 80.w, right: 20.w, left: 20.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           ElevatedButton(
             onPressed: () {
-              controller.gotoCurrentLocation();
+              controller.gotoCurrentBound();
             },
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
@@ -47,7 +44,7 @@ class Bottom extends GetWidget<LocationPackageController> {
               child: Icon(
                 Icons.gps_fixed,
                 size: 18.r,
-                color: AppColors.gray,
+                color: AppColors.primary400,
               ),
             ),
           ),

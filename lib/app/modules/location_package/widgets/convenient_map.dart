@@ -47,7 +47,7 @@ class ConvenientMap extends GetWidget<LocationPackageController> {
               options: LocationMarkerLayerOptions(
                 moveAnimationDuration: const Duration(milliseconds: 800),
                 showHeadingSector: false,
-                markerSize: Size(90.r, 90.r),
+                markerSize: Size(60.r, 60.r),
                 markerDirection: MarkerDirection.heading,
                 marker: Stack(
                   children: [

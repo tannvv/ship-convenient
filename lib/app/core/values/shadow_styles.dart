@@ -21,6 +21,15 @@ abstract class ShadowStyles {
     ),
   ];
 
+  static List<BoxShadow> mapHigh = [
+    BoxShadow(
+      offset: const Offset(0, 4),
+      blurRadius: 10,
+      spreadRadius: 0,
+      color: AppColors.black.withOpacity(0.2),
+    ),
+  ];
+
   static List<BoxShadow> primary = [
     BoxShadow(color: Colors.grey.shade300, blurRadius: 2, spreadRadius: 1)
   ];
