@@ -5,6 +5,7 @@ import 'package:convenient_way/app/data/repository/account_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/create_account_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/create_route_model.dart';
 import 'package:convenient_way/app/data/repository/response_model/authorize_response_model.dart';
+import 'package:convenient_way/app/data/repository/response_model/simple_response_model.dart';
 import 'package:convenient_way/app/network/dio_provider.dart';
 
 class AccountReqImp extends BaseRepository implements AccountRep {
@@ -62,6 +63,51 @@ class AccountReqImp extends BaseRepository implements AccountRep {
       return callApi(dioCall).then((response) {
         RouteAcc? route = RouteAcc.fromJson(response.data['data']);
         return route;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<RouteAcc>> getRoutes(String accountId) {
+    String endpoint = '${DioProvider.baseUrl}/routes/$accountId';
+    var dioCall = dioClient.get(endpoint);
+    try {
+      return callApi(dioCall).then((response) {
+        List<RouteAcc> routes = [];
+        for (var item in response.data['data']) {
+          routes.add(RouteAcc.fromJson(item));
+        }
+        return routes;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<SimpleResponseModel> deleteRoute(String id) {
+    String endpoint = '${DioProvider.baseUrl}/routes/$id';
+    var dioCall = dioClient.delete(endpoint);
+    try {
+      return callApi(dioCall).then((response) {
+        SimpleResponseModel model = SimpleResponseModel.fromJson(response.data);
+        return model;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<SimpleResponseModel> setActiveRoute(String id) {
+    String endpoint = '${DioProvider.baseUrl}/routes/active-route';
+    var dioCall = dioClient.put(endpoint, queryParameters: {'id': id});
+    try {
+      return callApi(dioCall).then((response) {
+        SimpleResponseModel model = SimpleResponseModel.fromJson(response.data);
+        return model;
       });
     } catch (e) {
       rethrow;

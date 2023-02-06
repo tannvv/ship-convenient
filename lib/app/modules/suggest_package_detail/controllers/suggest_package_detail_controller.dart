@@ -1,8 +1,10 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/core/controllers/auth_controller.dart';
+import 'package:convenient_way/app/core/services/animated_map_controller.dart';
 import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
 import 'package:convenient_way/app/core/utils/material_dialog_service.dart';
 import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
+import 'package:convenient_way/app/core/values/app_values.dart';
 import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/models/route_model.dart';
@@ -14,22 +16,27 @@ import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-class SuggestPackageDetailController extends BaseController {
+class SuggestPackageDetailController extends BaseController
+    with GetTickerProviderStateMixin {
   final suggestPackage = Get.arguments as SuggestPackage;
   final suggest = Rx<SuggestPackage?>(null);
-  LatLngBounds coordBound = LatLngBounds();
+  LatLngBounds currentBounds = LatLngBounds();
+  List<LatLng> routePoints = [];
   List<LatLng> coordPackage = [];
   List<LatLng> coordAccount = [];
   List<String> packageIds = [];
   late LatLng coordSender;
   final count = 0.obs;
   int maxSelectedPackages = 3;
+  final double bottomHeight = 310.h;
 
   RxList<String> selectedPackages = <String>[].obs;
   MapController? _mapController;
+  AnimatedMapService? _animatedMapService;
   final MultiSelectController<String> _multiSelectController =
       MultiSelectController();
 
@@ -51,9 +58,15 @@ class SuggestPackageDetailController extends BaseController {
 
   void onMapCreated(MapController? mapController) {
     _mapController = mapController;
-    _mapController?.onReady.then((_) {
-      _mapController?.move(coordBound.center, 12);
-    });
+    _animatedMapService = AnimatedMapService(controller: _mapController!);
+    gotoCurrentBound();
+  }
+
+  void gotoCurrentBound() {
+    if (_animatedMapService != null) {
+      _animatedMapService?.move(
+          currentBounds.center, AppValues.overviewZoomLevel);
+    }
   }
 
   void createBounds() {
@@ -67,31 +80,23 @@ class SuggestPackageDetailController extends BaseController {
       LatLng accountDes =
           LatLng(activeRoute.toLatitude!, activeRoute.toLongitude!);
       coordAccount.addAll([accountHome, accountDes]);
-      coordBound.extend(accountHome);
-      coordBound.extend(accountDes);
+      currentBounds.extend(accountHome);
+      currentBounds.extend(accountDes);
       debugPrint(
           'Coordinates ship home: ${accountHome.latitude}, ${accountHome.longitude}');
       debugPrint(
           'Coordinates ship des: ${accountDes.latitude}, ${accountDes.longitude}');
     }
-    // RouteAcc routeSender = suggest.value!.sender!.infoUser!.routes!
-    //     .where((element) => element.isActive == true)
-    //     .first;
-    // coordSender = LatLng(routeSender.fromLatitude!, routeSender.fromLongitude!);
-    // coordBound.extend(coordSender);
-    // debugPrint(
-    //     'Coordinates sender: ${coordSender.latitude}, ${coordSender.longitude}');
-
     List<Package> packages = suggest.value!.packages!;
     coordSender =
         LatLng(packages[0].startLatitude!, packages[0].startLongitude!);
-    coordBound.extend(coordSender);
+    currentBounds.extend(coordSender);
     debugPrint(
         'Coordinates sender: ${coordSender.latitude}, ${coordSender.longitude}');
     for (var element in packages) {
       LatLng pkCoord =
           LatLng(element.destinationLatitude!, element.destinationLongitude!);
-      coordBound.extend(pkCoord);
+      currentBounds.extend(pkCoord);
       coordPackage.add(pkCoord);
       packageIds.add(element.id!);
       debugPrint(
@@ -99,7 +104,17 @@ class SuggestPackageDetailController extends BaseController {
     }
 
     debugPrint(
-        'Center bound: ${coordBound.center.latitude}, ${coordBound.center.longitude}');
+        'Center bound: ${currentBounds.center.latitude}, ${currentBounds.center.longitude}');
+    centerZoomFitBounds();
+  }
+
+  void centerZoomFitBounds() {
+    currentBounds.pad(0.4);
+    LatLng? ne = currentBounds.northEast;
+    LatLng? sw = currentBounds.southWest;
+    final heightBuffer = (sw!.latitude - ne!.latitude).abs() * 0.8;
+    sw = LatLng(sw.latitude - heightBuffer, sw.longitude);
+    currentBounds.extend(sw);
   }
 
   Future<void> pickUpPackages() async {

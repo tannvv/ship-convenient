@@ -15,7 +15,8 @@ abstract class BasePagingController<T> extends BaseController {
   RefreshController get refreshController => _refreshController;
   int get pageSize => _pageSize;
   int get pageIndex => _pageIndex;
-
+  final RxBool _isRefreshing = false.obs;
+  bool get isRefreshing => _isRefreshing.value;
   void resetPaging() {
     _pageSize = AppValues.defaultPageSize;
     _pageIndex = AppValues.defaultPageIndex;
@@ -25,9 +26,11 @@ abstract class BasePagingController<T> extends BaseController {
   }
 
   Future<void> onRefresh() async {
+    _isRefreshing.value = true;
     resetPaging();
     await fetchDataApi();
     _refreshController.refreshCompleted();
+    _isRefreshing.value = false;
   }
 
   Future<void> onLoading() async {

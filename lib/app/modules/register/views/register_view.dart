@@ -114,11 +114,10 @@ class RegisterView extends GetView<RegisterController> {
                                     _userNameTextField(),
                                     _passwordTextField(),
                                     _rePasswordTextField(),
-                                    _emailTextField(),
+                                    // _emailTextField(),
                                     _firstNameTextField(),
                                     _lastNameTextField(),
-                                    Obx(() => _genderDropdown()),
-                                    Gap(20.h),
+                                    // Obx(() => _genderDropdown()),
                                     Obx(() => _phoneNumberTextField()),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,

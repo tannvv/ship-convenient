@@ -1,5 +1,6 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/font_weight.dart';
+import 'package:convenient_way/app/core/values/shadow_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,7 @@ class SuggestPackageItem extends StatelessWidget {
       decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(6.w),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.shade300, blurRadius: 2, spreadRadius: 1)
-          ]),
+          boxShadow: ShadowStyles.primary),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

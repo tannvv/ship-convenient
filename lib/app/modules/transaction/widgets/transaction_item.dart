@@ -3,6 +3,7 @@ import 'package:convenient_way/app/core/utils/datetime_utils.dart';
 import 'package:convenient_way/app/core/values/app_assets.dart';
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/font_weight.dart';
+import 'package:convenient_way/app/core/values/shadow_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/data/constants/transaction_title.dart';
 import 'package:convenient_way/app/data/models/transaction_model.dart';
@@ -23,87 +24,84 @@ class TransactionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: index % 2 == 0
-          ? Colors.transparent
-          : AppColors.softGray.withOpacity(0.6),
-      child: InkWell(
-        onTap: () {},
-        child: Ink(
-          padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (model?.title == TransactionTitle.RECEIVE)
-                _booking()
-              else if (model?.title == TransactionTitle.MOMO)
-                _moMo()
-              else if (model?.title == TransactionTitle.VNPAY)
-                _vnpay()
-              else if (model?.title == TransactionTitle.REFUND)
-                _refund()
-              else
-                _default(),
-              SizedBox(
-                width: 10.w,
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 60,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${model?.description}',
-                            style: body2.copyWith(
-                              color: AppColors.softBlack,
-                              fontSize: 14.r,
-                            ),
-                          ),
-                          Text(
-                            DateTimeUtils.dateTimeToString(model?.createdAt),
-                            style: body2.copyWith(
-                              color: AppColors.gray,
-                              fontSize: 14.r,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          if ((model?.coinExchange ?? 0) > 0)
-                            Text(
-                              model!.coinExchange.toVND(),
-                              style: subtitle2.copyWith(
-                                color: AppColors.primary400,
-                                fontWeight: FontWeights.medium,
-                              ),
-                            )
-                          else
-                            Text(
-                              model!.coinExchange.toVND(),
-                              style: subtitle2.copyWith(
-                                color: AppColors.softBlack,
-                                fontWeight: FontWeights.medium,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        boxShadow: ShadowStyles.primary,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (model?.title == TransactionTitle.RECEIVE)
+            _booking()
+          else if (model?.title == TransactionTitle.MOMO)
+            _moMo()
+          else if (model?.title == TransactionTitle.VNPAY)
+            _vnpay()
+          else if (model?.title == TransactionTitle.REFUND)
+            _refund()
+          else
+            _default(),
+          SizedBox(
+            width: 10.w,
           ),
-        ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 60,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${model?.description}',
+                        style: body2.copyWith(
+                          color: AppColors.softBlack,
+                          fontSize: 14.r,
+                        ),
+                      ),
+                      Text(
+                        DateTimeUtils.dateTimeToString(model?.createdAt),
+                        style: body2.copyWith(
+                          color: AppColors.gray,
+                          fontSize: 14.r,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if ((model?.coinExchange ?? 0) > 0)
+                        Text(
+                          model!.coinExchange.toVND(),
+                          style: subtitle2.copyWith(
+                            color: AppColors.primary400,
+                            fontWeight: FontWeights.medium,
+                          ),
+                        )
+                      else
+                        Text(
+                          model!.coinExchange.toVND(),
+                          style: subtitle2.copyWith(
+                            color: AppColors.softBlack,
+                            fontWeight: FontWeights.medium,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

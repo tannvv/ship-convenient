@@ -1,24 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/font_weight.dart';
-import 'package:convenient_way/app/core/values/shadow_styles.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
+import 'package:convenient_way/app/core/widgets/button_color.dart';
 import 'package:convenient_way/app/core/widgets/header_scaffold.dart';
 import 'package:convenient_way/app/data/options/gender_option.dart';
-import 'package:convenient_way/app/modules/profile_page/widgets/button_color.dart';
+import 'package:convenient_way/app/modules/profile_page/widgets/card_item.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../controllers/profile_page_controller.dart';
 
 class ProfilePageView extends GetView<ProfilePageController> {
-  const ProfilePageView({Key? key}) : super(key: key);
+  ProfilePageView({Key? key}) : super(key: key);
+
+  final double paddingLeft = 30.w;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
       backgroundColor: AppColors.white,
       body: ListView(
         children: [
-          const HeaderScaffold(title: 'Thông tin cá nhân'),
+          const HeaderScaffold(title: 'Tài khoản của tôi'),
           Padding(
             padding: const EdgeInsets.all(12),
             child: _avatarName(),
@@ -36,27 +38,28 @@ class ProfilePageView extends GetView<ProfilePageController> {
             child: _wallet(),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 30, top: 10),
+            padding: EdgeInsets.only(left: paddingLeft, top: 10),
             child: Column(
               children: [
                 _separateContent(),
                 _phoneNumber(),
-                _separateContent(),
-                _gender(),
-                _separateContent(),
-                _email(),
+                // _separateContent(),
+                // _gender(),
+                // _separateContent(),
+                // _email(),
                 _separateContent(),
               ],
             ),
           ),
+          _manage(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             child: IconsOutlineButton(
               onPressed: controller.signOut,
               text: 'Đăng xuất',
               iconData: Icons.offline_share,
               textStyle: subtitle2.copyWith(
-                color: AppColors.primary400,
+                color: AppColors.primary800,
               ),
               padding: const EdgeInsets.symmetric(vertical: 14),
               color: Colors.black12.withOpacity(0.06),
@@ -80,7 +83,9 @@ class ProfilePageView extends GetView<ProfilePageController> {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(5.r),
-        boxShadow: ShadowStyles.surface,
+        boxShadow: [
+          BoxShadow(color: Colors.grey.shade300, blurRadius: 2, spreadRadius: 1)
+        ],
       ),
       width: 324.w,
       height: 112.h,
@@ -95,40 +100,13 @@ class ProfilePageView extends GetView<ProfilePageController> {
           SizedBox(
             height: 5.h,
           ),
-          GetBuilder<AuthController>(
-            builder: (_) {
-              Widget result = Shimmer.fromColors(
-                baseColor: AppColors.shimmerBaseColor,
-                highlightColor: AppColors.shimmerHighlightColor,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: Text(
-                    '-',
-                    style: subtitle1.copyWith(
-                      fontSize: 18.sp,
-                      color: AppColors.softBlack,
-                      fontWeight: FontWeights.medium,
-                    ),
-                  ),
-                ),
-              );
-              if (!controller.isLoading) {
-                result = Text(
-                  controller.accountBalanceVND,
-                  style: subtitle1.copyWith(
-                    fontSize: 18.sp,
-                    color: AppColors.softBlack,
-                    fontWeight: FontWeights.medium,
-                  ),
-                );
-              }
-              return result;
-            },
+          Text(
+            controller.accountBalanceVND,
+            style: subtitle1.copyWith(
+              fontSize: 18.sp,
+              color: AppColors.softBlack,
+              fontWeight: FontWeights.medium,
+            ),
           ),
           SizedBox(
             height: 10.h,
@@ -137,6 +115,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
             children: [
               ColorButton(
                 'Nạp tiền',
+                radius: 6.r,
                 onPressed: () {
                   Get.toNamed(Routes.PAYMENT);
                 },
@@ -147,6 +126,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
               ),
               ColorButton(
                 'Giao dịch',
+                radius: 6.r,
                 onPressed: () => {Get.toNamed(Routes.TRANSACTION)},
                 icon: Icons.summarize_outlined,
               ),
@@ -154,6 +134,34 @@ class ProfilePageView extends GetView<ProfilePageController> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _manage() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: paddingLeft),
+          child: Text(
+            'Quản lí',
+            style: body2.copyWith(color: AppColors.gray),
+          ),
+        ),
+        Gap(8.h),
+        CardItem(
+            icon: Icons.person,
+            text: 'Thông tin cá nhân',
+            color: AppColors.hardBlue,
+            onPress: () {}),
+        CardItem(
+            icon: Icons.alt_route_outlined,
+            text: 'Các lộ trình thiết lập',
+            color: AppColors.softGreen,
+            onPress: () {
+              Get.toNamed(Routes.MANAGE_ROUTE);
+            })
+      ],
     );
   }
 
@@ -265,7 +273,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
           children: [
             Text(
               'Số điện thoại',
-              style: body2.copyWith(color: AppColors.floatLabel),
+              style: body2.copyWith(color: AppColors.gray),
             ),
             SizedBox(
               width: Get.width * 0.6,

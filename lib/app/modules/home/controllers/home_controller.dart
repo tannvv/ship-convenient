@@ -1,5 +1,8 @@
 // ignore_for_file: unused_field
 
+import 'package:convenient_way/app/core/controllers/notification_controller.dart';
+import 'package:convenient_way/app/modules/location_package/controllers/location_package_controller.dart';
+import 'package:convenient_way/app/modules/location_package/views/location_package_view.dart';
 import 'package:convenient_way/app/modules/message_page/controllers/message_page_controller.dart';
 import 'package:convenient_way/app/modules/notify_page/controllers/notify_page_controller.dart';
 import 'package:convenient_way/app/modules/notify_page/views/notify_page_view.dart';
@@ -18,6 +21,7 @@ class HomeController extends GetxController {
   late NotifyPageController _notifyController;
   late SuggestPackageController _suggestPackageController;
   late ProfilePageController _profileController;
+  late LocationPackageController _locationPackageController;
 
   final _selectedIndex = Get.arguments != null
       ? int.parse(Get.arguments['initialPageIndex']).obs
@@ -34,7 +38,8 @@ class HomeController extends GetxController {
     SuggestPackageView(),
     const PackageView(),
     const NotifyPageView(),
-    const ProfilePageView(),
+    ProfilePageView(),
+    const LocationPackageView()
   ];
 
   PageStorageBucket bucket = PageStorageBucket();
@@ -51,6 +56,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> initController() async {
+    NotificationController.instance.registerNotification();
     Get.put(MessagePageController(), permanent: true);
     _messageController = Get.find<MessagePageController>();
     Get.put(NotifyPageController(), permanent: true);
@@ -61,5 +67,7 @@ class HomeController extends GetxController {
     _profileController = Get.find<ProfilePageController>();
     Get.put(PackageController());
     _packageController = Get.find<PackageController>();
+    Get.put(LocationPackageController());
+    _locationPackageController = Get.find<LocationPackageController>();
   }
 }

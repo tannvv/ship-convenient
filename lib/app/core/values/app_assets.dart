@@ -14,6 +14,11 @@ abstract class AppAssets {
   static const String booking = '$assetsSvg/booking.svg';
   static const String homeBg = '$assetsSvg/home_bg.svg';
 
+  static const String success = '$assetsSvg/success.svg';
+
+  static const String motorcycle = 'assets/svg/motorcycle.svg';
+  static const String car = 'assets/svg/car.svg';
+
   static const String assetImages = 'assets/images';
   static const String boy = '$assetImages/young-man.png';
   static const String girl = '$assetImages/avatar.png';
