@@ -50,6 +50,16 @@ class CreateRouteController extends BaseController {
     }
   }
 
+  void updateFromLocation(ResponseGoong response) {
+    _fromName = response.name ?? '';
+    _fromCoord.value = LatLng(response.latitude!, response.longitude!);
+  }
+
+  void updateToLocation(ResponseGoong response) {
+    _toName = response.name ?? '';
+    _toCoord.value = LatLng(response.latitude!, response.longitude!);
+  }
+
   Future<List<ResponseGoong>> queryLocation(String query) async {
     return _goongRepo.getList(query);
   }
@@ -61,8 +71,7 @@ class CreateRouteController extends BaseController {
   Future<void> registerRoute() async {
     String accountId = AuthController.instance.account!.id!;
     if (_fromCoord.value == null || _toCoord.value == null) {
-      MotionToastService.showError(
-          'Vui lòng chọn địa điểm của bạn trên bản đồ');
+      MotionToastService.showError('Vui lòng chọn nhập vị trí');
     }
     CreateRoute createRouteModel = CreateRoute(
         fromName: _fromName,

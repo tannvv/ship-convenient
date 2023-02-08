@@ -1,5 +1,6 @@
 import 'package:convenient_way/app/modules/location_package/widgets/bottom.dart';
 import 'package:convenient_way/app/modules/location_package/widgets/convenient_map.dart';
+import 'package:convenient_way/app/modules/location_package/widgets/explain_note.dart';
 import 'package:convenient_way/app/modules/location_package/widgets/top.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,11 +12,8 @@ class LocationPackageView extends GetView<LocationPackageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: const [
-        ConvenientMap(),
-        Top(),
-        Bottom(),
-      ]),
+      body: Stack(
+          children: const [ConvenientMap(), Top(), Bottom(), ExplainNote()]),
     );
   }
 }

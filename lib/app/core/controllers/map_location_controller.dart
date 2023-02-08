@@ -57,7 +57,7 @@ class MapLocationController extends GetxController {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      // await _deniedForeverDialog();
+      await _deniedForeverDialog();
     }
 
     return false;
@@ -83,8 +83,8 @@ class MapLocationController extends GetxController {
       primaryButtonText: 'Bật định vị',
       secondaryButtonText: 'Trở về trang chủ',
       primaryOnPressed: () async {
-        permission = await Geolocator.requestPermission();
         try {
+          permission = await Geolocator.requestPermission();
           var result = await Geolocator.getCurrentPosition();
           Get.back();
           return result;

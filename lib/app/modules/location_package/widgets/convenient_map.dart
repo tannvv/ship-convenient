@@ -4,14 +4,14 @@ import 'package:convenient_way/app/core/values/shadow_styles.dart';
 import 'package:convenient_way/app/core/widgets/hyper_stack.dart';
 import 'package:convenient_way/app/modules/location_package/controllers/location_package_controller.dart';
 import 'package:convenient_way/config/build_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:lottie/lottie.dart';
+import 'package:lottie/lottie.dart' as lottie;
 
 class ConvenientMap extends GetWidget<LocationPackageController> {
   const ConvenientMap({
@@ -43,6 +43,20 @@ class ConvenientMap extends GetWidget<LocationPackageController> {
                 },
               ),
             ),
+            Obx(
+              () => MarkerLayerWidget(
+                  options: MarkerLayerOptions(markers: [
+                for (int i = 0; i < controller.packages.length; i++)
+                  Marker(
+                    height: 30.h,
+                    width: 30.h,
+                    point:
+                        controller.getLatLngWithStatus(controller.packages[i]),
+                    builder: (_) => SvgPicture.asset(
+                        controller.getAssetsWithStatus(controller.packages[i])),
+                  ),
+              ])),
+            ),
             LocationMarkerLayerWidget(
               options: LocationMarkerLayerOptions(
                 moveAnimationDuration: const Duration(milliseconds: 800),
@@ -51,7 +65,7 @@ class ConvenientMap extends GetWidget<LocationPackageController> {
                 markerDirection: MarkerDirection.heading,
                 marker: Stack(
                   children: [
-                    Lottie.asset(AppAnimationAssets.scanPulsePurple),
+                    lottie.Lottie.asset(AppAnimationAssets.scanPulsePurple),
                     Center(
                       child: Container(
                         decoration: BoxDecoration(

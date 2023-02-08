@@ -11,7 +11,9 @@ class LoginController extends BaseController {
   final formKey = GlobalKey<FormState>();
   String userName = '';
   String password = '';
-
+  final RxBool isSignupMode = false.obs;
+  final RxDouble widthForgotPassword = 0.0.obs;
+  set isSignupModeValue(bool value) => isSignupMode.value = value;
   late MapLocationController mapLocationController;
 
   set setUserName(String value) {

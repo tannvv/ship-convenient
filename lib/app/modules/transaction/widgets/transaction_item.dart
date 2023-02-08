@@ -81,7 +81,7 @@ class TransactionItem extends StatelessWidget {
                     children: [
                       if ((model?.coinExchange ?? 0) > 0)
                         Text(
-                          model!.coinExchange.toVND(),
+                          '+${model!.coinExchange.toVND()}',
                           style: subtitle2.copyWith(
                             color: AppColors.primary400,
                             fontWeight: FontWeights.medium,

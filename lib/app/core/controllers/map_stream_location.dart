@@ -13,7 +13,7 @@ class MapStreamLocation {
     debugPrint('Map position stream: init');
     _onPositionChanged = onPositionChanged;
     _init();
-    if (isPause) pausePositionStream();
+    pausePositionStream();
   }
 
   void _init() {
