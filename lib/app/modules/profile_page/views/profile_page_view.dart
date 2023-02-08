@@ -92,9 +92,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Số dư', style: body2.copyWith(color: AppColors.floatLabel)),
-          SizedBox(
-            height: 5.h,
-          ),
           GetBuilder<AuthController>(
             builder: (_) {
               Widget result = Shimmer.fromColors(
@@ -123,7 +120,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                   style: subtitle1.copyWith(
                     fontSize: 18.sp,
                     color: AppColors.softBlack,
-                    fontWeight: FontWeights.medium,
+                    fontWeight: FontWeights.thin,
                   ),
                 );
               }

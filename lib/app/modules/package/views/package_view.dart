@@ -51,6 +51,6 @@ class PackageView extends GetView<PackageController> {
   }
 
   Widget _header() {
-    return const HeaderScaffold(title: 'Các gói hàng đã nhận');
+    return const HeaderScaffold(title: 'Quản lý các gói hàng');
   }
 }

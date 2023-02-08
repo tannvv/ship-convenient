@@ -75,16 +75,16 @@ class SuggestPackageView extends GetView<SuggestPackageController> {
         children: [
           Text('Số dư', style: body2.copyWith(color: AppColors.floatLabel)),
           SizedBox(
-            height: 5.h,
+            height: 2.h,
           ),
           Text(controller.balanceAccountVND,
               style: subtitle1.copyWith(
                 fontSize: 18.sp,
                 color: AppColors.softBlack,
-                fontWeight: FontWeights.medium,
+                fontWeight: FontWeights.thin,
               )),
           SizedBox(
-            height: 5.h,
+            height: 3.h,
           ),
           Row(
             children: [
@@ -97,6 +97,7 @@ class SuggestPackageView extends GetView<SuggestPackageController> {
               ),
               SizedBox(
                 width: 10.w,
+                height: 2.h,
               ),
               ColorButton(
                 'Giao dịch',

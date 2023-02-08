@@ -24,22 +24,22 @@ class SuggestItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Địa chỉ giao: ${package.destinationAddress}',
+            'Địa chỉ giao: ${package.destinationAddress}.',
             style: subtitle2,
           ),
           Text(
-            'Khoảng cách ${package.distance!.toInt()}m',
+            'Khoảng cách: ${package.distance!.toInt()}m',
             style: subtitle2,
           ),
           Text(
-            'Tên các sản phẩm : ${package.getProductNames()}',
+            'Tên các sản phẩm: ${package.getProductNames()}.',
             style: subtitle2,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //children: [
               Text(
-                'Phí ship: ${package.priceShip!.toInt()}',
+                'Phí ship: ${package.priceShip!.toInt().toVND()}.',
                 style: subtitle2,
               ),
               Text(
@@ -47,8 +47,8 @@ class SuggestItem extends StatelessWidget {
                 style: subtitle1.copyWith(
                     color: AppColors.softRed, fontWeight: FontWeights.medium),
               )
-            ],
-          )
+            //],
+         // )
         ],
       ),
     );

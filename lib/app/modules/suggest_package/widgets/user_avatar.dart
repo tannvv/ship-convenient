@@ -16,6 +16,8 @@ class UserAvatar extends GetView<SuggestPackageController> {
 
   @override
   Widget build(BuildContext context) {
+    String? fname = controller.account?.infoUser?.firstName;
+    String? lname = controller.account?.infoUser?.lastName;
     return Row(
       children: [
         ClipOval(
@@ -50,7 +52,7 @@ class UserAvatar extends GetView<SuggestPackageController> {
               style: body2.copyWith(color: Colors.white),
             ),
             Text(
-              'Tan Nguyen',
+              '${fname} ${lname}',
               style: subtitle1.copyWith(
                 fontWeight: FontWeights.medium,
                 color: AppColors.white,

@@ -135,7 +135,8 @@ class SuggestPackageDetailView extends GetView<SuggestPackageDetailController> {
                         color: Colors.white, fontWeight: FontWeight.bold)),
                 itemsDecoration: MultiSelectDecorations(
                     selectedDecoration: BoxDecoration(
-                  color: AppColors.darkBlue.withOpacity(0.6),
+                  //color: AppColors.darkBlue.withOpacity(0.6),
+                  color: AppColors.softGreen.withOpacity(.5),
                 )),
                 listViewSettings: ListViewSettings(
                     separatorBuilder: (context, index) => const Divider(
@@ -154,7 +155,8 @@ class SuggestPackageDetailView extends GetView<SuggestPackageDetailController> {
                         checkBoxBorderSide:
                             const BorderSide(color: Colors.blue),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)))),
+                            borderRadius: BorderRadius.circular(5))
+                    )),
                 onChange: (List<String> selectedItems, selectedItem) {
                   controller.selectedPackages.value = selectedItems;
                   debugPrint('Selected packages : $selectedItems');
@@ -169,7 +171,7 @@ class SuggestPackageDetailView extends GetView<SuggestPackageDetailController> {
           onPressed: () {
             controller.pickUpPackages();
           },
-          child: const Text('Chọn combo này')),
+          child: const Text('Chọn Combo')),
     );
   }
 }

@@ -8,22 +8,25 @@ class ReceivedPackageItem extends StatelessWidget {
   final Package package;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Điểm đến: ${package.destinationAddress}',
-          style: subtitle2,
-        ),
-        Text(
-          'Tên người nhận: ${package.receiverName}',
-          style: subtitle2,
-        ),
-        Text(
-          'Số điện thoại người nhận: ${package.receiverPhone}',
-          style: subtitle2,
-        )
-      ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Điểm đến: ${package.destinationAddress}.',
+            style: subtitle2,
+          ),
+          Text(
+            'Người nhận: ${package.receiverName}.',
+            style: subtitle2,
+          ),
+          Text(
+            'Số điện thoại: ${package.receiverPhone}.',
+            style: subtitle2,
+          )
+        ],
+      )
     );
   }
 }

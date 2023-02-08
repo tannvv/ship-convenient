@@ -24,7 +24,7 @@ class NavButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 65.w,
+      width: 70.w,
       child: TextButton(
         onPressed: onPressed,
         child: Column(

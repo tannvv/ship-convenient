@@ -1,6 +1,6 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
-import 'package:convenient_way/app/modules/package/tabs/deliver_cancel_tab/deliver_cancel_view.dart';
+import 'package:convenient_way/app/modules/package/tabs/deliver_cancel_tab/deliver_cancel_package_view.dart';
 import 'package:convenient_way/app/modules/package/tabs/delivered_tab/delivered_package_view.dart';
 import 'package:convenient_way/app/modules/package/tabs/delivery_tab/delivery_package_view.dart';
 import 'package:convenient_way/app/modules/package/tabs/failed_tab/failed_package_view.dart';

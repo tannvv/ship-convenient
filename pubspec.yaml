@@ -63,7 +63,7 @@ dependencies:
     flutter_chat_ui: ^1.6.4
     flutter_chat_types: ^3.4.5
     file_picker: ^5.2.3
-    image_picker: ^0.8.6
+    image_picker: ^0.8.6+1
     bubble: ^1.2.1
     http: ^0.13.5
     latlong2: ^0.8.1

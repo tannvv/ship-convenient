@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/modules/home/widgets/nav_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/octicons_icons.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -11,15 +14,28 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+
+    File? imageFile;
+
+    void _getFromCamera() async {
+      XFile? pickedFile = (await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        maxHeight: 1080,
+        maxWidth: 1080,
+      )) as XFile?;
+      imageFile = File(pickedFile!.path);
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       body: Obx(() => PageStorage(
           bucket: controller.bucket, child: controller.currentScreen)),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
-        notchMargin: 10.h,
+        notchMargin: 8.h,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 6.w),
-          height: 60.h,
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          height: 70.h,
           child: Obx(
             () => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,6 +108,7 @@ class HomeView extends GetView<HomeController> {
               size: 30.r,
             ),
             onPressed: () {
+              _getFromCamera();
               // Get.toNamed(Routes.SCAN);
             },
           ),
