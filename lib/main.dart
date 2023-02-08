@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:convenient_way/app/app.dart';
 import 'package:convenient_way/app/core/controllers/notification_controller.dart';
-import 'package:convenient_way/app/core/services/background_service_notification.dart';
 import 'package:convenient_way/config/build_config.dart';
 import 'package:convenient_way/config/env_config.dart';
 import 'package:convenient_way/config/environment.dart';
@@ -16,6 +13,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
+import 'dart:async';
 
 Future<void> main() async {
   Logger.root.onRecord.listen((LogRecord rec) {
