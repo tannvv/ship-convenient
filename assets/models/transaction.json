@@ -1,0 +1,10 @@
+{
+    "status": "string",
+    "title": "string",
+    "description": "string",
+    "transactionType": "string",
+    "coinExchange": 0,
+    "balanceWallet": 0,
+    "createdAt": "2023-02-01T08:32:04.506Z",
+    "packageId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  }

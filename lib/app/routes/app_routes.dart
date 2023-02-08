@@ -15,6 +15,12 @@ abstract class Routes {
   static const VERIFY_OTP = _Paths.VERIFY_OTP;
   static const CREATE_ROUTE = _Paths.CREATE_ROUTE;
   static const CHAT_MESSAGE = _Paths.CHAT_MESSAGE;
+  static const CANCEL_PACKAGE = _Paths.CANCEL_PACKAGE;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
+  static const VNPAY = _Paths.VNPAY;
+  static const PAYMENT_STATUS = _Paths.PAYMENT_STATUS;
+  static const PAYMENT = _Paths.PAYMENT;
+  static const FEEDBACK_FOR_DELIVER = _Paths.FEEDBACK_FOR_DELIVER;
 }
 
 abstract class _Paths {
@@ -29,4 +35,10 @@ abstract class _Paths {
   static const VERIFY_OTP = '/verify-otp';
   static const CREATE_ROUTE = '/create-route';
   static const CHAT_MESSAGE = '/chat-message';
+  static const CANCEL_PACKAGE = '/cancel-package';
+  static const SPLASH_SCREEN = '/splash-screen';
+  static const VNPAY = '/vnpay';
+  static const PAYMENT_STATUS = '/payment-status';
+  static const PAYMENT = '/payment';
+  static const FEEDBACK_FOR_DELIVER = '/feedback-for-deliver';
 }

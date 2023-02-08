@@ -1,7 +1,8 @@
 import 'package:convenient_way/app/core/base/base_controller.dart';
+import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/core/utils/alert_quick_service.dart';
-import 'package:convenient_way/app/core/utils/auth_service.dart';
 import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
+import 'package:convenient_way/app/data/constants/account_status.dart';
 import 'package:convenient_way/app/data/models/response_goong_model.dart';
 import 'package:convenient_way/app/data/models/route_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
@@ -21,7 +22,6 @@ class CreateRouteController extends BaseController {
   final Rx<LatLng?> _fromCoord = Rx<LatLng?>(null);
   final TextEditingController homeController = TextEditingController();
   final TextEditingController workController = TextEditingController();
-  var isLoading = false.obs;
 
   final AccountRep _accountRepo = Get.find(tag: (AccountRep).toString());
   final GoongReq _goongRepo = Get.find(tag: (GoongReq).toString());
@@ -59,7 +59,7 @@ class CreateRouteController extends BaseController {
   }
 
   Future<void> registerRoute() async {
-    String accountId = AuthService.instance.account!.id!;
+    String accountId = AuthController.instance.account!.id!;
     if (_fromCoord.value == null || _toCoord.value == null) {
       MotionToastService.showError(
           'Vui lòng chọn địa điểm của bạn trên bản đồ');
@@ -75,9 +75,12 @@ class CreateRouteController extends BaseController {
     final future = _accountRepo.createRoute(createRouteModel);
     await callDataService<RouteAcc?>(future, onSuccess: (newRoute) async {
       if (newRoute != null) {
-        AuthService.instance.account!.infoUser!.routes!.add(newRoute);
+        AuthController.instance.account!.infoUser!.routes!.add(newRoute);
+        AuthController.instance.account!.status = AccountStatus.active;
+        AuthController.setDataPrefs();
         await QuickAlertService.showSuccess(
-            'Bạn đã đăng kí tuyến đường thành công');
+            'Bạn đã đăng kí tuyến đường thành công',
+            duration: 3);
         Get.offAllNamed(Routes.HOME);
       } else {
         MotionToastService.showError('Lỗi không xác định');
@@ -87,9 +90,9 @@ class CreateRouteController extends BaseController {
         MotionToastService.showError(ex.message);
       }
     }, onStart: () {
-      isLoading.value = true;
+      isLoading = true;
     }, onComplete: () {
-      isLoading.value = false;
+      isLoading = false;
     });
   }
 }

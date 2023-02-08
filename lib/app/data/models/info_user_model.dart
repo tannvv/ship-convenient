@@ -6,6 +6,8 @@ class InfoUser {
   String? lastName;
   String? email;
   String? phone;
+  String? photoUrl;
+  String? gender;
   List<RouteAcc>? routes;
 
   InfoUser(
@@ -14,7 +16,9 @@ class InfoUser {
       this.lastName,
       this.email,
       this.phone,
-      this.routes});
+      this.routes,
+      this.gender,
+      this.photoUrl});
 
   InfoUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -22,6 +26,8 @@ class InfoUser {
     lastName = json['lastName'];
     email = json['email'];
     phone = json['phone'];
+    gender = json['gender'];
+    photoUrl = json['photoUrl'];
     if (json['routes'] != null) {
       routes = <RouteAcc>[];
       json['routes'].forEach((v) {
@@ -37,6 +43,8 @@ class InfoUser {
     data['lastName'] = lastName;
     data['email'] = email;
     data['phone'] = phone;
+    data['gender'] = gender;
+    data['photoUrl'] = photoUrl;
     if (routes != null) {
       data['routes'] = routes?.map((v) => v.toJson()).toList();
     }

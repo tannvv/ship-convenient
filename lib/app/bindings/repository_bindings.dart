@@ -6,6 +6,8 @@ import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/data/repository/package_req_imp.dart';
 import 'package:convenient_way/app/data/repository/transaction_req.dart';
 import 'package:convenient_way/app/data/repository/transaction_req_imp.dart';
+import 'package:convenient_way/app/data/repository/vnpay_req.dart';
+import 'package:convenient_way/app/data/repository/vnpay_req_imp.dart';
 import 'package:get/get.dart';
 
 class RepositoryBindings implements Bindings {
@@ -19,5 +21,7 @@ class RepositoryBindings implements Bindings {
         tag: (TransactionReq).toString(), fenix: true);
     Get.lazyPut<GoongReq>(() => GoongReqImp(),
         tag: (GoongReq).toString(), fenix: true);
+    Get.lazyPut<VnPayReq>(() => VnpayReqImp(),
+        tag: (VnPayReq).toString(), fenix: true);
   }
 }

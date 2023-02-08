@@ -25,9 +25,15 @@ class ReceivedView extends GetView<ReceivedPackageController> {
         child: ListView.separated(
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             itemBuilder: (_, index) {
+              bool isWarning = controller.packageIdsWarning
+                  .contains(controller.dataApis[index].id);
+              debugPrint(
+                  'Is warning package: $isWarning, id: ${controller.dataApis[index].id}');
               return Container(
                 padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
-                decoration: BoxDecorations.primary(),
+                decoration: isWarning
+                    ? BoxDecorations.primaryWarning()
+                    : BoxDecorations.primary(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

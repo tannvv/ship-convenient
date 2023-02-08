@@ -14,7 +14,6 @@ import 'package:latlong2/latlong.dart';
 
 class RegisterController extends BaseController {
   final formKey = GlobalKey<FormState>();
-  RxBool isLoading = false.obs;
   RxBool isLoadingVerify = false.obs;
 
   final AccountRep _accountRepo = Get.find(tag: (AccountRep).toString());
@@ -79,10 +78,10 @@ class RegisterController extends BaseController {
   }
 
   Future<void> registerAccount() async {
-    isLoading.value = true;
+    isLoading = true;
     if (!isConfirmPhone.value) {
       MotionToastService.showError('Bạn chưa xác thực sđt');
-      isLoading.value = false;
+      isLoading = false;
       return;
     }
 
@@ -98,10 +97,11 @@ class RegisterController extends BaseController {
         gender: _gender.value);
     Future<Account?> future = _accountRepo.create(createAccountModel);
     await callDataService(future,
-        onStart: () => isLoading.value = true,
-        onComplete: () => isLoading.value = false,
-        onSuccess: (data) {
-          QuickAlertService.showSuccess('Đăng kí thành công');
+        onStart: () => isLoading = true,
+        onComplete: () => isLoading = false,
+        onSuccess: (data) async {
+          await QuickAlertService.showSuccess('Đăng kí thành công',
+              duration: 3);
           Get.offAllNamed(Routes.LOGIN);
         },
         onError: (error) {
@@ -142,8 +142,11 @@ class RegisterController extends BaseController {
         var result = await Get.toNamed(Routes.VERIFY_OTP,
             arguments: [verificationId, resendToken, _phone]);
         isLoadingVerify.value = false;
-        if (result == true) isConfirmPhone.value = true;
-        await QuickAlertService.showSuccess('Xác thực thành công!');
+        if (result == true) {
+          isConfirmPhone.value = true;
+          MotionToastService.showSuccess('Xác thực thành công!');
+        }
+        // await QuickAlertService.showSuccess('Xác thực thành công!');
       },
       codeAutoRetrievalTimeout: (String verificationId) async {
         // await QuickAlertService.showError('Timeout to sent OTP!!');

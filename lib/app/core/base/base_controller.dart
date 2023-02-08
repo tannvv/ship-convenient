@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
-import '/app/core/model/page_state.dart';
 import '/app/network/exceptions/api_exception.dart';
 import '/app/network/exceptions/app_exception.dart';
 import '/app/network/exceptions/json_format_exception.dart';
@@ -20,17 +19,13 @@ abstract class BaseController extends GetxController {
 
   final logoutController = false.obs;
 
-  final _pageSateController = PageState.DEFAULT.obs;
+  final RxBool _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
+  set isLoading(bool value) => _isLoading.value = value;
 
-  PageState get pageState => _pageSateController.value;
+  showLoading() => _isLoading.value = true;
 
-  updatePageState(PageState state) => _pageSateController(state);
-
-  resetPageState() => _pageSateController(PageState.DEFAULT);
-
-  showLoading() => updatePageState(PageState.LOADING);
-
-  hideLoading() => resetPageState();
+  hideLoading() => _isLoading.value = false;
 
   dynamic callDataService<T>(
     Future<T> future, {
@@ -74,11 +69,5 @@ abstract class BaseController extends GetxController {
     if (onError != null) onError(_exception);
 
     onComplete == null ? hideLoading() : onComplete();
-  }
-
-  @override
-  void onClose() {
-    _pageSateController.close();
-    super.onClose();
   }
 }

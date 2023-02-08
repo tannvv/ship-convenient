@@ -36,4 +36,12 @@ class SuggestPackage {
     products = products.substring(0, products.length - 2);
     return products;
   }
+
+  int getPriceShips() {
+    int priceShips = 0;
+    for (int i = 0; i < packages!.length; i++) {
+      priceShips += packages![i].priceShip!;
+    }
+    return priceShips;
+  }
 }

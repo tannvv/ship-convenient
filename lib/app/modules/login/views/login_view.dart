@@ -145,7 +145,7 @@ class LoginView extends GetView<LoginController> {
                                     controller.login();
                                   },
                                   child: Obx(() => HyperButton.childWhite(
-                                      status: controller.isLoading.value,
+                                      status: controller.isLoading,
                                       child: Text(
                                         'Đăng nhập',
                                         style: buttonBold.copyWith(

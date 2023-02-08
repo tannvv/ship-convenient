@@ -11,10 +11,12 @@ class MotionToastService {
       MotionToastPosition motionToastPosition = MotionToastPosition.top,
       double height = 0.06,
       double width = 0.7,
+      int seconds = 3,
       TextStyle? descriptionStyle}) async {
     BuildContext? context = Get.context;
     if (context != null) {
       MotionToast.success(
+        toastDuration: Duration(seconds: seconds),
         title: title,
         description: Text(
           description,
@@ -34,10 +36,12 @@ class MotionToastService {
       MotionToastPosition motionToastPosition = MotionToastPosition.top,
       double height = 0.08,
       double width = 0.7,
+      int seconds = 3,
       TextStyle? descriptionStyle}) async {
     BuildContext? context = Get.context;
     if (context != null) {
       MotionToast.error(
+        toastDuration: Duration(seconds: seconds),
         title: title,
         description: Text(
           description,

@@ -1,4 +1,4 @@
-import 'package:convenient_way/app/core/utils/auth_service.dart';
+import 'package:convenient_way/app/core/controllers/auth_controller.dart';
 import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
@@ -89,7 +89,7 @@ class MapLocationController extends GetxController {
         }
       },
       secondaryOnPressed: () {
-        if (AuthService.instance.account != null) {
+        if (AuthController.instance.account != null) {
           Get.offAllNamed(Routes.HOME);
         } else {
           Get.offAllNamed(Routes.LOGIN);
@@ -117,7 +117,7 @@ class MapLocationController extends GetxController {
         }
       },
       secondaryOnPressed: () {
-        if (AuthService.instance.account != null) {
+        if (AuthController.instance.account != null) {
           Get.offAllNamed(Routes.HOME);
         } else {
           Get.offAllNamed(Routes.LOGIN);

@@ -3,6 +3,7 @@ import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:convenient_way/app/data/models/suggest_package_model.dart';
 import 'package:convenient_way/app/data/repository/package_req.dart';
 import 'package:convenient_way/app/data/repository/request_model/account_pickup_model.dart';
+import 'package:convenient_way/app/data/repository/request_model/cancel_package_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/package_list_model.dart';
 import 'package:convenient_way/app/data/repository/request_model/suggest_package_request_model.dart';
 import 'package:convenient_way/app/data/repository/response_model/simple_response_model.dart';
@@ -95,10 +96,9 @@ class PackageReqImp extends BaseRepository implements PackageReq {
   }
 
   @override
-  Future<SimpleResponseModel> deliverCancel(String packageId) {
+  Future<SimpleResponseModel> deliverCancel(CancelPackageModel model) {
     String endpoint = '${DioProvider.baseUrl}/packages/deliver-cancel';
-    var dioCall =
-        dioClient.put(endpoint, queryParameters: {'packageId': packageId});
+    var dioCall = dioClient.put(endpoint, data: model.toJson());
     try {
       return callApi(dioCall)
           .then((response) => SimpleResponseModel.fromJson(response.data));

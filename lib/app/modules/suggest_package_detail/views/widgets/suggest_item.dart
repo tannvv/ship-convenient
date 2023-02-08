@@ -5,6 +5,7 @@ import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:convenient_way/app/data/models/package_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart  ';
 
 class SuggestItem extends StatelessWidget {
@@ -12,7 +13,7 @@ class SuggestItem extends StatelessWidget {
   final Package package;
   @override
   Widget build(BuildContext context) {
-    double price = 0;
+    int price = 0;
     for (var p in package.products!) {
       price += p.price!;
     }
@@ -31,7 +32,7 @@ class SuggestItem extends StatelessWidget {
             style: subtitle2,
           ),
           Text(
-            'Số sản phẩm : ${package.products!.length}',
+            'Tên các sản phẩm : ${package.getProductNames()}',
             style: subtitle2,
           ),
           Row(
@@ -42,7 +43,7 @@ class SuggestItem extends StatelessWidget {
                 style: subtitle2,
               ),
               Text(
-                'Tiền ứng: ${price.toInt()}vnđ',
+                'Tiền ứng: ${price.toVND()}',
                 style: subtitle1.copyWith(
                     color: AppColors.softRed, fontWeight: FontWeights.medium),
               )

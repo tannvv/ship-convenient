@@ -1,6 +1,7 @@
-import 'package:convenient_way/app/core/widgets/hyper_dialog.dart';
-import 'package:convenient_way/app/routes/app_pages.dart';
-import 'package:geolocator/geolocator.dart';
+import 'dart:io';
+
+import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -8,64 +9,63 @@ import 'package:permission_handler/permission_handler.dart';
 class PickUpFileController extends GetxController {
   late PermissionStatus permission;
   final ImagePicker _picker = ImagePicker();
+  ImagePicker get picker => _picker;
+  final _storage = FirebaseStorage.instance;
 
-  Future<void> requestPermission() async {
-    PermissionStatus permission = await Permission.mediaLibrary.status;
+  Future<bool> requestPermission() async {
+    PermissionStatus permission = await Permission.photos.status;
     if (permission.isDenied) {
-      permission = await Permission.mediaLibrary.request();
-      if (permission.isDenied) {
-        await _deniedDialog();
+      permission = await Permission.photos.request();
+      if (permission.isGranted) {
+        return true;
       }
     }
+    return false;
+  }
 
-    if (permission.isPermanentlyDenied) {
-      await _deniedForeverDialog();
+  Future<XFile?> pickImage({ImageSource source = ImageSource.gallery}) async {
+    return await _picker.pickImage(source: ImageSource.gallery);
+  }
+
+  Future<List<XFile>> pickMultiImage() async {
+    return await _picker.pickMultiImage();
+  }
+
+  Future<String?> uploadImageToFirebase(XFile? image, String? url) async {
+    if (image == null || url == null) {
+      MotionToastService.showError('Lỗi Không thể tải ảnh lên');
+      return null;
+    }
+    try {
+      File fileImage = File(image.path);
+      var snapshot = await _storage.ref(url).putFile(fileImage);
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      MotionToastService.showError('Lỗi Không thể tải ảnh lên');
+      return null;
     }
   }
 
-  Future<void> _deniedDialog() async {
-    await HyperDialog.show(
-      barrierDismissible: false,
-      title: 'Thông báo',
-      content:
-          'Vui lòng bật quyền truy cập ảnh của bạn để tiếp tục sử dụng dịch vụ',
-      primaryButtonText: 'Bật định vị',
-      secondaryButtonText: 'Trở về trang chủ',
-      primaryOnPressed: () async {
-        permission = await Permission.mediaLibrary.request();
-        Get.back();
-      },
-      secondaryOnPressed: () {
-        Get.offAllNamed(Routes.HOME);
-      },
-    );
-  }
-
-  Future<void> _deniedForeverDialog() async {
-    await HyperDialog.show(
-      barrierDismissible: false,
-      title: 'Thông báo',
-      content:
-          'Bạn đã từ chối cho ứng dụng sử dụng ảnh của bạn. Vui lòng bật lại trong cài đặt.',
-      primaryButtonText: 'Mở cài đặt',
-      secondaryButtonText: 'Trở về trang chủ',
-      primaryOnPressed: () async {
-        await Geolocator.openAppSettings();
-        try {
-          var result = await Geolocator.getCurrentPosition();
-          Get.back();
-          return result;
-        } catch (e) {
-          return Future.error(e);
-        }
-      },
-      secondaryOnPressed: () {
-        Get.offAllNamed(Routes.HOME);
-      },
-    );
-  }
-
-  Future<void> uploadImage() async {
-    final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+  Future<List<String>> uploadImagesToFirebase(
+      List<XFile> images, String? url) async {
+    if (images.isNotEmpty || url == null) {
+      MotionToastService.showError('Chưa lấy được ảnh');
+      return [];
+    }
+    try {
+      List<String> imagesUrl = [];
+      for (var image in images) {
+        String fileName = image.path.substring(image.path.lastIndexOf('/'));
+        File fileImage = File(image.path);
+        var snapshot = await _storage.ref('$url/$fileName').putFile(fileImage);
+        String downloadUrl = await snapshot.ref.getDownloadURL();
+        imagesUrl.add(downloadUrl);
+      }
+      return imagesUrl;
+    } catch (e) {
+      MotionToastService.showError('Lỗi Không thể tải ảnh lên');
+      return [];
+    }
   }
 }

@@ -24,12 +24,18 @@ class _AppState extends State<App> {
         designSize: const Size(360, 800),
         minTextAdapt: true,
         builder: ((context, child) => GetMaterialApp(
-              title: 'Ship convenient',
+              title: 'Tiện đường',
               initialBinding: InitialBinding(),
               initialRoute: AppPages.INITIAL,
               getPages: AppPages.routes,
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
+                appBarTheme: AppBarTheme(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                scaffoldBackgroundColor: AppColors.primary100,
                 colorScheme: const ColorScheme(
                   primary: AppColors.primary400,
                   secondary: AppColors.secondary400,
