@@ -41,7 +41,7 @@ dependencies:
     logger: ^1.1.0
     logging: ^1.1.0
     pretty_dio_logger: ^1.2.0-beta-1
-    font_awesome_flutter: ^10.2.1
+    font_awesome_flutter: ^10.3.0
     fluttertoast: ^8.1.1
     dotenv: ^4.0.1
     jwt_decode: ^0.3.1
@@ -68,7 +68,6 @@ dependencies:
     http: ^0.13.5
     latlong2: ^0.8.1
     quickalert: ^1.0.1
-    flutter_typeahead: ^4.1.1
     permission_handler: ^10.2.0
     material_dialogs: ^1.1.3
     motion_toast: ^2.6.4
@@ -89,11 +88,24 @@ dependencies:
     flutter_svg_provider: ^1.0.3
     fluttericon: ^2.0.0
     scroll_navigation: ^1.3.2
+    flutter_rating_bar: ^4.0.1
+    flutter_map_location_marker: ^4.1.4
+    sliding_up_panel: ^2.0.0+1
+    card_loading: ^0.2.2
+    flutter_local_notifications: ^13.0.0
+    firebase_messaging: ^14.2.1
+    flutter_typeahead: ^4.3.1
+    flutter_login: ^4.1.1
+    flutter_background_service: ^2.4.6
+    flutter_background_service_android: ^3.0.3
+    internet_connection_checker: ^1.0.0+1
+    expandable: ^5.0.1
 
 dev_dependencies:
     flutter_test:
         sdk: flutter
 
+    flutter_launcher_icons: ^0.9.3
     # The "flutter_lints" package below contains a set of recommended lints to
     # encourage good coding practices. The lint set provided by the package is
     # activated in the `analysis_options.yaml` file located at the root of your
@@ -102,6 +114,12 @@ dev_dependencies:
     flutter_lints: ^2.0.0
     lints: ^2.0.1
 
+flutter_icons:
+    image_path: 'assets/images/logo.png'
+    # image_path_android: 'assets/images/specify_android.png'
+    # image_path_ios: 'assets/images/specify_ios.png'
+    android: true
+    ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.

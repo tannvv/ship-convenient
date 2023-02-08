@@ -1,3 +1,4 @@
+import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:convenient_way/app/core/values/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class MotionToastService {
         title: title,
         description: Text(
           description,
-          style: descriptionStyle ?? subtitle2,
+          style: descriptionStyle ?? subtitle2.copyWith(color: AppColors.gray),
         ),
         animationType: animationType,
         position: motionToastPosition,
@@ -44,7 +45,7 @@ class MotionToastService {
         toastDuration: Duration(seconds: seconds),
         title: title,
         description: Text(
-          description,
+          description.isEmpty ? 'Lỗi không xác định' : description,
           style: descriptionStyle ?? subtitle2,
         ),
         animationType: animationType,

@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "465111730158-bf8huljh29cfcsn3ffq3ftvfre5fdqel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.convenient_way",
+            "certificate_hash": "8924cc01accfaf5adeb5dda2ff6d9997ae88e94f"
+          }
+        },
+        {
+          "client_id": "465111730158-skss794860pgdi1oqaujiobtdhf7nvsi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.convenient_way",
+            "certificate_hash": "d26037e60e9014fed242cd41124ad57c4a2507be"
+          }
+        },
+        {
           "client_id": "465111730158-a3snft14l7jvm1o8gcq1olnn9h4pmtr0.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +45,49 @@
             {
               "client_id": "465111730158-a3snft14l7jvm1o8gcq1olnn9h4pmtr0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "465111730158-0tf90l46h8mgusiskgv8lraiit5idv73.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.convenientWay"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465111730158:android:54be3bf205a39ffd37b0ff",
+        "android_client_info": {
+          "package_name": "com.example.ship_convenient_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465111730158-a3snft14l7jvm1o8gcq1olnn9h4pmtr0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXy653QraMBHtNQcsRTn3Ac9V6xqj_SsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465111730158-a3snft14l7jvm1o8gcq1olnn9h4pmtr0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "465111730158-0tf90l46h8mgusiskgv8lraiit5idv73.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.convenientWay"
+              }
             }
           ]
         }

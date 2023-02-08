@@ -1,6 +1,10 @@
 abstract class AppAssets {
   static const String assetsSvg = 'assets/svg';
   static const String locationIcon = '$assetsSvg/location-on-icon.svg';
+  static const String locationBlueIcon2 =
+      '$assetsSvg/location-on-blue-icon-2.svg';
+  static const String locationGreenIcon =
+      '$assetsSvg/location-on-green-icon.svg';
   static const String locationBlueIcon = '$assetsSvg/location-on-blue-icon.svg';
   static const String storeIcon = '$assetsSvg/store.svg';
   static const String checkIcon = '$assetsSvg/icon-check.svg';
@@ -14,12 +18,24 @@ abstract class AppAssets {
   static const String booking = '$assetsSvg/booking.svg';
   static const String homeBg = '$assetsSvg/home_bg.svg';
 
+  static const String success = '$assetsSvg/success.svg';
+
+  static const String motorcycle = 'assets/svg/motorcycle.svg';
+  static const String car = 'assets/svg/car.svg';
+
   static const String assetImages = 'assets/images';
   static const String boy = '$assetImages/young-man.png';
   static const String girl = '$assetImages/avatar.png';
   static const String avatar = '$assetImages/boy.png';
   static const String splash = '$assetImages/splash.png';
   static const String logo = '$assetImages/logo.png';
+
+  static const String cancelPackagePng = '$assetImages/cancel_package.png';
+  static const String deliverPickupPng = '$assetImages/deliver_pickup.png';
+  static const String deliveredPng = '$assetImages/delivered.png';
+  static const String failedPackagePng = '$assetImages/failed_package.png';
+  static const String senderConfirmPng =
+      '$assetImages/sender-confirm_delivered.png';
 
   static const String fun = '$assetsSvg/fun.svg';
   static const String friendly = '$assetsSvg/friendly.svg';

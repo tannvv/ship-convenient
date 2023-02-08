@@ -31,15 +31,15 @@ class PackageView extends GetView<PackageController> {
                         color: AppColors.primary900),
                     showIdentifier: true,
                     barStyle: TitleNavigationBarStyle(
-                        style: subtitle2.copyWith(
-                            color: AppColors.primary900,
-                            fontWeight: FontWeights.medium),
-                        elevation: 2,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40.0, vertical: 12),
-                        spaceBetween: 40,
-                        background: AppColors.primaryLight,
-                        deactiveColor: Colors.red.shade200),
+                      style: subtitle2.copyWith(
+                          color: AppColors.primary800,
+                          fontWeight: FontWeights.medium),
+                      elevation: 2,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40.0, vertical: 12),
+                      spaceBetween: 40,
+                      background: AppColors.white,
+                    ),
                     titles: controller.tabsTitle,
                     pages: controller.screens,
                   )),

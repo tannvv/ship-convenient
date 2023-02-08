@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:convenient_way/app/core/base/base_controller.dart';
+import 'package:convenient_way/app/core/services/background_service_notification.dart';
 import 'package:convenient_way/app/core/utils/motion_toast_service.dart';
 import 'package:convenient_way/app/data/constants/prefs_memory.dart';
 import 'package:convenient_way/app/data/local/preference/preference_manager.dart';
 import 'package:convenient_way/app/data/models/account_model.dart';
 import 'package:convenient_way/app/data/repository/account_req.dart';
+import 'package:convenient_way/app/data/repository/request_model/login_model.dart';
 import 'package:convenient_way/app/data/repository/response_model/authorize_response_model.dart';
 import 'package:convenient_way/app/network/exceptions/base_exception.dart';
 import 'package:convenient_way/app/routes/app_pages.dart';
@@ -69,6 +71,7 @@ class AuthController extends BaseController {
             PreferenceManager prefs =
                 Get.find(tag: (PreferenceManager).toString());
             prefs.setString(PrefsMemory.userJson, jsonEncode(response));
+            BackgroundNotificationService.initializeService();
           },
           onError: (exception) {
             if (exception is BaseException) {
@@ -80,11 +83,11 @@ class AuthController extends BaseController {
     }
   }
 
-  static Future<bool> login(userName, password) async {
+  static Future<bool> login(LoginModel model) async {
     bool result = false;
     try {
       String? token;
-      var loginService = _instance._accountRepo.login(userName, password);
+      var loginService = _instance._accountRepo.login(model);
       await _instance.callDataService(loginService,
           onSuccess: (AuthorizeResponseModel response) async {
         token = response.token;
@@ -92,6 +95,7 @@ class AuthController extends BaseController {
         PreferenceManager prefs = Get.find(tag: (PreferenceManager).toString());
         prefs.setString(PrefsMemory.token, token!);
         prefs.setString(PrefsMemory.userJson, jsonEncode(response.account));
+        BackgroundNotificationService.initializeService();
       }, onError: (exception) {
         if (exception is BaseException) {
           MotionToastService.showError((exception).message);
@@ -134,6 +138,7 @@ class AuthController extends BaseController {
   }
 
   static Future<void> logout() async {
+    BackgroundNotificationService.stopService();
     await AuthController.clearToken();
     Get.offAllNamed(Routes.LOGIN);
   }

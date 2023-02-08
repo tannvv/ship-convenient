@@ -1,4 +1,5 @@
 class RouteAcc {
+  String? id;
   String? fromName;
   double? fromLongitude;
   double? fromLatitude;
@@ -9,7 +10,8 @@ class RouteAcc {
   String? infoUserId;
 
   RouteAcc(
-      {this.fromName,
+      {this.id,
+      this.fromName,
       this.fromLongitude,
       this.fromLatitude,
       this.toName,
@@ -19,6 +21,7 @@ class RouteAcc {
       this.infoUserId});
 
   RouteAcc.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     fromName = json['fromName'];
     fromLongitude = json['fromLongitude'];
     fromLatitude = json['fromLatitude'];
@@ -31,6 +34,7 @@ class RouteAcc {
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
+    data['id'] = id;
     data['fromName'] = fromName;
     data['fromLongitude'] = fromLongitude;
     data['fromLatitude'] = fromLatitude;

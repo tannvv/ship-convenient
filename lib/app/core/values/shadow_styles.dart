@@ -1,5 +1,6 @@
 import 'package:convenient_way/app/core/values/app_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 abstract class ShadowStyles {
   static List<BoxShadow> top = [
@@ -18,6 +19,19 @@ abstract class ShadowStyles {
       spreadRadius: 0,
       color: AppColors.black.withOpacity(0.05),
     ),
+  ];
+
+  static List<BoxShadow> mapHigh = [
+    BoxShadow(
+      offset: const Offset(0, 4),
+      blurRadius: 10,
+      spreadRadius: 0,
+      color: AppColors.black.withOpacity(0.2),
+    ),
+  ];
+
+  static List<BoxShadow> primary = [
+    BoxShadow(color: Colors.grey.shade300, blurRadius: 2, spreadRadius: 1)
   ];
 
   static List<BoxShadow> high = [

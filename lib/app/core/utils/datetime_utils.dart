@@ -100,6 +100,16 @@ class DateTimeUtils {
     return tokens.join();
   }
 
+  static DateTime? convertTimeZoneVN(DateTime? dateTime) {
+    if (dateTime == null) return null;
+    return dateTime.add(const Duration(hours: 7));
+  }
+
+  static DateTime? convertStringTimeZoneVN(String time) {
+    DateTime dateTime = DateTime.parse(time);
+    return dateTime.add(const Duration(hours: 7));
+  }
+
   static String counter(double? timeStamp) {
     var dateTime = parseDateTimeDouble(timeStamp);
     var duration = dateTime?.difference(DateTime.now());

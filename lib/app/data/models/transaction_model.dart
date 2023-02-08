@@ -1,3 +1,5 @@
+import 'package:convenient_way/app/core/utils/datetime_utils.dart';
+
 class Transaction {
   String? status;
   String? title;
@@ -26,8 +28,9 @@ class Transaction {
     transactionType = json['transactionType'];
     coinExchange = json['coinExchange'];
     balanceWallet = json['balanceWallet'];
-    createdAt =
-        json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null;
+    createdAt = json['createdAt'] != null
+        ? DateTimeUtils.convertStringTimeZoneVN(json['createdAt'])
+        : null;
     packageId = json['packageId'];
   }
 

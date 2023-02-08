@@ -1,13 +1,20 @@
+import 'dart:async';
+
 import 'package:convenient_way/app/app.dart';
+import 'package:convenient_way/app/core/controllers/notification_controller.dart';
+import 'package:convenient_way/app/core/services/background_service_notification.dart';
 import 'package:convenient_way/config/build_config.dart';
 import 'package:convenient_way/config/env_config.dart';
 import 'package:convenient_way/config/environment.dart';
 import 'package:convenient_way/config/firebase_options.dart';
 import 'package:convenient_way/config/map_config.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
 Future<void> main() async {
@@ -16,6 +23,9 @@ Future<void> main() async {
   });
 
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await dotenv.load(fileName: '.env');
 
@@ -35,9 +45,10 @@ Future<void> main() async {
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await NotificationController.instance.init();
+  Intl.defaultLocale = 'vi_VN';
+  initializeDateFormatting();
+  FirebaseMessaging.onBackgroundMessage(
+      NotificationController.firebaseMessagingBackgroundHandler);
   runApp(const App());
 }
