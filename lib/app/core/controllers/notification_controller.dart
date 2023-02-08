@@ -20,6 +20,7 @@ class NotificationController {
       FlutterLocalNotificationsPlugin();
 
   Future<void> init() async {
+    await FirebaseMessaging.instance.setAutoInitEnabled(true);
     var androidInitialize =
         const AndroidInitializationSettings('mipmap/ic_launcher');
     var initializationSettings =
@@ -41,7 +42,7 @@ class NotificationController {
     );
   }
 
-  Future<void> _firebaseMessagingBackgroundHandler(
+  static Future<void> firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
     debugPrint(
         'Notification: Background message received, Title: ${message.notification?.title}, Body: ${message.notification?.body}');
@@ -49,33 +50,25 @@ class NotificationController {
         title: message.notification?.title, body: message.notification?.body);
   }
 
-  static Future<void> showNotification(
-      {String? title, String? body, String? payload}) async {
-    showBigTextNotification(
-        fln: flutterLocalNotificationsPlugin,
-        title: title,
-        body: body,
-        payload: payload);
-  }
-
-  static Future<void> showBigTextNotification(
-      {var id = 0,
-      String? title,
-      String? body,
-      String? payload,
-      required FlutterLocalNotificationsPlugin fln}) async {
+  static Future<void> showNotification({
+    var id = 0,
+    String? title,
+    String? body,
+    String? payload,
+  }) async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         const AndroidNotificationDetails(
-      'channel_id 1', // id
-      'Convenient way for delivering application', // title
-      playSound: true,
-      importance: Importance.max,
-      priority: Priority.high,
-    );
+            'channel_id 1', // id
+            'Convenient way for delivering application', // title
+            playSound: true,
+            importance: Importance.max,
+            priority: Priority.high,
+            styleInformation: BigTextStyleInformation(''));
 
     var notify = NotificationDetails(android: androidPlatformChannelSpecifics);
 
-    await fln.show(id, title, body, notify, payload: payload);
+    await flutterLocalNotificationsPlugin.show(id, title, body, notify,
+        payload: payload);
   }
 
   Future<void> registerNotification() async {

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:convenient_way/app/app.dart';
 import 'package:convenient_way/app/core/controllers/notification_controller.dart';
+import 'package:convenient_way/app/core/services/background_service_notification.dart';
 import 'package:convenient_way/config/build_config.dart';
 import 'package:convenient_way/config/env_config.dart';
 import 'package:convenient_way/config/environment.dart';
@@ -45,13 +48,7 @@ Future<void> main() async {
   await NotificationController.instance.init();
   Intl.defaultLocale = 'vi_VN';
   initializeDateFormatting();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(
+      NotificationController.firebaseMessagingBackgroundHandler);
   runApp(const App());
-}
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  debugPrint(
-      "Handling a background message: ${message.messageId}, Title: ${message.notification?.title}, Body: ${message.notification?.body}");
-  NotificationController.showNotification(
-      title: message.notification?.title, body: message.notification?.body);
 }

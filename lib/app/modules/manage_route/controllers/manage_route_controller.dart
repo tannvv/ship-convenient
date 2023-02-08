@@ -101,6 +101,8 @@ class ManageRouteController extends BaseController {
       routes[activeIndex].isActive = true;
       MotionToastService.showSuccess(
           response.message ?? 'Thay đổi lộ trình thành công');
+      AuthController.instance.account?.infoUser?.routes = routes;
+      AuthController.setDataPrefs();
     }, onError: (exception) {
       if (exception is BaseException) {
         MotionToastService.showError(exception.message);
