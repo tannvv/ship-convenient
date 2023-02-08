@@ -14,63 +14,48 @@ class ReceivedView extends GetView<ReceivedPackageController> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Obx(
-        () => SmartRefresher(
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Obx(() => SmartRefresher(
           controller: controller.refreshController,
-          enablePullUp: true,
-          header: const WaterDropMaterialHeader(),
           onRefresh: () => controller.onRefresh(),
           onLoading: () => controller.onLoading(),
           footer: CustomFooterSmartRefresh.defaultCustom(),
           child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
               itemBuilder: (_, index) {
-                bool isWarning = controller.packageIdsWarning
-                    .contains(controller.dataApis[index].id);
-                debugPrint(
-                    'Is warning package: $isWarning, id: ${controller.dataApis[index].id}');
-                return Container(
-                  padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
-                  decoration: isWarning
-                      ? BoxDecorations.primaryWarning()
-                      : BoxDecorations.primary(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ReceivedPackageItem(package: controller.dataApis[index]),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ElevatedButton(
-                              style: ButtonStyles.primaryBlueSmall().copyWith(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.red[400])),
-                              onPressed: () {
-                                controller.reportPackage(
-                                    controller.dataApis[index].id!);
-                              },
-                              child: const Text('Hủy đơn')),
-                          Gap(6.w),
-                          ElevatedButton(
-                              style: ButtonStyles.primaryBlueSmall(),
-                              onPressed: () {
-                                controller.accountConfirmPackage(
-                                    controller.dataApis[index].id!);
-                              },
-                              child: const Text('Xác nhận lo được'))
-                        ],
-                      )
-                    ],
-                  ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ReceivedPackageItem(package: controller.dataApis[index]),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                            style: ButtonStyles.primaryBlueSmall().copyWith(
+                                backgroundColor:
+                                MaterialStateProperty.all(Colors.red[400])),
+                            onPressed: () {
+                              controller.reportPackage(
+                                  controller.dataApis[index].id!);
+                            },
+                            child: const Text('Hủy đơn')),
+                        Gap(6.w),
+                        ElevatedButton(
+                            style: ButtonStyles.primaryBlueSmall(),
+                            onPressed: () {
+                              controller.accountConfirmPackage(
+                                  controller.dataApis[index].id!);
+                            },
+                            child: const Text('Xác nhận lo được'))
+                      ],
+                    )
+                  ],
                 );
               },
               separatorBuilder: (_, index) => Gap(12.h),
               itemCount: controller.dataApis.length),
-        ),
-      )
+        )
+        )
     );
   }
 }

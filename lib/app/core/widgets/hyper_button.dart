@@ -44,8 +44,8 @@ abstract class HyperButton {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: 14.h,
-          width: 14.h,
+          height: 10.h,
+          width: 8.h,
           child: const CircularProgressIndicator(
             strokeWidth: 2.5,
             color: AppColors.white,

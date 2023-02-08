@@ -27,48 +27,39 @@ class DeliveryView extends GetView<DeliveryPackageController> {
       imageFile = File(pickedFile!.path);
       Navigator.pop(context);
     }
-
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Obx(() => SmartRefresher(
-        controller: controller.refreshController,
-        onRefresh: () => controller.onRefresh(),
-        onLoading: () => controller.onLoading(),
-        footer: CustomFooterSmartRefresh.defaultCustom(),
-        child: ListView.separated(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            itemBuilder: (_, index) {
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
-                decoration: BoxDecorations.primary(),
-                child: Column(
+        padding: const EdgeInsets.all(10),
+        child: Obx(() => SmartRefresher(
+          controller: controller.refreshController,
+          onRefresh: () => controller.onRefresh(),
+          onLoading: () => controller.onLoading(),
+          footer: CustomFooterSmartRefresh.defaultCustom(),
+          child: ListView.separated(
+              itemBuilder: (_, index) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DeliveryPackageItem(package: controller.dataApis[index]),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 8),
-                          child: ElevatedButton(
-                            style: ButtonStyles.primaryBlueSmall(),
-                            onPressed: () async {
-                              // _getFromCamera();
-                              controller.accountDeliveredPackage(
-                              controller.dataApis[index].id!);
-                            },
-                            child: const Text('Đã giao thành công cho khách')),
-                        ),
+                        ElevatedButton(
+                          style: ButtonStyles.primaryBlueSmall(),
+                          onPressed: () async {
+                            // _getFromCamera();
+                            controller.accountDeliveredPackage(
+                                controller.dataApis[index].id!);
+                          },
+                          child: const Text('Đã giao thành công cho khách')),
                       ],
                     )
                   ],
-                ),
-              );
-            },
-            separatorBuilder: (_, index) => Gap(12.h),
-            itemCount: controller.dataApis.length),
+                );
+              },
+              separatorBuilder: (_, index) => Gap(12.h),
+              itemCount: controller.dataApis.length),
         )
-      )
+        )
     );
   }
 }

@@ -23,15 +23,11 @@ class DeliveredView extends GetView<DeliveredPackageController> {
         footer: CustomFooterSmartRefresh.defaultCustom(),
         child: ListView.separated(
           itemBuilder: (_, index) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
-              decoration: BoxDecorations.primary(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DeliveryPackageItem(package: controller.dataApis[index]),
-                ],
-              ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DeliveryPackageItem(package: controller.dataApis[index]),
+              ],
             );
           },
           separatorBuilder: (_, index) => Gap(12.h),

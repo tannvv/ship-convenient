@@ -13,31 +13,26 @@ class SuccessView extends GetView<ReceivedPackageController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => SmartRefresher(
-        controller: controller.refreshController,
-        enablePullUp: true,
-        header: const WaterDropMaterialHeader(),
-        onRefresh: () => controller.onRefresh(),
-        onLoading: () => controller.onLoading(),
-        footer: CustomFooterSmartRefresh.defaultCustom(),
-        child: ListView.separated(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            itemBuilder: (_, index) {
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
-                decoration: BoxDecorations.primary(),
-                child: Column(
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Obx(() => SmartRefresher(
+          controller: controller.refreshController,
+          onRefresh: () => controller.onRefresh(),
+          onLoading: () => controller.onLoading(),
+          footer: CustomFooterSmartRefresh.defaultCustom(),
+          child: ListView.separated(
+              itemBuilder: (_, index) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SuccessPackageItem(package: controller.dataApis[index]),
                   ],
-                ),
-              );
-            },
-            separatorBuilder: (_, index) => Gap(12.h),
-            itemCount: controller.dataApis.length),
-      ),
+                );
+              },
+              separatorBuilder: (_, index) => Gap(12.h),
+              itemCount: controller.dataApis.length),
+        )
+        )
     );
   }
 }

@@ -68,7 +68,7 @@ class LoginView extends GetView<LoginController> {
                       _password(),
                       _loginButton(),
                       const Gap(20),
-                      _registerRow(),
+                      _registerColumn(),
                     ],
                   ),
                 ),
@@ -80,8 +80,8 @@ class LoginView extends GetView<LoginController> {
     );
   }
 
-  Row _registerRow() {
-    return Row(
+  Column _registerColumn() {
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('Bạn chưa có tài khoản?',

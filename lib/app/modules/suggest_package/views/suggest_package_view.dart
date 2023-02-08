@@ -16,7 +16,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../controllers/suggest_package_controller.dart';
 
 class SuggestPackageView extends GetView<SuggestPackageController> {
